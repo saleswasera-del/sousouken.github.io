@@ -5,16 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>早稲田大学総合研究会 | Contact</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
   <header class="site-header">
-    <nav class="navbar">
+    <nav class="navbar container">
       <a href="index.html" class="logo">早総研</a>
+      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
       <ul class="nav-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -23,11 +21,10 @@
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="contact.html" class="active">Contact</a></li>
       </ul>
-      <button class="hamburger"><span></span><span></span><span></span></button>
     </nav>
   </header>
 
-  <main class="page contact-page">
+  <main class="page contact-page container">
     <h2>Contact</h2>
     <div class="contact-details">
       <p>ご質問・ご相談は下記よりお気軽にどうぞ。</p>
@@ -40,21 +37,17 @@
     <form class="contact-form" action="#" method="post">
       <label for="name">お名前</label>
       <input type="text" id="name" name="name" required />
-
       <label for="email">メールアドレス</label>
       <input type="email" id="email" name="email" required />
-
       <label for="message">メッセージ</label>
       <textarea id="message" name="message" rows="5" required></textarea>
-
-      <button type="submit" class="btn">送信する</button>
+      <button type="submit" class="btn btn-primary">送信する</button>
     </form>
   </main>
 
   <footer class="site-footer">
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
-
   <script src="js/script.js"></script>
 </body>
 </html>

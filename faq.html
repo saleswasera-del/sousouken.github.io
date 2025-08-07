@@ -5,16 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>早稲田大学総合研究会 | FAQ</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
   <header class="site-header">
-    <nav class="navbar">
+    <nav class="navbar container">
       <a href="index.html" class="logo">早総研</a>
+      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
       <ul class="nav-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -23,11 +21,10 @@
         <li><a href="faq.html" class="active">FAQ</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
-      <button class="hamburger"><span></span><span></span><span></span></button>
     </nav>
   </header>
 
-  <main class="page faq-page">
+  <main class="page faq-page container">
     <h2>FAQ</h2>
     <dl class="faq-list">
       <dt>兼サーは可能ですか？</dt>
@@ -44,7 +41,6 @@
   <footer class="site-footer">
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
-
   <script src="js/script.js"></script>
 </body>
 </html>
