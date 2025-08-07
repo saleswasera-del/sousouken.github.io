@@ -1,10 +1,10 @@
-<!-- index.html -->
+<!-- activities.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>早稲田大学総合研究会 | Home</title>
+  <title>早稲田大学総合研究会 | Activities</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap"
     rel="stylesheet"
@@ -17,9 +17,9 @@
       <div class="nav-container">
         <a href="index.html" class="nav-logo">早総研</a>
         <ul class="nav-menu">
-          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="activities.html">Activities</a></li>
+          <li><a href="activities.html" class="active">Activities</a></li>
           <li><a href="members.html">Members</a></li>
           <li><a href="faq.html">FAQ</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -29,20 +29,25 @@
     </nav>
   </header>
 
-  <main class="home">
-    <section class="hero">
-      <div class="hero-text">
-        <h1 class="hero-title">就活のための就活をなくす</h1>
-        <p class="hero-sub">自然な成長と経験を。</p>
-        <div class="hero-buttons">
-          <a href="about.html" class="btn btn-primary">About</a>
-          <a href="activities.html" class="btn btn-secondary">Activities</a>
-        </div>
+  <main class="page activities-page">
+    <h2>Activities</h2>
+    <div class="card-grid">
+      <div class="card">
+        <img src="images/ai-study.jpg" alt="AI勉強会" />
+        <h3>AI勉強会</h3>
+        <p>AIツールを使ったWebアプリ開発の基礎を学びます。</p>
       </div>
-      <div class="hero-image">
-        <img src="images/hero.jpg" alt="グループワーク" />
+      <div class="card">
+        <img src="images/career-study.jpg" alt="キャリア勉強会" />
+        <h3>キャリア勉強会</h3>
+        <p>企業トップとの少人数食事会でリアルを学ぶ。</p>
       </div>
-    </section>
+      <div class="card">
+        <img src="images/entrepreneur.jpg" alt="起業家交流" />
+        <h3>起業家交流</h3>
+        <p>現役起業家の講演とネットワーキング。</p>
+      </div>
+    </div>
   </main>
 
   <footer class="site-footer">
