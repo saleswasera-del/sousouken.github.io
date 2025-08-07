@@ -112,12 +112,11 @@ body {
 }
 
 /*-----------------------------------
-  4. ヒーローセクション
+  4. ヒーローセクション (共通スタイル)
 -----------------------------------*/
 .hero {
   position: relative;
   height: 70vh;
-  background: url('../images/hero.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,6 +145,13 @@ body {
 }
 .hero-buttons .btn {
   margin: 0 0.5rem;
+}
+
+/*-----------------------------------
+  4A. index.html のみ適用: ヒーロー背景画像
+-----------------------------------*/
+.hero--home {
+  background: url('../images/image_logo_4colors.png') center/cover no-repeat;
 }
 
 /*-----------------------------------
