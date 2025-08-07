@@ -151,7 +151,7 @@ body {
   4A. index.html のみ適用: ヒーロー背景画像
 -----------------------------------*/
 .hero--home {
-  background: url('../images/image_logo_4colors.png') center/cover no-repeat;
+  background: url('../images/image_logo_gray.png') center/cover no-repeat;
 }
 
 /*-----------------------------------
