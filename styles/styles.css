@@ -151,7 +151,7 @@ body {
   4A. index.html のみ適用: ヒーロー背景画像
 -----------------------------------*/
 .hero--home {
-  background: url('../images/image_logo_gray.png') center/cover no-repeat;
+  background: url('../images/image_logo_gray_wide.png') center/cover no-repeat;
 }
 
 /*-----------------------------------
@@ -159,7 +159,7 @@ body {
 -----------------------------------*/
 .hero--about {
   /* 好きな画像に変更可。被写体中央なら center/cover が映えます */
-  background: url('../images/about_hero.jpg') center/cover no-repeat;
+  background: url('../images/image_logo_gray_wide.png') center/cover no-repeat;
 }
 .hero--about::before {
   /* ホームより少し弱めのオーバーレイ */
