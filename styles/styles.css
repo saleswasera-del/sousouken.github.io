@@ -5,8 +5,8 @@
 -----------------------------------*/
 :root {
   --color-bg: #fafafa;
-  --color-primary: #4a7c59;       /* ダークグリーン */
-  --color-primary-light: #6a9b77;
+  --color-primary: #800000;       /* えんじ色 */
+  --color-primary-light: #a52a2a; /* えんじ色の明るめ */
   --color-text: #2f4f4f;
   --color-muted: #666;
   --color-white: #ffffff;
@@ -158,14 +158,11 @@ body {
   4B. about.html のみ適用
 -----------------------------------*/
 .hero--about {
-  /* 好きな画像に変更可。被写体中央なら center/cover が映えます */
   background: url('../images/image_logo_gray_wide.png') center/cover no-repeat;
 }
 .hero--about::before {
-  /* ホームより少し弱めのオーバーレイ */
   background: rgba(0,0,0,0.25);
 }
-/* ==== Stats を横広に見せる微調整 ==== */
 .stats--wide {
   flex-wrap: wrap;
   gap: 2rem 3rem;
@@ -173,7 +170,6 @@ body {
 .stats--wide li strong {
   font-size: 2rem;
 }
-/* ==== Values（バッジ） ==== */
 .value-badges {
   display: flex;
   flex-wrap: wrap;
@@ -190,8 +186,6 @@ body {
   font-weight: 600;
   box-shadow: 0 1px 3px rgba(0,0,0,.04);
 }
-
-/* ==== タイムライン ==== */
 .timeline {
   margin: 0 auto;
   max-width: 720px;
@@ -223,8 +217,6 @@ body {
   background: var(--color-primary);
   border-radius: 50%;
 }
-
-/* ==== メトリクス（ハイライト） ==== */
 .highlight-metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -250,13 +242,10 @@ body {
   margin-top: .25rem;
   display: block;
 }
-
-/* ==== CTA ==== */
 .cta {
   text-align: center;
   padding-top: 0;
 }
-
 
 /*-----------------------------------
   5. セクション共通スタイル
