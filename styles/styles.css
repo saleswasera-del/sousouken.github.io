@@ -155,6 +155,110 @@ body {
 }
 
 /*-----------------------------------
+  4B. about.html のみ適用
+-----------------------------------*/
+.hero--about {
+  /* 好きな画像に変更可。被写体中央なら center/cover が映えます */
+  background: url('../images/about_hero.jpg') center/cover no-repeat;
+}
+.hero--about::before {
+  /* ホームより少し弱めのオーバーレイ */
+  background: rgba(0,0,0,0.25);
+}
+/* ==== Stats を横広に見せる微調整 ==== */
+.stats--wide {
+  flex-wrap: wrap;
+  gap: 2rem 3rem;
+}
+.stats--wide li strong {
+  font-size: 2rem;
+}
+/* ==== Values（バッジ） ==== */
+.value-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  justify-content: center;
+  list-style: none;
+  margin-top: 1rem;
+}
+.value-badges li {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 999px;
+  padding: .5rem 1rem;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+
+/* ==== タイムライン ==== */
+.timeline {
+  margin: 0 auto;
+  max-width: 720px;
+  list-style: none;
+  position: relative;
+  padding-left: 1rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e6e6e6;
+}
+.timeline li {
+  position: relative;
+  margin: 1.25rem 0 1.25rem 1.5rem;
+  padding-left: 1rem;
+}
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: .3rem;
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+/* ==== メトリクス（ハイライト） ==== */
+.highlight-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-top: -1rem;
+}
+.metric {
+  background: #fff;
+  border-radius: 8px;
+  text-align: center;
+  padding: 1.25rem 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.05);
+}
+.metric strong {
+  display: block;
+  font-size: 2rem;
+  color: var(--color-primary);
+  line-height: 1;
+}
+.metric span {
+  color: var(--color-muted);
+  font-size: .95rem;
+  margin-top: .25rem;
+  display: block;
+}
+
+/* ==== CTA ==== */
+.cta {
+  text-align: center;
+  padding-top: 0;
+}
+
+
+/*-----------------------------------
   5. セクション共通スタイル
 -----------------------------------*/
 section {
