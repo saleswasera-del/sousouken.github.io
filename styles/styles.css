@@ -247,6 +247,63 @@ body {
   padding-top: 0;
 }
 
+/* ===== VMVセクション ===== */
+.vmv-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.vmv-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vmv-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.vmv-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: #333;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+.vmv-title::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 2px;
+  background-color: #f2b632; /* 上品なアクセントカラー */
+  margin: 0.5rem auto 0;
+}
+
+.vmv-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* モバイル調整 */
+@media (max-width: 600px) {
+  .vmv-section {
+    gap: 1.5rem;
+  }
+  .vmv-card {
+    padding: 1.5rem;
+  }
+}
+
 /*-----------------------------------
   5. セクション共通スタイル
 -----------------------------------*/
