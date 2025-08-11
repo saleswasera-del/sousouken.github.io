@@ -540,6 +540,32 @@ h2 {
   margin: -1px; border: 0; padding: 0;
   clip: rect(0 0 0 0); overflow: hidden;
 }
+/* 公式LINE登録者数セクション */
+.line-members {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: var(--color-white);
+  padding: 3rem 0;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.line-members-label {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+.line-members-count {
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 800;
+  display: inline-block;
+  margin-right: 0.25rem;
+  letter-spacing: 0.02em;
+}
+.line-members-unit {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600;
+  vertical-align: middle;
+}
 
 
 
