@@ -24,33 +24,61 @@
     </nav>
   </header>
 
-  <main class="page members-page container">
-    <h2>Members</h2>
-    <section class="representative">
+  <!-- NEW: ヒーロー（背景画像） -->
+  <section class="hero hero--members">
+    <div class="hero-inner container">
+      <p class="sub">Growth & Experience Network</p>
+      <h1>Members</h1>
+      <p class="sub">多様なバックグラウンドの仲間が、学びと実践でつながる</p>
+      <div class="hero-buttons">
+        <a href="#representative" class="btn btn-primary">代表</a>
+        <a href="#executives" class="btn btn-outline">幹部</a>
+      </div>
+    </div>
+    <!-- 下辺をやわらげる装飾（任意） -->
+    <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,40 C240,120 480,0 720,40 C960,80 1200,120 1440,40 L1440,120 L0,120 Z"></path>
+    </svg>
+  </section>
+
+  <main class="page members-page container members-main">
+    <h2 class="visually-hidden">Members</h2>
+
+    <!-- 代表 -->
+    <section id="representative" class="representative rep-card">
       <img src="images/members/kent.jpg" alt="代表 安冨堅" class="rep-img" />
       <div class="rep-info">
+        <span class="badge">代表</span>
         <h3>安冨 堅</h3>
-        <p>代表</p>
-        <p>早稲田大学基幹理工学部・情報通信専攻でパターン認識・ノイズ学習などを研究。スタートアップ企業で営業のインターンとして活動中。</p>
+        <p class="rep-role">早稲田大学 基幹理工学部・情報通信専攻</p>
+        <p>パターン認識・ノイズ学習などを研究。スタートアップ企業で営業のインターンとして活動中。</p>
       </div>
     </section>
-    <section class="interviews">
+
+    <!-- 幹部 -->
+    <section id="executives" class="interviews">
       <h3>幹部</h3>
       <div class="card-grid">
-        <div class="card">
+        <div class="card card--member">
           <img src="images/members/asahi.jpg" alt="曽根さん" />
-          <h4>曽根（AI研究部・4年）</h4>
-          <p>AI研究部代表。早稲田大学基幹理工学部・情報通信専攻でパターン認識を研究。AI活用のためのワークショップ企画などの実績</p>
+          <div class="card-body">
+            <h4>曽根（AI研究部・4年）</h4>
+            <p>AI研究部代表。基幹理工・情報通信専攻でパターン認識を研究。AI活用のワークショップ企画などの実績。</p>
+          </div>
         </div>
-        <div class="card">
+        <div class="card card--member">
           <img src="images/members/matu.jpg" alt="松澤さん" />
-          <h4>松澤（キャリア研究部・2年）</h4>
-          <p>キャリア研究部員。他サークルの代表としても活動しながら早総研の広報として活動。</p>
+          <div class="card-body">
+            <h4>松澤（キャリア研究部・2年）</h4>
+            <p>キャリア研究部員。他サークルの代表としても活動しながら、早総研の広報を担当。</p>
+          </div>
         </div>
-        <div class="card">
+        <div class="card card--member">
           <img src="images/members/takumi_letter.gif" alt="横溝さん" />
-          <h4>横溝（起業部・4年）</h4>
-          <p>起業部代表。自らも法人を立ち上げ活動中。</p>
+          <div class="card-body">
+            <h4>横溝（起業部・4年）</h4>
+            <p>起業部代表。自らも法人を立ち上げ活動中。</p>
+          </div>
         </div>
       </div>
     </section>
