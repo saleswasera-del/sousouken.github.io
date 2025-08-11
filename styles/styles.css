@@ -562,6 +562,12 @@ h2 {
   margin-bottom: 0.5rem;
   letter-spacing: 0.05em;
 }
+/* 数字と単位を横並びに */
+.line-count-wrapper {
+  display: inline-flex;
+  align-items: baseline; /* 数字と単位の下揃え */
+  gap: 0.25rem; /* 間隔 */
+}
 .line-members-count {
   font-size: clamp(3rem, 7vw, 5rem);
   font-weight: 800;
