@@ -148,46 +148,85 @@
   </footer>
 
   <script src="js/script.js"></script>
-  <script>
-    // --- FAQ アコーディオン & 検索 ---
-    (function(){
-      const items = Array.from(document.querySelectorAll('.faq-item'));
-      const buttons = document.querySelectorAll('.faq-q');
-      const search = document.querySelector('.faq-search');
-      const tags = document.querySelectorAll('.faq-tag');
+ <script>
+  // --- FAQ アコーディオン & 検索（見切れない実寸アニメ） ---
+  (function(){
+    const items   = Array.from(document.querySelectorAll('.faq-item'));
+    const buttons = document.querySelectorAll('.faq-q');
+    const search  = document.querySelector('.faq-search');
+    const tags    = document.querySelectorAll('.faq-tag');
 
-      // 開閉
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const item = btn.closest('.faq-item');
-          const panel = item.querySelector('.faq-a');
-          const expanded = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!expanded));
-          item.classList.toggle('open', !expanded);
-          panel.style.maxHeight = !expanded ? panel.scrollHeight + 'px' : null;
-        });
-      });
-
-      // 検索フィルタ
-      const filter = (q) => {
-        const keyword = q.trim().toLowerCase();
-        items.forEach(it => {
-          const text = it.textContent.toLowerCase() + ' ' + (it.dataset.keywords || '').toLowerCase();
-          it.style.display = text.includes(keyword) ? '' : 'none';
-        });
+    // 開く：実寸にセット→アニメ後 auto に
+    function openPanel(panel, item, btn) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      const onEnd = (e) => {
+        if (e.propertyName !== 'max-height') return;
+        panel.style.maxHeight = 'none';           // これで見切れなくなる
+        panel.removeEventListener('transitionend', onEnd);
       };
-      if (search) {
-        search.addEventListener('input', e => filter(e.target.value));
+      panel.addEventListener('transitionend', onEnd);
+    }
+
+    // 閉じる：auto → 実寸 → 0 にしてアニメ
+    function closePanel(panel, item, btn) {
+      btn.setAttribute('aria-expanded', 'false');
+      if (getComputedStyle(panel).maxHeight === 'none') {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        // reflow
+        void panel.offsetHeight;
       }
-      // タグフィルタ
-      tags.forEach(tag => {
-        tag.addEventListener('click', () => {
-          const word = tag.dataset.tag || '';
-          search.value = word;
-          filter(word);
-        });
+      item.classList.remove('open');
+      panel.style.maxHeight = '0px';
+    }
+
+    // トグル
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item  = btn.closest('.faq-item');
+        const panel = item.querySelector('.faq-a');
+        const isOpen = item.classList.contains('open');
+        isOpen ? closePanel(panel, item, btn) : openPanel(panel, item, btn);
       });
-    })();
-  </script>
+    });
+
+    // 検索フィルタ
+    const filter = (q) => {
+      const keyword = (q || '').trim().toLowerCase();
+      items.forEach(it => {
+        const text = it.textContent.toLowerCase() + ' ' + (it.dataset.keywords || '').toLowerCase();
+        it.style.display = text.includes(keyword) ? '' : 'none';
+      });
+      // 表示切替後の高さを再計測
+      recalcOpenHeights();
+    };
+    if (search) search.addEventListener('input', e => filter(e.target.value));
+
+    // タグフィルタ
+    tags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        const word = tag.dataset.tag || '';
+        search.value = word;
+        filter(word);
+      });
+    });
+
+    // リサイズ時に開いているものを再計測（レスポンシブでも見切れない）
+    function recalcOpenHeights() {
+      items.forEach(it => {
+        if (!it.classList.contains('open')) return;
+        const panel = it.querySelector('.faq-a');
+        panel.style.maxHeight = 'none';                       // 一旦自然高さ
+        const h = panel.scrollHeight;
+        panel.style.maxHeight = h + 'px';                     // 次回のために更新
+        // すぐ auto に戻す（アニメ不要のときは直接autoでOK）
+        requestAnimationFrame(() => { panel.style.maxHeight = 'none'; });
+      });
+    }
+    window.addEventListener('resize', recalcOpenHeights);
+  })();
+</script>
+
 </body>
 </html>
