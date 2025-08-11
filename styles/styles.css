@@ -1,9 +1,3 @@
-了解！ヒーロー型のMVVを背景画像の上に“ドン”と中央配置できるよう、既存CSSを拡張・微修正しました。
-（タイポもこっそり修正：`colum`→`column`, `hight`→`height`）
-
-以下を `styles/styles.css` として置き換えてください。背景画像は `.mvv-hero` の `background` をお好みの画像パスに変更すればOKです。
-
-```css
 /* styles/styles.css */
 
 /*-----------------------------------
@@ -297,41 +291,47 @@ body {
   line-height: 1.6;
 }
 
-/* ===== NEW: 背景画像 × 中央ぞろえのMVVヒーロー =====
-   例）<section class="mvv-hero">
-          <div class="mvv-inner">
-            <div class="mvv-stack">
-              <div class="mvv-item">…</div>
-              …
-            </div>
-          </div>
-       </section>
------------------------------------------------------- */
+/* ===== MVV 個別背景画像ブロック ===== */
+/* mvv-hero 全体 */
 .mvv-hero {
   position: relative;
-  min-height: 78vh;
+  width: 100%;
   display: grid;
   place-items: center;
   text-align: center;
-  /* 背景画像を差し替えてください */
-  background: url('../images/mvv_bg.jpg') center/cover no-repeat fixed;
+  background: var(--color-bg);
+  padding: 0; /* ヒーロー的に表示するため余白は0に */
 }
-.mvv-hero::before {
+.mvv-inner {
+  width: 100%;
+}
+.mvv-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 共通スタイル（テキスト中央寄せ＋背景画像のオーバーレイ） */
+.mvv-item {
+  position: relative;
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 2rem 1rem;
+}
+.mvv-item::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.45));
+  background: rgba(0, 0, 0, 0.45); /* 背景画像を暗くして文字を見やすく */
+  z-index: 0;
 }
-.mvv-inner {
+.mvv-item .label,
+.mvv-item .lead,
+.mvv-item .sub {
   position: relative;
   z-index: 1;
-  color: #fff;
-  width: min(1100px, 92%);
-  padding: 24px 12px;
-}
-.mvv-stack {
-  display: grid;
-  gap: clamp(22px, 3.2vw, 36px);
 }
 
 /* ラベル（MISSION / VISION / VALUE） */
@@ -353,7 +353,7 @@ body {
   text-wrap: balance;
 }
 
-/* サブ文章（小さめ） */
+/* サブ文章 */
 .mvv-item .sub {
   font-size: clamp(1rem, 1.6vw, 1.25rem);
   line-height: 1.9;
@@ -362,13 +362,23 @@ body {
   opacity: .95;
 }
 
-/* モバイルでの余白調整 */
-@media (max-width: 600px) {
-  .mvv-hero { min-height: 70vh; }
-  .mvv-item .lead { line-height: 1.25; }
-  .vmv-section { gap: 1.5rem; }
-  .vmv-card { padding: 1.5rem; }
+/* 各項目ごとの背景画像 */
+.mvv-item.mission {
+  background: url('../images/syukatusei_red_2.png') center/cover no-repeat;
 }
+.mvv-item.vision {
+  background: url('../images/building_red.png') center/cover no-repeat;
+}
+.mvv-item.value {
+  background: url('../images/improve.png') center/cover no-repeat;
+}
+
+/* モバイル調整 */
+@media (max-width: 600px) {
+  .mvv-item { min-height: 50vh; }
+  .mvv-item .lead { line-height: 1.25; }
+}
+
 
 /*-----------------------------------
   5. セクション共通スタイル
