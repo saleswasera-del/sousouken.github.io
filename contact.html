@@ -1,66 +1,147 @@
+<!-- contact.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>早稲田大学総合研究会 | Thank You</title>
+  <title>早稲田大学総合研究会 | Contact</title>
 
-  <!-- 既存フォント + 見出し用に上品なSerifを追加 -->
+  <!-- 既存本文フォント + 見出し用に上品なSerifを追加 -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles/styles.css" />
-</head>
-<body class="thanks-body">
-  <!-- 既存ヘッダー（そのままコピペでOK） -->
-  <header class="site-header">
-    <nav class="navbar container">
-      <a href="index.html" class="logo">早総研</a>
-      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
-      <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="activities.html">Activities</a></li>
-        <li><a href="members.html">Members</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main class="thanks-hero container" role="main">
-    <!-- 背景の柔らかい装飾 -->
-    <div class="thanks-bg" aria-hidden="true"></div>
-
-    <!-- チェックマーク：上品なストロークアニメ -->
-    <svg class="thanks-check" viewBox="0 0 72 72" aria-hidden="true">
-      <circle class="ring" cx="36" cy="36" r="30" fill="none" stroke-width="2" />
-      <path class="tick" d="M20 37 L32 49 L52 25" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-
-    <h1 class="thankyou-title" aria-label="THANK YOU!">THANK&nbsp;YOU!</h1>
-
-    <p class="thankyou-lead">
-      正常に送信されました。担当より <strong>1–2営業日以内</strong> にご連絡いたします。<br />
-      いただいた内容は大切に確認させていただきます。Merci.
-    </p>
-
-    <div class="thankyou-actions">
-      <a class="btn btn-primary btn-large" href="index.html" aria-label="ホームに戻る">ホームに戻る</a>
-      <a class="btn btn-ghost" href="faq.html">よくある質問</a>
-      <a class="btn btn-ghost" href="https://www.instagram.com/ai_sousouken" target="_blank" rel="noopener">Instagram</a>
-    </div>
-
-    <!-- 祝福のきらめき（控えめなコンフェッティ） -->
-    <div class="confetti" aria-hidden="true"></div>
-  </main>
-
-  <footer class="site-footer">
-    <p>&copy; 2025 早稲田大学総合研究会</p>
-  </footer>
-
-  <!-- 既存JS（ナビの開閉など） -->
-  <script src="js/script.js"></script>
-</body>
-</html>
+  <!-- このページ専用の軽量スタイル（既存styles.cssと衝突しない新規クラスのみ） -->
+  <style>
+    :root {
+      --contact-accent: #7d5bff;
+      --contact-teal: #00ab9f;
+      --contact-bg: #0f0f12;
+      --glass: rgba(255,255,255,.06);
+      --glass-border: rgba(255,255,255,.16);
+      --text-dim: rgba(255,255,255,.75);
+    }
+    .contact-page {
+      position: relative;
+      padding-block: clamp(48px, 6vw, 96px);
+      color: #fff;
+    }
+    .contact-decor::before,
+    .contact-decor::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      filter: blur(70px);
+      z-index: -1;
+      opacity: .6;
+    }
+    .contact-decor::before {
+      width: 42vmax; height: 42vmax;
+      left: -12vmax; top: -10vmax;
+      background: radial-gradient(circle at 30% 30%, var(--contact-accent), transparent 60%);
+    }
+    .contact-decor::after {
+      width: 40vmax; height: 40vmax;
+      right: -12vmax; bottom: -14vmax;
+      background: radial-gradient(circle at 70% 70%, var(--contact-teal), transparent 60%);
+    }
+    body {
+      background:
+        radial-gradient(900px 520px at 90% -10%, rgba(125,91,255,.12), transparent 60%),
+        radial-gradient(900px 520px at 10% 20%, rgba(0,171,159,.10), transparent 65%),
+        var(--contact-bg);
+    }
+    .contact-header {
+      text-align: center;
+      margin-bottom: clamp(28px, 4vw, 48px);
+    }
+    .contact-eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .contact-title {
+      font-family: "Fraunces", ui-serif, Georgia, serif;
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: 1.05;
+      margin: .4em 0 .2em;
+      background: linear-gradient(180deg, #fff 0%, #d9d9e8 60%, #bdbadf 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      text-shadow: 0 10px 40px rgba(125, 91, 255, .25);
+    }
+    .contact-sub {
+      color: var(--text-dim);
+      font-size: clamp(15px, 2.2vw, 18px);
+      max-width: 64ch;
+      margin: 0 auto;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: clamp(20px, 4vw, 40px);
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    .contact-info {
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: clamp(18px, 3vw, 28px);
+      backdrop-filter: blur(8px);
+    }
+    .contact-info h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #fff;
+    }
+    .contact-info ul { list-style: none; padding: 0; margin: 0; }
+    .contact-info li { margin: 10px 0; color: var(--text-dim); }
+    .contact-info a { color: #eaeaff; text-decoration: underline dotted; }
+    .contact-card {
+      position: relative;
+      border-radius: 24px;
+      padding: clamp(18px, 3.4vw, 32px);
+      background: rgba(18,18,22,.6);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+    }
+    .contact-card::before {
+      content: "";
+      position: absolute; inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(125,91,255,.6), rgba(0,171,159,.45));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      pointer-events: none;
+    }
+    .contact-card label {
+      display: block;
+      margin: 12px 0 6px;
+      color: #fff;
+      font-size: 14px;
+    }
+    .contact-card input,
+    .contact-card textarea {
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 14px;
+      color: #fff;
+      padding: 12px 14px;
+      caret-color: #fff;
+      transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+      font-size: 16px;
 
