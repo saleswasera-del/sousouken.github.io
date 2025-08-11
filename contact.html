@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>早稲田大学総合研究会 | Contact</title>
 
-  <!-- 既存本文フォント + 見出し用に上品なSerifを追加 -->
+  <!-- 既存本文フォント + 見出し用Serif -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles/styles.css" />
 
-  <!-- このページ専用の軽量スタイル（既存styles.cssと衝突しない新規クラスのみ） -->
+  <!-- このページ専用の軽量スタイル（新規クラスのみ） -->
   <style>
     :root {
       --contact-accent: #7d5bff;
@@ -22,139 +22,72 @@
       --glass-border: rgba(255,255,255,.16);
       --text-dim: rgba(255,255,255,.75);
     }
-    .contact-page {
-      position: relative;
-      padding-block: clamp(48px, 6vw, 96px);
-      color: #fff;
-    }
-    .contact-decor::before,
-    .contact-decor::after {
-      content: "";
-      position: absolute;
-      inset: auto;
-      filter: blur(70px);
-      z-index: -1;
-      opacity: .6;
-    }
-    .contact-decor::before {
-      width: 42vmax; height: 42vmax;
-      left: -12vmax; top: -10vmax;
-      background: radial-gradient(circle at 30% 30%, var(--contact-accent), transparent 60%);
-    }
-    .contact-decor::after {
-      width: 40vmax; height: 40vmax;
-      right: -12vmax; bottom: -14vmax;
-      background: radial-gradient(circle at 70% 70%, var(--contact-teal), transparent 60%);
-    }
     body {
       background:
         radial-gradient(900px 520px at 90% -10%, rgba(125,91,255,.12), transparent 60%),
         radial-gradient(900px 520px at 10% 20%, rgba(0,171,159,.10), transparent 65%),
         var(--contact-bg);
+      color: #fff;
     }
-    .contact-header {
-      text-align: center;
-      margin-bottom: clamp(28px, 4vw, 48px);
+    .contact-page { position: relative; padding-block: clamp(48px, 6vw, 96px); }
+    .contact-decor::before,
+    .contact-decor::after {
+      content: ""; position: absolute; inset: auto; filter: blur(70px); z-index: -1; opacity: .6;
     }
+    .contact-decor::before {
+      width: 42vmax; height: 42vmax; left: -12vmax; top: -10vmax;
+      background: radial-gradient(circle at 30% 30%, var(--contact-accent), transparent 60%);
+    }
+    .contact-decor::after {
+      width: 40vmax; height: 40vmax; right: -12vmax; bottom: -14vmax;
+      background: radial-gradient(circle at 70% 70%, var(--contact-teal), transparent 60%);
+    }
+    .contact-header { text-align: center; margin-bottom: clamp(28px, 4vw, 48px); }
     .contact-eyebrow {
-      display: inline-block;
-      padding: 6px 12px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass);
-      border-radius: 999px;
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      display: inline-block; padding: 6px 12px; border: 1px solid var(--glass-border);
+      background: var(--glass); border-radius: 999px; font-size: 12px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-dim); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
     }
     .contact-title {
       font-family: "Fraunces", ui-serif, Georgia, serif;
-      font-size: clamp(36px, 6vw, 72px);
-      line-height: 1.05;
-      margin: .4em 0 .2em;
+      font-size: clamp(36px, 6vw, 72px); line-height: 1.05; margin: .4em 0 .2em;
       background: linear-gradient(180deg, #fff 0%, #d9d9e8 60%, #bdbadf 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
       text-shadow: 0 10px 40px rgba(125, 91, 255, .25);
     }
-    .contact-sub {
-      color: var(--text-dim);
-      font-size: clamp(15px, 2.2vw, 18px);
-      max-width: 64ch;
-      margin: 0 auto;
-    }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: clamp(20px, 4vw, 40px);
-      align-items: start;
-    }
-    @media (max-width: 960px) {
-      .contact-grid { grid-template-columns: 1fr; }
-    }
+    .contact-sub { color: var(--text-dim); font-size: clamp(15px, 2.2vw, 18px); max-width: 64ch; margin: 0 auto; }
+    .contact-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(20px, 4vw, 40px); align-items: start; }
+    @media (max-width: 960px) { .contact-grid { grid-template-columns: 1fr; } }
     .contact-info {
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: clamp(18px, 3vw, 28px);
-      backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border); border-radius: 24px; padding: clamp(18px, 3vw, 28px); backdrop-filter: blur(8px);
     }
-    .contact-info h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      color: #fff;
-    }
+    .contact-info h3 { margin: 0 0 10px; font-size: 18px; color: #fff; }
     .contact-info ul { list-style: none; padding: 0; margin: 0; }
     .contact-info li { margin: 10px 0; color: var(--text-dim); }
     .contact-info a { color: #eaeaff; text-decoration: underline dotted; }
     .contact-card {
-      position: relative;
-      border-radius: 24px;
-      padding: clamp(18px, 3.4vw, 32px);
-      background: rgba(18,18,22,.6);
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 30px 80px rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
+      position: relative; border-radius: 24px; padding: clamp(18px, 3.4vw, 32px);
+      background: rgba(18,18,22,.6); border: 1px solid var(--glass-border);
+      box-shadow: 0 30px 80px rgba(0,0,0,.35); backdrop-filter: blur(10px);
     }
     .contact-card::before {
-      content: "";
-      position: absolute; inset: -1px;
-      border-radius: inherit;
-      padding: 1px;
+      content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
       background: linear-gradient(135deg, rgba(125,91,255,.6), rgba(0,171,159,.45));
       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-      pointer-events: none;
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
     }
-    .contact-card label {
-      display: block;
-      margin: 12px 0 6px;
-      color: #fff;
-      font-size: 14px;
+    .contact-card label { display: block; margin: 12px 0 6px; color: #fff; font-size: 14px; }
+    .contact-card input, .contact-card textarea {
+      width: 100%; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.18);
+      border-radius: 14px; color: #fff; padding: 12px 14px; caret-color: #fff;
+      transition: border-color .2s ease, background .2s ease, box-shadow .2s ease; font-size: 16px;
     }
-    .contact-card input,
-    .contact-card textarea {
-      width: 100%;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 14px;
-      color: #fff;
-      padding: 12px 14px;
-      caret-color: #fff;
-      transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
-      font-size: 16px;
-    }
-    .contact-card input:focus,
-    .contact-card textarea:focus {
-      outline: none;
-      border-color: rgba(125,91,255,.8);
-      background: rgba(255,255,255,.09);
-      box-shadow: 0 0 0 3px rgba(125,91,255,.25);
+    .contact-card input:focus, .contact-card textarea:focus {
+      outline: none; border-color: rgba(125,91,255,.8); background: rgba(255,255,255,.09); box-shadow: 0 0 0 3px rgba(125,91,255,.25);
     }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     @media (max-width: 720px) { .form-row { grid-template-columns: 1fr; } }
-
     .btn, .btn-primary {
       display: inline-flex; align-items: center; justify-content: center;
       gap: 8px; padding: 12px 20px; border-radius: 999px; border: 0;
@@ -163,31 +96,17 @@
     }
     .btn-primary {
       background: linear-gradient(135deg, var(--contact-accent), #9c86ff);
-      color: #fff;
-      box-shadow: 0 10px 30px rgba(125,91,255,.35);
+      color: #fff; box-shadow: 0 10px 30px rgba(125,91,255,.35);
     }
     .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 36px rgba(125,91,255,.45); }
     .btn-primary:disabled { opacity:.6; cursor: not-allowed; transform:none; box-shadow:none; }
-
-    .form-meta {
-      color: var(--text-dim);
-      font-size: 12px; margin-top: 10px;
-    }
-    .status {
-      min-height: 22px; margin-top: 10px; font-size: 14px;
-    }
-    .status.ok { color: #b7ffea; }
-    .status.ng { color: #ffb0b0; }
-
-    /* 小さなチェック装飾 */
-    .form-title {
-      display:flex; align-items:center; gap:10px; margin:0 0 6px;
-      font-weight: 800; color:#fff; letter-spacing:.02em;
-    }
+    .form-meta { color: var(--text-dim); font-size: 12px; margin-top: 10px; }
+    .status { min-height: 22px; margin-top: 10px; font-size: 14px; }
+    .status.ok { color: #b7ffea; } .status.ng { color: #ffb0b0; }
+    .form-title { display:flex; align-items:center; gap:10px; margin:0 0 6px; font-weight: 800; color:#fff; letter-spacing:.02em; }
     .form-title .dot {
       width:10px; height:10px; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, #fff, #bdbadf);
-      box-shadow: 0 0 0 4px rgba(125,91,255,.25);
+      background: radial-gradient(circle at 30% 30%, #fff, #bdbadf); box-shadow: 0 0 0 4px rgba(125,91,255,.25);
     }
   </style>
 </head>
@@ -252,8 +171,8 @@
 
           <!-- 任意: 件名 / スパム対策（ハニーポット） -->
           <input type="hidden" name="_subject" value="早総研HP: お問い合わせ" />
-          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-          <!-- タイムスタンプ（超簡易ボット対策） -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <!-- タイムスタンプ（簡易ボット対策） -->
           <input type="hidden" name="ts" id="ts" />
 
           <div style="display:flex; align-items:center; gap:12px; margin-top:14px;">
@@ -271,55 +190,61 @@
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
 
-  <!-- Ajax送信（同一ページ完結） -->
+  <!-- Ajax送信（成功時は thanks ページへ遷移） -->
   <script>
-    const form = document.querySelector(".contact-form");
-    const statusEl = document.getElementById("form-status");
-    const submitBtn = document.getElementById("submitBtn");
-    const tsEl = document.getElementById("ts");
-    tsEl.value = Date.now();
+    (function () {
+      const form = document.querySelector(".contact-form");
+      if (!form) return;
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+      const statusEl = document.getElementById("form-status");
+      const submitBtn = document.getElementById("submitBtn");
+      const tsEl = document.getElementById("ts");
+      if (tsEl) tsEl.value = Date.now();
 
-      if (!form.checkValidity()) {
-        statusEl.textContent = "未入力の項目があります。ご確認ください。";
-        statusEl.className = "status ng";
-        return;
-      }
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-      submitBtn.disabled = true;
-      statusEl.textContent = "送信中…";
-      statusEl.className = "status";
-
-      try {
-        const res = await fetch(form.action, {
-          method: "POST",
-          headers: { "Accept": "application/json" },
-          body: new FormData(form),
-        });
-
-        if (res.ok) {
-          statusEl.textContent = "送信しました。ありがとうございます！";
-          statusEl.className = "status ok";
-          form.reset();
-          tsEl.value = Date.now();
-          // ★ thanksページへ遷移したい場合は下行のコメントアウトを解除
-          // location.href = "contact-thanks.html";
-        } else {
-          const data = await res.json().catch(() => ({}));
-          statusEl.textContent = data.errors
-            ? data.errors.map(e => e.message).join(" / ")
-            : "送信に失敗しました。時間をおいて再度お試しください。";
+        if (!form.checkValidity()) {
+          statusEl.textContent = "未入力の項目があります。ご確認ください。";
           statusEl.className = "status ng";
+          return;
         }
-      } catch (err) {
-        statusEl.textContent = "ネットワークエラーが発生しました。";
-        statusEl.className = "status ng";
-      } finally {
-        submitBtn.disabled = false;
-      }
-    });
+
+        submitBtn.disabled = true;
+        statusEl.textContent = "送信中…";
+        statusEl.className = "status";
+
+        try {
+          const res = await fetch(form.action, {
+            method: "POST",
+            headers: { "Accept": "application/json" },
+            body: new FormData(form),
+          });
+
+          if (res.ok) {
+            // ★ 成功時はサンクスページへ
+            window.location.href = "contact-thanks.html";
+            return;
+          } else {
+            const raw = await res.text();
+            let msg = "";
+            try {
+              const j = JSON.parse(raw);
+              msg = j.errors ? j.errors.map(e => e.message).join(" / ") : raw;
+            } catch { msg = raw || "送信に失敗しました。時間をおいて再度お試しください。"; }
+            statusEl.textContent = msg;
+            statusEl.className = "status ng";
+          }
+        } catch (err) {
+          console.error(err);
+          statusEl.textContent = "ネットワークエラーが発生しました。";
+          statusEl.className = "status ng";
+        } finally {
+          submitBtn.disabled = false;
+          if (tsEl) tsEl.value = Date.now();
+        }
+      });
+    })();
   </script>
 
   <!-- 既存のナビ開閉など -->
