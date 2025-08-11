@@ -364,13 +364,13 @@ body {
 
 /* 各項目ごとの背景画像 */
 .mvv-item.mission {
-  background: url('../images/syukatusei_red_2.png') center/cover no-repeat;
+  background: url('../images/syukatusei_wide.png') center/cover no-repeat;
 }
 .mvv-item.vision {
-  background: url('../images/buildings_red.png') center/cover no-repeat;
+  background: url('../images/building_wide.png') center/cover no-repeat;
 }
 .mvv-item.value {
-  background: url('../images/improve_red.png') center/cover no-repeat;
+  background: url('../images/improve_wide.png') center/cover no-repeat;
 }
 
 /* モバイル調整 */
