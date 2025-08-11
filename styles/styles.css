@@ -461,6 +461,158 @@ h2 {
 .contact-form button {
   width: fit-content;
 }
+/* =========================
+   Thanks Page Enhancements
+   ========================= */
+.thanks-body {
+  background: radial-gradient(1000px 600px at 80% -10%, rgba(120, 93, 255, 0.15), transparent 60%),
+              radial-gradient(900px 500px at 10% 20%, rgba(0, 171, 159, 0.10), transparent 65%),
+              #0f0f12; /* 深めのグレイッシュ黒で高級感 */
+  color: #fff;
+}
+
+.thanks-hero {
+  position: relative;
+  text-align: center;
+  padding: clamp(64px, 8vw, 120px) 16px;
+  min-height: calc(100svh - 160px); /* ヘッダー＆フッターを差し引いても中央寄せ */
+  display: grid;
+  place-items: center;
+  gap: 24px;
+}
+
+/* 背景のふわっと光る楕円 */
+.thanks-bg::before,
+.thanks-bg::after {
+  content: "";
+  position: absolute;
+  inset: auto;
+  filter: blur(60px);
+  opacity: .5;
+  z-index: -1;
+}
+.thanks-bg::before {
+  width: 38vmax; height: 38vmax;
+  left: -10vmax; top: -12vmax;
+  background: radial-gradient(circle at 30% 30%, #7d5bff, transparent 60%);
+}
+.thanks-bg::after {
+  width: 40vmax; height: 40vmax;
+  right: -12vmax; bottom: -14vmax;
+  background: radial-gradient(circle at 70% 70%, #00ab9f, transparent 60%);
+}
+
+/* アニメするチェックマーク */
+.thanks-check {
+  width: clamp(72px, 10vw, 96px);
+  height: auto;
+  margin-bottom: 8px;
+}
+.thanks-check .ring {
+  stroke: rgba(255,255,255,.25);
+}
+.thanks-check .tick {
+  stroke: #7d5bff;
+  stroke-dasharray: 90;
+  stroke-dashoffset: 90;
+  animation: draw 900ms ease-out forwards 200ms;
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* 見出し：フランス風の凛とした気品 */
+.thankyou-title {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-size: clamp(40px, 8vw, 96px);
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #ffffff 0%, #d9d9e8 60%, #bdbadf 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0.2em 0;
+  text-shadow: 0 10px 40px rgba(125, 91, 255, 0.25);
+}
+
+.thankyou-lead {
+  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  font-size: clamp(16px, 2.1vw, 20px);
+  color: rgba(255,255,255,0.85);
+  max-width: 56ch;
+  margin: 0 auto 8px;
+}
+
+/* アクションボタン群 */
+.thankyou-actions {
+  display: inline-flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* 既存 .btn/.btn-primary がある前提。微調整だけ追加 */
+.btn-large {
+  padding: 14px 22px;
+  font-size: 16px;
+  border-radius: 999px;
+}
+
+/* 透明ボタン（上品なガラス質感） */
+.btn.btn-ghost {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 999px;
+  padding: 12px 20px;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+.btn.btn-ghost:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.25);
+}
+
+/* 控えめコンフェッティ（パフォーマンス軽量） */
+.confetti {
+  pointer-events: none;
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle 2px at 10% 20%, #ffd166 98%, transparent 100%),
+    radial-gradient(circle 2px at 30% 10%, #7bdff2 98%, transparent 100%),
+    radial-gradient(circle 2px at 60% 18%, #cdb4db 98%, transparent 100%),
+    radial-gradient(circle 2px at 80% 12%, #bde0fe 98%, transparent 100%),
+    radial-gradient(circle 2px at 20% 80%, #ffc8dd 98%, transparent 100%),
+    radial-gradient(circle 2px at 70% 82%, #a3f7bf 98%, transparent 100%);
+  opacity: 0;
+  animation: confettiFade 2.2s ease forwards .4s;
+}
+@keyframes confettiFade {
+  0% { transform: translateY(-10px); opacity: 0; }
+  60% { opacity: .9; }
+  100% { transform: translateY(0); opacity: .4; }
+}
+
+/* ダーク背景での既存要素の読みやすさを確保 */
+.site-header, .site-footer {
+  background: transparent;
+  border: none;
+}
+.site-footer p { color: rgba(255,255,255,0.65); }
+
+/* スクロール時の微小モーション（任意） */
+.thanks-hero {
+  animation: rise .6s ease-out both;
+}
+@keyframes rise {
+  from { transform: translateY(8px); opacity: 0; }
+  to   { transform: translateY(0);  opacity: 1; }
+}
+
 
 /*-----------------------------------
  11. フッター
