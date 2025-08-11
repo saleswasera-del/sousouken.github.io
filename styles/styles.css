@@ -367,10 +367,10 @@ body {
   background: url('../images/syukatusei_red_2.png') center/cover no-repeat;
 }
 .mvv-item.vision {
-  background: url('../images/building_red.png') center/cover no-repeat;
+  background: url('../images/buildings_red.png') center/cover no-repeat;
 }
 .mvv-item.value {
-  background: url('../images/improve.png') center/cover no-repeat;
+  background: url('../images/improve_red.png') center/cover no-repeat;
 }
 
 /* モバイル調整 */
