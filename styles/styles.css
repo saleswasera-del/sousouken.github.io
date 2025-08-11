@@ -478,7 +478,7 @@ h2 {
 }
 /* ===== Members ヒーロー（背景画像） ===== */
 .hero--members {
-  background: url('../images/members/members_hedder.png') center/cover no-repeat;
+  background: url('../images/members/members_hero.png') center/cover no-repeat;
 }
 .hero--members::before {
   /* 読みやすさ優先の濃いめオーバーレイ */
