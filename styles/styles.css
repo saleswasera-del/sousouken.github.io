@@ -573,7 +573,41 @@ h2 {
   font-weight: 600;
   vertical-align: middle;
 }
+/* QRコードとボタン部分 */
+.line-cta {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
 
+.line-qr {
+  width: 160px;
+  height: auto;
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px;
+}
+
+.btn-line {
+  background-color: #06c755; /* LINEグリーン */
+  color: #fff;
+  font-weight: 700;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn-line:hover {
+  background-color: #04a944;
+}
+
+/* 代表ブロックとの間隔 */
+.representative {
+  margin-top: 3rem;
+}
 
 
 /* ===== Activities Page Enhancements ===== */
