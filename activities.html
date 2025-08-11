@@ -10,7 +10,7 @@
 </head>
 <body>
   <header class="site-header">
-    <nav class="navbar container">
+    <nav class="navbar container" aria-label="メインナビゲーション">
       <a href="index.html" class="logo">早総研</a>
       <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
       <ul class="nav-menu">
@@ -24,30 +24,169 @@
     </nav>
   </header>
 
-  <main class="page activities-page container">
-    <h2>Activities</h2>
-    <div class="card-grid">
-      <div class="card">
-        <img src="images/ai-study.jpg" alt="AI勉強会" />
-        <h3>AI勉強会</h3>
-        <p>AIツールを使ったWebアプリ開発の基礎を学びます。</p>
-      </div>
-      <div class="card">
-        <img src="images/career-study.jpg" alt="キャリア勉強会" />
-        <h3>キャリア勉強会</h3>
-        <p>企業トップとの少人数食事会でリアルを学ぶ。</p>
-      </div>
-      <div class="card">
-        <img src="images/entrepreneur.jpg" alt="起業家交流" />
-        <h3>起業家交流</h3>
-        <p>現役起業家の講演とネットワーキング。</p>
-      </div>
+  <!-- Intro -->
+  <section class="hero hero--activities">
+    <div class="hero-inner container">
+      <h1>活動紹介</h1>
+      <p class="sub">
+        早稲田総合研究会は、オリジナル企画を運営しつつ、<br />
+        「AI研究部・キャリア研究部・メディア研究部・起業部」の4つの部を窓口に、<br />
+        学生が社会とつながり、スキルを身につけ、視野を広げる多領域の活動機会を提供します。
+      </p>
+    </div>
+  </section>
+
+  <main class="activities-main">
+    <div class="container">
+
+      <!-- AI研究部 -->
+      <section class="club-block" id="ai">
+        <header class="club-header">
+          <img class="club-logo" src="images/logo_ai.png" alt="AI研究部ロゴ" />
+          <div class="club-meta">
+            <h2 class="club-title">AI研究部</h2>
+            <p class="club-desc">
+              生成AI/データ活用の基礎から実装まで。ツール実践とプロジェクトで“使えるAI力”を養成。
+            </p>
+          </div>
+        </header>
+        <ul class="activity-list">
+          <li class="activity-card">
+            <figure class="activity-media">
+              <img src="images/image_AI_workshop.jpg" alt="AI活用ワークショップの様子" />
+            </figure>
+            <div class="activity-body">
+              <span class="badge">Workshop</span>
+              <h3 class="activity-title">AI活用ワークショップ</h3>
+              <p class="activity-text">
+                ChatGPT / 自動化ツールを使った業務改善ミニ課題に挑戦。プロンプト設計→評価→改善を短サイクルで回します。
+              </p>
+            </div>
+          </li>
+          <li class="activity-card">
+            <figure class="activity-media">
+              <img src="images/image_AI_study.jpg" alt="AI勉強会の様子" />
+            </figure>
+            <div class="activity-body">
+              <span class="badge">Study</span>
+              <h3 class="activity-title">AI勉強会</h3>
+              <p class="activity-text">
+                LLMの基礎、API入門、ノーコード連携などを継続開催。コード未経験でも参加しやすいハンズオン形式。
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- キャリア研究部 -->
+      <section class="club-block" id="career">
+        <header class="club-header">
+          <img class="club-logo" src="images/logo_career.png" alt="キャリア研究部ロゴ" />
+          <div class="club-meta">
+            <h2 class="club-title">キャリア研究部</h2>
+            <p class="club-desc">
+              「就活のための就活」をやめ、リアルな社会接点から自分の軸を磨く。業界研究や現場同行も実施。
+            </p>
+          </div>
+        </header>
+        <ul class="activity-list">
+          <li class="activity-card">
+            <figure class="activity-media">
+              <img src="images/image_office_tour.jpg" alt="オフィスツアーと社長対談の様子" />
+            </figure>
+            <div class="activity-body">
+              <span class="badge">Visit</span>
+              <h3 class="activity-title">オフィスツアーと社長対談</h3>
+              <p class="activity-text">
+                少人数で企業を訪問。経営者・若手社員から意思決定のリアルを学び、働く“実感”を持ち帰ります。
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- メディア研究部 -->
+      <section class="club-block" id="media">
+        <header class="club-header">
+          <img class="club-logo" src="images/logo_media.png" alt="メディア研究部ロゴ" />
+          <div class="club-meta">
+            <h2 class="club-title">メディア研究部</h2>
+            <p class="club-desc">
+              取材・編集・発信力を磨く。デジタル×広報の文脈で、企画から分析まで学ぶ実践型メディアラボ。
+            </p>
+          </div>
+        </header>
+        <ul class="activity-list">
+          <li class="activity-card">
+            <figure class="activity-media">
+              <img src="images/image_marketing_workshop.jpg" alt="マーケティング勉強会の様子" />
+            </figure>
+            <div class="activity-body">
+              <span class="badge">Marketing</span>
+              <h3 class="activity-title">マーケティング勉強会</h3>
+              <p class="activity-text">
+                ペルソナ/カスタマージャーニー設計からSNS運用・効果測定まで。企画を世に届ける実務を学びます。
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 起業部 -->
+      <section class="club-block" id="startup">
+        <header class="club-header">
+          <img class="club-logo" src="images/logo_startup.png" alt="起業部ロゴ" />
+          <div class="club-meta">
+            <h2 class="club-title">起業部</h2>
+            <p class="club-desc">
+              アイデア検証からピッチまでを伴走。挑戦を称える文化で、小さく始めて早く学ぶリーンな実践。
+            </p>
+          </div>
+        </header>
+        <ul class="activity-list">
+          <li class="activity-card">
+            <figure class="activity-media">
+              <img src="images/image_starup_campus.jpg" alt="起業家交流会の写真" />
+            </figure>
+            <div class="activity-body">
+              <span class="badge">Networking</span>
+              <h3 class="activity-title">起業家交流会</h3>
+              <p class="activity-text">
+                起業家・投資家と語る少人数ダイアログ。事業づくりの葛藤や意思決定を生の声で吸収。
+              </p>
+            </div>
+          </li>
+          <li class="activity-card">
+            <figure class="activity-media">
+              <img src="images/image_ideathon.jpg" alt="ビジネスアイデアソンの様子" />
+            </figure>
+            <div class="activity-body">
+              <span class="badge">Ideathon</span>
+              <h3 class="activity-title">ビジネスアイデアソン</h3>
+              <p class="activity-text">
+                社会課題やテックをテーマに短期集中で企画→検証。メンターのフィードバックで磨き上げます。
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- CTA -->
+      <section class="activities-cta">
+        <div class="cta-card">
+          <h3>まずは見学・体験から</h3>
+          <p>どの活動も「とりあえず参加」OK。あなたの興味に合う部から気軽にどうぞ。</p>
+          <a class="btn btn-primary" href="contact.html">参加相談する</a>
+        </div>
+      </section>
+
     </div>
   </main>
 
   <footer class="site-footer">
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
+
   <script src="js/script.js"></script>
 </body>
 </html>
