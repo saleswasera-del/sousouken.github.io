@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>早稲田大学総合研究会 | Thank You</title>
+
+  <!-- 既存フォント + 見出し用に上品なSerifを追加 -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body class="thanks-body">
+  <!-- 既存ヘッダー（そのままコピペでOK） -->
+  <header class="site-header">
+    <nav class="navbar container">
+      <a href="index.html" class="logo">早総研</a>
+      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="members.html">Members</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="thanks-hero container" role="main">
+    <!-- 背景の柔らかい装飾 -->
+    <div class="thanks-bg" aria-hidden="true"></div>
+
+    <!-- チェックマーク：上品なストロークアニメ -->
+    <svg class="thanks-check" viewBox="0 0 72 72" aria-hidden="true">
+      <circle class="ring" cx="36" cy="36" r="30" fill="none" stroke-width="2" />
+      <path class="tick" d="M20 37 L32 49 L52 25" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+    <h1 class="thankyou-title" aria-label="THANK YOU!">THANK&nbsp;YOU!</h1>
+
+    <p class="thankyou-lead">
+      正常に送信されました。担当より <strong>1–2営業日以内</strong> にご連絡いたします。<br />
+      いただいた内容は大切に確認させていただきます。Merci.
+    </p>
+
+    <div class="thankyou-actions">
+      <a class="btn btn-primary btn-large" href="index.html" aria-label="ホームに戻る">ホームに戻る</a>
+      <a class="btn btn-ghost" href="faq.html">よくある質問</a>
+      <a class="btn btn-ghost" href="https://www.instagram.com/ai_sousouken" target="_blank" rel="noopener">Instagram</a>
+    </div>
+
+    <!-- 祝福のきらめき（控えめなコンフェッティ） -->
+    <div class="confetti" aria-hidden="true"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 早稲田大学総合研究会</p>
+  </footer>
+
+  <!-- 既存JS（ナビの開閉など） -->
+  <script src="js/script.js"></script>
+</body>
+</html>
