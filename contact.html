@@ -144,4 +144,185 @@
       caret-color: #fff;
       transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
       font-size: 16px;
+    }
+    .contact-card input:focus,
+    .contact-card textarea:focus {
+      outline: none;
+      border-color: rgba(125,91,255,.8);
+      background: rgba(255,255,255,.09);
+      box-shadow: 0 0 0 3px rgba(125,91,255,.25);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 720px) { .form-row { grid-template-columns: 1fr; } }
 
+    .btn, .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 12px 20px; border-radius: 999px; border: 0;
+      font-weight: 700; cursor: pointer; text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--contact-accent), #9c86ff);
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(125,91,255,.35);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 36px rgba(125,91,255,.45); }
+    .btn-primary:disabled { opacity:.6; cursor: not-allowed; transform:none; box-shadow:none; }
+
+    .form-meta {
+      color: var(--text-dim);
+      font-size: 12px; margin-top: 10px;
+    }
+    .status {
+      min-height: 22px; margin-top: 10px; font-size: 14px;
+    }
+    .status.ok { color: #b7ffea; }
+    .status.ng { color: #ffb0b0; }
+
+    /* 小さなチェック装飾 */
+    .form-title {
+      display:flex; align-items:center; gap:10px; margin:0 0 6px;
+      font-weight: 800; color:#fff; letter-spacing:.02em;
+    }
+    .form-title .dot {
+      width:10px; height:10px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #bdbadf);
+      box-shadow: 0 0 0 4px rgba(125,91,255,.25);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a href="index.html" class="logo">早総研</a>
+      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="members.html">Members</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page contact-page container contact-decor">
+    <header class="contact-header">
+      <span class="contact-eyebrow">Get in touch</span>
+      <h1 class="contact-title">お問い合わせ</h1>
+      <p class="contact-sub">ご質問・ご相談は以下フォームまたは各種SNSからお気軽に。担当より<strong>1–2営業日以内</strong>にご返信します。</p>
+    </header>
+
+    <section class="contact-grid" aria-label="お問い合わせと連絡方法">
+      <!-- 左：案内 -->
+      <aside class="contact-info">
+        <h3>他の連絡方法</h3>
+        <ul>
+          <li>Email：<a href="mailto:info@wasoken.example.com">info@wasoken.example.com</a></li>
+          <li>LINE：<a href="https://line.me/R/ti/p/@644ocnlx" target="_blank" rel="noopener">公式アカウント</a></li>
+          <li>Instagram：<a href="https://www.instagram.com/ai_sousouken" target="_blank" rel="noopener">@ai_sousouken</a></li>
+        </ul>
+        <h3 style="margin-top:18px;">よくある質問</h3>
+        <ul>
+          <li><a href="faq.html">参加条件・活動日程・費用について</a></li>
+        </ul>
+      </aside>
+
+      <!-- 右：フォーム -->
+      <section class="contact-card" aria-label="お問い合わせフォーム">
+        <h3 class="form-title"><span class="dot" aria-hidden="true"></span> フォーム</h3>
+
+        <form class="contact-form" action="https://formspree.io/f/xrblrrww" method="POST" novalidate>
+          <div class="form-row">
+            <div>
+              <label for="name">お名前</label>
+              <input type="text" id="name" name="name" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="email">メールアドレス</label>
+              <!-- 返信先は _replyto を使用 -->
+              <input type="email" id="email" name="_replyto" autocomplete="email" required />
+            </div>
+          </div>
+
+          <label for="message">メッセージ</label>
+          <textarea id="message" name="message" rows="6" required placeholder="ご用件、所属、希望連絡方法などご自由にお書きください。"></textarea>
+
+          <!-- 任意: 件名 / スパム対策（ハニーポット） -->
+          <input type="hidden" name="_subject" value="早総研HP: お問い合わせ" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+          <!-- タイムスタンプ（超簡易ボット対策） -->
+          <input type="hidden" name="ts" id="ts" />
+
+          <div style="display:flex; align-items:center; gap:12px; margin-top:14px;">
+            <button type="submit" class="btn btn-primary" id="submitBtn">送信する</button>
+            <span class="status" id="form-status" aria-live="polite"></span>
+          </div>
+
+          <p class="form-meta">送信いただいた個人情報はお問い合わせ対応の目的にのみ利用します。</p>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 早稲田大学総合研究会</p>
+  </footer>
+
+  <!-- Ajax送信（同一ページ完結） -->
+  <script>
+    const form = document.querySelector(".contact-form");
+    const statusEl = document.getElementById("form-status");
+    const submitBtn = document.getElementById("submitBtn");
+    const tsEl = document.getElementById("ts");
+    tsEl.value = Date.now();
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        statusEl.textContent = "未入力の項目があります。ご確認ください。";
+        statusEl.className = "status ng";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      statusEl.textContent = "送信中…";
+      statusEl.className = "status";
+
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: new FormData(form),
+        });
+
+        if (res.ok) {
+          statusEl.textContent = "送信しました。ありがとうございます！";
+          statusEl.className = "status ok";
+          form.reset();
+          tsEl.value = Date.now();
+          // ★ thanksページへ遷移したい場合は下行のコメントアウトを解除
+          // location.href = "contact-thanks.html";
+        } else {
+          const data = await res.json().catch(() => ({}));
+          statusEl.textContent = data.errors
+            ? data.errors.map(e => e.message).join(" / ")
+            : "送信に失敗しました。時間をおいて再度お試しください。";
+          statusEl.className = "status ng";
+        }
+      } catch (err) {
+        statusEl.textContent = "ネットワークエラーが発生しました。";
+        statusEl.className = "status ng";
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+
+  <!-- 既存のナビ開閉など -->
+  <script src="js/script.js"></script>
+</body>
+</html>
