@@ -476,6 +476,73 @@ h2 {
   margin-bottom: 0.3rem;
   color: var(--color-primary);
 }
+/* ===== Members ヒーロー（背景画像） ===== */
+.hero--members {
+  background: url('../images/members/members_hero_wide.jpg') center/cover no-repeat;
+}
+.hero--members::before {
+  /* 読みやすさ優先の濃いめオーバーレイ */
+  background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35));
+}
+/* 下辺のやわらぎ波 */
+.hero-wave {
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  width: 100%; height: 80px;
+  display: block;
+}
+.hero-wave path { fill: var(--color-bg); }
+
+/* Members ページ余白 */
+.members-main { padding: 3rem 0 4rem; }
+
+/* 代表カードを少しリッチに（ガラス風） */
+.rep-card {
+  background: rgba(255,255,255,.82);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 16px;
+  padding: clamp(18px, 2.5vw, 28px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.06);
+}
+.rep-img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+.rep-info .rep-role { color: var(--color-muted); margin-bottom: .25rem; }
+
+/* Memberカードの質感UP */
+.card--member {
+  text-align: left;
+  border: 1px solid #eee;
+  box-shadow: 0 10px 28px rgba(0,0,0,.05);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.card--member:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0,0,0,.08);
+}
+.card--member img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.card--member .card-body {
+  padding: 14px 16px 18px;
+}
+
+/* 見出しを視覚的に隠す（Heroに重複のタイトルがあるため） */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; border: 0; padding: 0;
+  clip: rect(0 0 0 0); overflow: hidden;
+}
+
+
+
 /* ===== Activities Page Enhancements ===== */
 
 /* サブページ用ヒーロー */
