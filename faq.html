@@ -10,7 +10,7 @@
 </head>
 <body>
   <header class="site-header">
-    <nav class="navbar container">
+    <nav class="navbar container" aria-label="メインナビゲーション">
       <a href="index.html" class="logo">早総研</a>
       <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
       <ul class="nav-menu">
@@ -24,23 +24,170 @@
     </nav>
   </header>
 
-  <main class="page faq-page container">
-    <h2>FAQ</h2>
-    <dl class="faq-list">
-      <dt>兼サーは可能ですか？</dt>
-      <dd>はい、スキマ時間での参加も大歓迎です。</dd>
-      <dt>授業やバイトと両立できますか？</dt>
-      <dd>隔週活動なので無理なく続けられます。</dd>
-      <dt>ビジネス経験がなくても？</dt>
-      <dd>もちろんです。初心者向けの勉強会があります。</dd>
-      <dt>他大学生も参加できますか？</dt>
-      <dd>はい。他大学からの参加者が半数以上です。</dd>
-    </dl>
+  <main class="faq-main">
+    <section class="hero hero--faq">
+      <div class="hero-inner container">
+        <h1>FAQ</h1>
+        <p class="sub">よくある質問と回答。困ったらまずはこちらをチェック。</p>
+      </div>
+    </section>
+
+    <section class="container faq-wrap">
+      <!-- 検索 -->
+      <div class="faq-tools">
+        <input type="search" class="faq-search" placeholder="キーワードで検索（例：兼サー、他大学、会費…）" aria-label="FAQを検索">
+        <div class="faq-tags" aria-label="クイックフィルター">
+          <button class="faq-tag" data-tag="参加">参加</button>
+          <button class="faq-tag" data-tag="活動">活動</button>
+          <button class="faq-tag" data-tag="費用">費用</button>
+          <button class="faq-tag" data-tag="他大学">他大学</button>
+        </div>
+      </div>
+
+      <!-- アコーディオン -->
+      <div class="faq-accordion" id="faqAccordion">
+        <!-- 既存Q&A（充実版に書き換え） -->
+        <div class="faq-item" data-keywords="参加 兼サー 掛け持ち">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq1" id="q-faq1">
+            <span class="q-badge">Q</span> 兼サーは可能ですか？
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a" id="faq1" role="region" aria-labelledby="q-faq1">
+            <p>可能です。早総研は<strong>「とりあえず参加」から「質の高い関与」まで</strong>幅広く歓迎。学業・他サークルと両立できるように予定を事前共有します。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-keywords="活動 時間 両立 スケジュール">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq2" id="q-faq2">
+            <span class="q-badge">Q</span> 授業やバイトと両立できますか？
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a" id="faq2" role="region" aria-labelledby="q-faq2">
+            <p>はい。<strong>隔週〜月1の定例</strong>＋プロジェクト任意参加が基本。繁忙期は参加頻度を下げるなど柔軟に調整できます。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-keywords="初心者 未経験 AI ビジネス">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq3" id="q-faq3">
+            <span class="q-badge">Q</span> ビジネスやAIの経験がなくても大丈夫？
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a" id="faq3" role="region" aria-labelledby="q-faq3">
+            <p>もちろん。<strong>初心者向け勉強会</strong>とメンターサポートがあります。まずは見学や体験会からどうぞ。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-keywords="他大学 インカレ 参加 条件">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq4" id="q-faq4">
+            <span class="q-badge">Q</span> 他大学生も参加できますか？
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a" id="faq4" role="region" aria-labelledby="q-faq4">
+            <p>はい。<strong>インカレ団体</strong>のため、他大学の学生が半数以上。学年や専攻も問いません。</p>
+          </div>
+        </div>
+
+        <!-- 追加Q&A（充実化） -->
+        <div class="faq-item" data-keywords="費用 会費 年会費">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq5" id="q-faq5">
+            <span class="q-badge">Q</span> 会費はかかりますか？
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a" id="faq5" role="region" aria-labelledby="q-faq5">
+            <p>基本活動は無料または実費のみ。外部イベント参加や遠征時は<strong>任意で実費</strong>をお願いする場合があります。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-keywords="選考 面談 申込み 体験">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq6" id="q-faq6">
+            <span class="q-badge">Q</span> 参加方法は？選考はありますか？
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a" id="faq6" role="region" aria-labelledby="q-faq6">
+            <p><a href="contact.html">Contact</a>から申し込み→<strong>見学・体験</strong>→希望があれば面談で部の紹介と希望確認、の順でご案内します。厳密な選考はありません。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-keywords="オンライン ハイブリッド 参加 地方">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq7" id="q-faq7">
+            <span class="q-badge">Q</span> オンライン参加はできますか？
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a" id="faq7" role="region" aria-labelledby="q-faq7">
+            <p>勉強会は<strong>ハイブリッド</strong>対応が中心。現地参加が難しい場合もオンラインで参加可能です。</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-keywords="活動内容 部 AI研究部 キャリア研究部 メディア 起業">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq8" id="q-faq8">
+            <span class="q-badge">Q</span> 4つの部の違いは？
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a" id="faq8" role="region" aria-labelledby="q-faq8">
+            <ul>
+              <li><b>AI研究部：</b>AI活用・開発の実践ワークとプロジェクト。</li>
+              <li><b>キャリア研究部：</b>オフィス訪問や対談など社会接点で意思決定を学ぶ。</li>
+              <li><b>メディア研究部：</b>取材・編集・発信、マーケ企画〜分析まで。</li>
+              <li><b>起業部：</b>アイデア検証・ピッチ・ネットワーキングで事業化に挑戦。</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 追い込みCTA -->
+      <div class="faq-cta">
+        <p>解決しない場合はお気軽にご相談ください。</p>
+        <a class="btn btn-primary" href="contact.html">質問してみる</a>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
+
   <script src="js/script.js"></script>
+  <script>
+    // --- FAQ アコーディオン & 検索 ---
+    (function(){
+      const items = Array.from(document.querySelectorAll('.faq-item'));
+      const buttons = document.querySelectorAll('.faq-q');
+      const search = document.querySelector('.faq-search');
+      const tags = document.querySelectorAll('.faq-tag');
+
+      // 開閉
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = btn.closest('.faq-item');
+          const panel = item.querySelector('.faq-a');
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!expanded));
+          item.classList.toggle('open', !expanded);
+          panel.style.maxHeight = !expanded ? panel.scrollHeight + 'px' : null;
+        });
+      });
+
+      // 検索フィルタ
+      const filter = (q) => {
+        const keyword = q.trim().toLowerCase();
+        items.forEach(it => {
+          const text = it.textContent.toLowerCase() + ' ' + (it.dataset.keywords || '').toLowerCase();
+          it.style.display = text.includes(keyword) ? '' : 'none';
+        });
+      };
+      if (search) {
+        search.addEventListener('input', e => filter(e.target.value));
+      }
+      // タグフィルタ
+      tags.forEach(tag => {
+        tag.addEventListener('click', () => {
+          const word = tag.dataset.tag || '';
+          search.value = word;
+          filter(word);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
