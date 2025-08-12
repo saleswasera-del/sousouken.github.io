@@ -1,19 +1,51 @@
-<!-- members.html -->
+<!-- members.html (optimized) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>早稲田大学総合研究会 | Members</title>
+  <meta name="description" content="早稲田大学総合研究会のメンバー紹介。公式LINE登録者数、代表・幹部プロフィールをご紹介します。" />
+
+  <!-- Canonical / OGP -->
+  <link rel="canonical" href="https://saleswasera-del.github.io/sousouken.github.io/members.html" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="早稲田総合研究会公式HP">
+  <meta property="og:title" content="Members | 早稲田総合研究会公式HP">
+  <meta property="og:description" content="多様な仲間が学びと実践でつながる。公式LINE登録者数・代表・幹部プロフィール。">
+  <meta property="og:url" content="https://saleswasera-del.github.io/sousouken.github.io/members.html">
+  <meta property="og:image" content="https://saleswasera-del.github.io/sousouken.github.io/images/ogp/ogp_sousouken.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- UI / Icons -->
+  <meta name="theme-color" content="#800000">
+  <link rel="icon" href="images/logos/logo_sousouken.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="images/logos/logo_sousouken.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles/styles.css" />
+
+  <!-- CSS (split) -->
+  <link rel="stylesheet" href="styles/common.css" />
+  <link rel="stylesheet" href="styles/pages/members.css" />
+
+  <!-- Preload hero background -->
+  <link rel="preload" as="image" href="images/members/members_hero.png" />
 </head>
 <body data-page="members">
+  <!-- Skip link -->
+  <a href="#main" class="visually-hidden">本文へスキップ</a>
+
   <header class="site-header">
-    <nav class="navbar container">
+    <nav class="navbar container" aria-label="メインナビゲーション">
       <a href="index.html" class="logo">早稲田総合研究会</a>
-      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
-      <ul class="nav-menu">
+      <button class="hamburger" aria-label="メニュー開閉" aria-expanded="false" aria-controls="primary-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="primary-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="activities.html">Activities</a></li>
@@ -24,8 +56,8 @@
     </nav>
   </header>
 
-  <!-- NEW: ヒーロー（背景画像） -->
-  <section class="hero hero--members">
+  <!-- Hero -->
+  <section class="hero hero--members" aria-label="メンバーメインビジュアル">
     <div class="hero-inner container">
       <p class="sub">早稲田総合研究会</p>
       <h1>Members</h1>
@@ -35,73 +67,91 @@
         <a href="#executives" class="btn btn-outline">幹部</a>
       </div>
     </div>
-    <!-- 下辺をやわらげる装飾（任意） -->
     <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
       <path d="M0,40 C240,120 480,0 720,40 C960,80 1200,120 1440,40 L1440,120 L0,120 Z"></path>
     </svg>
   </section>
 
-  <main class="page members-page container members-main">
+  <main id="main" class="page members-page container members-main">
     <h2 class="visually-hidden">Members</h2>
-   <!-- 公式LINE登録者数 表示ブロック -->
-<section class="line-members">
-  <div class="line-members-inner container">
-    <h3>公式LINE登録者数</h3>
-    <div class="line-count-wrapper">
-      <span id="line-member-count" class="line-members-count" data-target="172">0</span>
-      <span class="line-members-unit">名</span>
-    </div>
-    <!-- QRコード & 登録ボタン -->
-    <div class="line-cta">
-      <img src="images/members/line_QR_sousouken_official.png" alt="公式LINE QRコード" class="line-qr" />
-      <a href="https://line.me/R/ti/p/@644ocnlx" target="_blank" rel="noopener noreferrer" class="btn btn-line">登録はこちら</a>
-    </div>
-  </div>
-</section>
+
+    <!-- 公式LINE登録者数 -->
+    <section class="line-members" aria-label="公式LINE登録者数">
+      <div class="line-members-inner container">
+        <h3>公式LINE登録者数</h3>
+        <div class="line-count-wrapper">
+          <span id="line-member-count" class="line-members-count" data-target="172">0</span>
+          <span class="line-members-unit">名</span>
+        </div>
+        <div class="line-cta">
+          <img src="images/members/line_QR_sousouken_official.png" alt="公式LINE QRコード" class="line-qr" loading="lazy" decoding="async" />
+          <a href="https://line.me/R/ti/p/@644ocnlx" target="_blank" rel="noopener noreferrer" class="btn btn-line">登録はこちら</a>
+        </div>
+      </div>
+    </section>
+
     <!-- 代表 -->
-    <section id="representative" class="representative rep-card">
-      <img src="images/members/kent.jpg" alt="代表 安冨堅" class="rep-img" />
+    <section id="representative" class="representative rep-card" aria-labelledby="rep-title">
+      <img src="images/members/kent.jpg" alt="代表 安冨 堅" class="rep-img" loading="lazy" decoding="async" />
       <div class="rep-info">
         <span class="badge">代表</span>
-        <h3>安冨 堅</h3>
+        <h3 id="rep-title">安冨 堅</h3>
         <p class="rep-role">早稲田大学 基幹理工学部・情報通信専攻</p>
-        <p>パターン認識・クラウドソーシング・ノイズ学習・ヒューマンコンピュータインタラクション（HCI）を研究しながら、ITスタートアップでAI/XRを活用したDX開発支援に携わってきました。
-          数千万円規模のプロジェクトで提案方向の策定、資料デザイン、顧客面談を担当し、プレゼンテーション力と課題発見力を磨いてきました。</p>
+        <p>パターン認識・クラウドソーシング・ノイズ学習・ヒューマンコンピュータインタラクション（HCI）を研究しながら、ITスタートアップでAI/XRを活用したDX開発支援に携わってきました。数千万円規模のプロジェクトで提案方向の策定、資料デザイン、顧客面談を担当し、プレゼンテーション力と課題発見力を磨いてきました。</p>
       </div>
     </section>
 
     <!-- 幹部 -->
-    <section id="executives" class="interviews">
-      <h3>幹部</h3>
+    <section id="executives" class="interviews" aria-labelledby="exec-title">
+      <h3 id="exec-title">幹部</h3>
       <div class="card-grid">
-        <div class="card card--member">
-          <img src="images/members/asahi.jpg" alt="曽根さん" />
+        <article class="card card--member">
+          <img src="images/members/asahi.jpg" alt="曽根（AI研究部・4年）" loading="lazy" decoding="async" />
           <div class="card-body">
             <h4>曽根（AI研究部・4年）</h4>
             <p>AI研究部代表。基幹理工・情報通信専攻でパターン認識を研究。AI活用のワークショップ企画などの実績。</p>
           </div>
-        </div>
-        <div class="card card--member">
-          <img src="images/members/matu.jpg" alt="松澤さん" />
+        </article>
+        <article class="card card--member">
+          <img src="images/members/matu.jpg" alt="松澤（キャリア研究部・2年）" loading="lazy" decoding="async" />
           <div class="card-body">
             <h4>松澤（キャリア研究部・2年）</h4>
             <p>キャリア研究部員。他サークルの代表としても活動しながら、早総研の広報を担当。</p>
           </div>
-        </div>
-        <div class="card card--member">
-          <img src="images/members/takumi_letter.gif" alt="横溝さん" />
+        </article>
+        <article class="card card--member">
+          <img src="images/members/takumi_letter.gif" alt="横溝（起業部・4年）" loading="lazy" decoding="async" />
           <div class="card-body">
             <h4>横溝（起業部・4年）</h4>
             <p>起業部代表。自らも法人を立ち上げ活動中。</p>
           </div>
-        </div>
+        </article>
       </div>
     </section>
   </main>
 
+  <!-- Share CTA（広めてもらう導線） -->
+  <section class="share-cta">
+    <div class="container">
+      <div class="cta-card share-card">
+        <span class="share-eyebrow">Spread</span>
+        <h3>この活動、友だちにも届けよう</h3>
+        <p class="text-muted">気になる人にURLをシェアすると、最新のイベント情報が届きます。</p>
+        <div class="share-buttons">
+          <button class="btn btn-primary" id="btn-webshare">端末でシェア</button>
+          <a class="btn btn-line" id="btn-share-line" href="#" rel="noopener">LINEで送る</a>
+          <a class="btn" id="btn-share-x" href="#" rel="noopener">Xでポスト</a>
+          <button class="btn" id="btn-copy">リンクをコピー</button>
+        </div>
+        <small class="share-note" id="copy-ok" hidden>リンクをコピーしました！</small>
+      </div>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
-  <script src="js/script.js"></script>
+
+  <script src="js/script.js" defer></script>
 </body>
 </html>
