@@ -113,12 +113,63 @@
 </section>
 
         <h3>団体概要</h3>
-        <ul class="stats" aria-label="基本情報">
-          <li><strong>172名</strong><span>会員数</span></li>
-          <li><strong>4大学</strong><span>参加大学</span></li>
-          <li><strong>毎週木曜日</strong><span>定例MTG</span></li>
-          <li><strong>0円</strong><span>年会費</span></li>
-        </ul>
+        <!-- 団体概要：統計カード -->
+<section class="stats-cards" aria-label="団体概要">
+  <ul class="stat-grid">
+    <li class="stat-card">
+      <div class="stat-icon" aria-hidden="true">
+        <!-- people icon -->
+        <svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z"/></svg>
+      </div>
+      <div class="stat-meta">
+        <div class="stat-value">
+          <span class="num" data-target="172">172</span><span class="unit">名</span>
+        </div>
+        <div class="stat-label">会員数</div>
+      </div>
+    </li>
+
+    <li class="stat-card">
+      <div class="stat-icon" aria-hidden="true">
+        <!-- university/campus icon -->
+        <svg viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5Zm0 7.09L5.26 8 12 4.91 18.74 8 12 10.09ZM4 10v6a8 8 0 0 0 16 0v-6l-2 .99V16a6 6 0 0 1-12 0v-5.01L4 10Z"/></svg>
+      </div>
+      <div class="stat-meta">
+        <div class="stat-value">
+          <span class="num" data-target="4">4</span><span class="unit">大学</span>
+        </div>
+        <div class="stat-label">参加大学</div>
+      </div>
+    </li>
+
+    <li class="stat-card">
+      <div class="stat-icon" aria-hidden="true">
+        <!-- calendar icon -->
+        <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7Zm14 8H3v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8ZM7 14h4v4H7v-4Z"/></svg>
+      </div>
+      <div class="stat-meta">
+        <div class="stat-value">
+          <span class="text">毎週</span><span class="num" data-target="1">木曜日</span>
+        </div>
+        <div class="stat-label">定例MTG</div>
+      </div>
+    </li>
+
+    <li class="stat-card">
+      <div class="stat-icon" aria-hidden="true">
+        <!-- yen/coin icon -->
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2Zm1 6h2l-2.5 3.5L15 15h-2l-1-1.4L11 15H9l2.5-3.5L9 8h2l1 1.4L13 8Zm-4 8h6v2H9v-2Z"/></svg>
+      </div>
+      <div class="stat-meta">
+        <div class="stat-value">
+          <span class="num" data-target="0">0</span><span class="unit">円</span>
+        </div>
+        <div class="stat-label">年会費</div>
+      </div>
+    </li>
+  </ul>
+</section>
+
       </div>
 
       <figure class="about-image">
