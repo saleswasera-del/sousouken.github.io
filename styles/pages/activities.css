@@ -1,5 +1,5 @@
 /* ==== pages/activities.css ==== */
-.hero--activities{ --hero-bg:url('../images/images_hero/image_logo_gray_wide.png'); --hero-overlay:rgba(0,0,0,.35); }
+.hero--activities{ --hero-bg:url('../images/images_hero/activities.png'); --hero-overlay:rgba(0,0,0,.35); }
 .activities-main{padding:3rem 0 4rem}
 
 /* Blocks */
