@@ -1,0 +1,30 @@
+/* ==== pages/members.css ==== */
+.hero--members{ --hero-bg:url('../images/members/members_hero.png'); --hero-overlay:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.35)); }
+.hero-wave{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:80px;display:block}
+.hero-wave path{fill:var(--color-bg)}
+.members-main{padding:3rem 0 4rem}
+
+/* Representative */
+.representative{display:flex;align-items:center;gap:2rem;justify-content:center;margin-bottom:3rem;margin-top:3rem}
+.rep-card{background:rgba(255,255,255,.82);backdrop-filter:blur(6px);border:1px solid rgba(0,0,0,.05);border-radius:16px;padding:clamp(18px,2.5vw,28px);box-shadow:0 12px 30px rgba(0,0,0,.06)}
+.rep-img{width:180px;height:180px;object-fit:cover;border-radius:50%;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.rep-info h3{margin-bottom:.3rem;color:var(--color-primary)}
+.rep-info .rep-role{color:var(--color-muted);margin-bottom:.25rem}
+
+/* Member cards */
+.card--member{text-align:left;border:1px solid #eee;box-shadow:0 10px 28px rgba(0,0,0,.05);transition:transform .25s ease,box-shadow .25s ease}
+.card--member:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.08)}
+.card--member img{aspect-ratio:4 / 3;object-fit:cover}
+.card--member .card-body{padding:14px 16px 18px}
+
+/* LINE members section */
+.line-members{background:linear-gradient(135deg,var(--color-primary),var(--color-primary-light));color:#fff;padding:3rem 0;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.line-members-inner{display:flex;flex-direction:column;align-items:center}
+.line-count-wrapper{display:inline-flex;align-items:baseline;gap:.25rem}
+.line-members-count{font-size:clamp(3rem,7vw,5rem);font-weight:800}
+.line-members-unit{font-size:clamp(1.5rem,4vw,2rem);font-weight:600}
+.line-cta{margin-top:1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.line-qr{width:140px;height:auto;border-radius:12px;background:#fff;padding:6px;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .25s ease,box-shadow .25s ease}
+.btn-line{background-color:#06c755;color:#fff;font-weight:700;padding:.7rem 1.4rem;border-radius:999px;text-decoration:none;font-size:1rem;transition:background .3s ease,transform .2s ease}
+.btn-line:hover{background-color:#04a944;transform:translateY(-2px)}
+@media(max-width:768px){.representative{flex-direction:column}}
