@@ -1,19 +1,51 @@
-<!-- activities.html -->
+<!-- activities.html (optimized) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>早稲田大学総合研究会 | Activities</title>
+  <meta name="description" content="AI研究部・キャリア研究部・メディア研究部・起業部の活動紹介。学生が社会とつながりスキルを身につける多領域の実践機会を提供します。" />
+
+  <!-- Canonical / OGP / Twitter Card -->
+  <link rel="canonical" href="https://saleswasera-del.github.io/sousouken.github.io/activities.html" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="早稲田総合研究会公式HP">
+  <meta property="og:title" content="Activities | 早稲田総合研究会公式HP">
+  <meta property="og:description" content="AI・キャリア・メディア・起業の4部で、実践と挑戦の機会を提供します。">
+  <meta property="og:url" content="https://saleswasera-del.github.io/sousouken.github.io/activities.html">
+  <meta property="og:image" content="https://saleswasera-del.github.io/sousouken.github.io/images/ogp/ogp_sousouken.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- UI / Icons -->
+  <meta name="theme-color" content="#800000">
+  <link rel="icon" href="images/logos/logo_sousouken.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="images/logos/logo_sousouken.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles/styles.css" />
+
+  <!-- CSS (split) -->
+  <link rel="stylesheet" href="styles/common.css" />
+  <link rel="stylesheet" href="styles/pages/activities.css" />
+
+  <!-- Preload key hero image (CSS background) -->
+  <link rel="preload" as="image" href="images/images_hero/image_logo_gray_wide.png" />
 </head>
 <body data-page="activities">
+  <!-- Skip link -->
+  <a href="#main" class="visually-hidden">本文へスキップ</a>
+
   <header class="site-header">
     <nav class="navbar container" aria-label="メインナビゲーション">
       <a href="index.html" class="logo">早稲田総合研究会</a>
-      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
-      <ul class="nav-menu">
+      <button class="hamburger" aria-label="メニュー開閉" aria-expanded="false" aria-controls="primary-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="primary-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="activities.html" class="active" aria-current="page">Activities</a></li>
@@ -25,9 +57,9 @@
   </header>
 
   <!-- Intro -->
-  <section class="hero hero--activities">
+  <section class="hero hero--activities" aria-label="活動紹介メインビジュアル">
     <div class="hero-inner container">
-      <p class="sub">早稲田総合研究会 </p>
+      <p class="sub">早稲田総合研究会</p>
       <h1>Activities</h1>
       <p class="sub">
         早稲田総合研究会は、オリジナル企画を運営しつつ<br />
@@ -37,15 +69,15 @@
     </div>
   </section>
 
-  <main class="activities-main">
+  <main id="main" class="activities-main">
     <div class="container">
 
       <!-- AI研究部 -->
-      <section class="club-block" id="ai">
+      <section class="club-block" id="ai" aria-labelledby="ai-title">
         <header class="club-header">
-          <img class="club-logo" src="images/logos/logo_AI.jpg" alt="AI研究部ロゴ" />
+          <img class="club-logo" src="images/logos/logo_AI.jpg" alt="AI研究部ロゴ" loading="lazy" decoding="async" />
           <div class="club-meta">
-            <h2 class="club-title">AI研究部</h2>
+            <h2 class="club-title" id="ai-title">AI研究部</h2>
             <p class="club-desc">
               生成AI/データ活用の基礎から実装まで。ツール実践とプロジェクトで“使えるAI力”を養成。
             </p>
@@ -54,7 +86,7 @@
         <ul class="activity-list">
           <li class="activity-card">
             <figure class="activity-media">
-              <img src="images/activities/image_AI_workshop.jpg" alt="AI活用ワークショップの様子" />
+              <img src="images/activities/image_AI_workshop.jpg" alt="AI活用ワークショップの様子" loading="lazy" decoding="async" />
             </figure>
             <div class="activity-body">
               <span class="badge">Workshop</span>
@@ -66,7 +98,7 @@
           </li>
           <li class="activity-card">
             <figure class="activity-media">
-              <img src="images/activities/image_AI_study.png" alt="AI勉強会の様子" />
+              <img src="images/activities/image_AI_study.png" alt="AI勉強会の様子" loading="lazy" decoding="async" />
             </figure>
             <div class="activity-body">
               <span class="badge">Study</span>
@@ -78,13 +110,13 @@
           </li>
           <li class="activity-card">
             <figure class="activity-media">
-              <img src="images/activities/image_gpt.jpeg" alt="AI勉強会の様子" />
+              <img src="images/activities/image_gpt.jpeg" alt="オンラインAI勉強会の様子" loading="lazy" decoding="async" />
             </figure>
             <div class="activity-body">
               <span class="badge">Study</span>
               <h3 class="activity-title">オンラインAI勉強会</h3>
               <p class="activity-text">
-                直近のAIニュースを中心に、最新情報を学生が調査し、プレゼン形式で発表する。アウトプットを通してさらなる理解を深めます。
+                直近のAIニュースを中心に、最新情報を学生が調査し、プレゼン形式で発表。アウトプットを通して理解を深めます。
               </p>
             </div>
           </li>
@@ -92,11 +124,11 @@
       </section>
 
       <!-- キャリア研究部 -->
-      <section class="club-block" id="career">
+      <section class="club-block" id="career" aria-labelledby="career-title">
         <header class="club-header">
-          <img class="club-logo" src="images/logos/logo_career.jpg" alt="キャリア研究部ロゴ" />
+          <img class="club-logo" src="images/logos/logo_career.jpg" alt="キャリア研究部ロゴ" loading="lazy" decoding="async" />
           <div class="club-meta">
-            <h2 class="club-title">キャリア研究部</h2>
+            <h2 class="club-title" id="career-title">キャリア研究部</h2>
             <p class="club-desc">
               「就活のための就活」をやめ、リアルな社会接点から自分の軸を磨く。業界研究や現場同行も実施。
             </p>
@@ -105,13 +137,13 @@
         <ul class="activity-list">
           <li class="activity-card">
             <figure class="activity-media">
-              <img src="images/activities/image_office_tour.jpg" alt="オフィスツアーと社長対談の様子" />
+              <img src="images/activities/image_office_tour.jpg" alt="オフィスツアーと社長対談の様子" loading="lazy" decoding="async" />
             </figure>
             <div class="activity-body">
               <span class="badge">Visit</span>
               <h3 class="activity-title">オフィスツアーと社長対談</h3>
               <p class="activity-text">
-                少人数で企業を訪問。業界に関する知見を広げながら、経営者・若手社員から意思決定のリアルを持ち帰ります。
+                少人数で企業を訪問。業界知見を広げながら、経営者・若手社員から意思決定のリアルを持ち帰ります。
               </p>
             </div>
           </li>
@@ -119,11 +151,11 @@
       </section>
 
       <!-- メディア研究部 -->
-      <section class="club-block" id="media">
+      <section class="club-block" id="media" aria-labelledby="media-title">
         <header class="club-header">
-          <img class="club-logo" src="images/logos/logo_media.jpg" alt="メディア研究部ロゴ" />
+          <img class="club-logo" src="images/logos/logo_media.jpg" alt="メディア研究部ロゴ" loading="lazy" decoding="async" />
           <div class="club-meta">
-            <h2 class="club-title">メディア研究部</h2>
+            <h2 class="club-title" id="media-title">メディア研究部</h2>
             <p class="club-desc">
               取材・編集・発信力を磨く。企画から分析まで学び、報酬も受け取る、超実践型メディアラボ。
             </p>
@@ -132,13 +164,13 @@
         <ul class="activity-list">
           <li class="activity-card">
             <figure class="activity-media">
-              <img src="images/activities/image_marketing_workshop.jpg" alt="マーケティング勉強会の様子" />
+              <img src="images/activities/image_marketing_workshop.jpg" alt="マーケティング勉強会の様子" loading="lazy" decoding="async" />
             </figure>
             <div class="activity-body">
               <span class="badge">Marketing</span>
               <h3 class="activity-title">マーケティング勉強会</h3>
               <p class="activity-text">
-                ペルソナ/カスタマージャーニー設計からSNS運用・効果測定まで。学生団体FlyingCの活動に参加し、企画を世に届ける実務を学びます。
+                ペルソナ/カスタマージャーニー設計からSNS運用・効果測定まで。企画を世に届ける実務を学びます。
               </p>
             </div>
           </li>
@@ -146,11 +178,11 @@
       </section>
 
       <!-- 起業部 -->
-      <section class="club-block" id="startup">
+      <section class="club-block" id="startup" aria-labelledby="startup-title">
         <header class="club-header">
-          <img class="club-logo" src="images/logos/logo_startup.jpg" alt="起業部ロゴ" />
+          <img class="club-logo" src="images/logos/logo_startup.jpg" alt="起業部ロゴ" loading="lazy" decoding="async" />
           <div class="club-meta">
-            <h2 class="club-title">起業部</h2>
+            <h2 class="club-title" id="startup-title">起業部</h2>
             <p class="club-desc">
               アイデア検証からピッチまでを伴走。挑戦を称える文化を。
             </p>
@@ -159,25 +191,25 @@
         <ul class="activity-list">
           <li class="activity-card">
             <figure class="activity-media">
-              <img src="images/activities/image_startup_campus_audience.jpg" alt="起業家交流会の写真" />
+              <img src="images/activities/image_startup_campus_audience.jpg" alt="起業家交流会の写真" loading="lazy" decoding="async" />
             </figure>
             <div class="activity-body">
               <span class="badge">Networking</span>
               <h3 class="activity-title">起業家交流会</h3>
               <p class="activity-text">
-                事業づくりの葛藤や意思決定など、生の声を吸収。先輩起業家だけでなく、同年代のコミュニティ・人脈形成にも最適です。
+                事業づくりの葛藤や意思決定など、生の声を吸収。先輩起業家だけでなく、同年代のコミュニティ形成にも最適です。
               </p>
             </div>
           </li>
           <li class="activity-card">
             <figure class="activity-media">
-              <img src="images/activities/image_ideathon.jpg" alt="ビジネスアイデアソンの様子" />
+              <img src="images/activities/image_ideathon.jpg" alt="ビジネスアイデアソンの様子" loading="lazy" decoding="async" />
             </figure>
             <div class="activity-body">
               <span class="badge">Ideathon</span>
               <h3 class="activity-title">ビジネスアイデアソン</h3>
               <p class="activity-text">
-                社会課題やテックをテーマに短期集中で企画→検証。メンターのフィードバックで磨き上げます。実際に事業化した例も。
+                社会課題やテックをテーマに短期集中で企画→検証。メンターのフィードバックで磨き上げ、事業化に挑戦します。
               </p>
             </div>
           </li>
@@ -188,8 +220,24 @@
       <section class="activities-cta">
         <div class="cta-card">
           <h3>まずは見学・体験から</h3>
-          <p>どの活動も、気軽に参加OKです。あなたの成長を促すイベントも、将来への視野を広げてくれるイベントも、きっと見つかります。まずは公式LINE登録から、お気軽にどうぞ。</p>
+          <p>どの活動も気軽に参加OK。あなたの成長を促すイベントも、将来への視野を広げてくれるイベントも、きっと見つかります。まずは公式LINE登録からどうぞ。</p>
           <a class="btn btn-primary" href="contact.html">参加相談する</a>
+        </div>
+      </section>
+
+      <!-- Share CTA（広めてもらう導線） -->
+      <section class="share-cta">
+        <div class="cta-card share-card">
+          <span class="share-eyebrow">Spread</span>
+          <h3>この活動、友だちにも届けよう</h3>
+          <p class="text-muted">気になる人にURLをシェアすると、最新のイベント情報が届きます。</p>
+          <div class="share-buttons">
+            <button class="btn btn-primary" id="btn-webshare">端末でシェア</button>
+            <a class="btn btn-line" id="btn-share-line" href="#" rel="noopener">LINEで送る</a>
+            <a class="btn" id="btn-share-x" href="#" rel="noopener">Xでポスト</a>
+            <button class="btn" id="btn-copy">リンクをコピー</button>
+          </div>
+          <small class="share-note" id="copy-ok" hidden>リンクをコピーしました！</small>
         </div>
       </section>
 
@@ -200,6 +248,6 @@
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js" defer></script>
 </body>
 </html>
