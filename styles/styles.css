@@ -572,7 +572,7 @@ h2 {
   font-size: clamp(3rem, 7vw, 5rem);
   font-weight: 800;
 }
-}
+
 .line-members-unit {
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 600;
