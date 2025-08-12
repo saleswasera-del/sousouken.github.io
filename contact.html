@@ -1,24 +1,50 @@
-<!-- contact.html -->
+<!-- contact.html (optimized) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>早稲田大学総合研究会 | Contact</title>
+  <meta name="description" content="お問い合わせフォームや連絡先（メール・LINE・Instagram）をご案内します。担当より1–2営業日以内にご返信します。" />
 
-  <!-- 既存本文フォント + 見出し用Serif -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <!-- Canonical / OGP -->
+  <link rel="canonical" href="https://saleswasera-del.github.io/sousouken.github.io/contact.html" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="早稲田総合研究会公式HP">
+  <meta property="og:title" content="Contact | 早稲田総合研究会公式HP">
+  <meta property="og:description" content="お問い合わせフォームや連絡先（メール・LINE・Instagram）をご案内します。担当より1–2営業日以内にご返信します。">
+  <meta property="og:url" content="https://saleswasera-del.github.io/sousouken.github.io/contact.html">
+  <meta property="og:image" content="https://saleswasera-del.github.io/sousouken.github.io/images/ogp/ogp_sousouken.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#800000">
 
-  <link rel="stylesheet" href="styles/styles.css" />
+  <!-- Icons -->
+  <link rel="icon" href="images/logos/logo_sousouken.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="images/logos/logo_sousouken.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+
+  <!-- CSS (split) -->
+  <link rel="stylesheet" href="styles/common.css" />
+  <link rel="stylesheet" href="styles/pages/contact.css" />
 </head>
 
 <body data-page="contact">
+  <!-- Skip link -->
+  <a href="#main" class="visually-hidden">本文へスキップ</a>
+
   <header class="site-header">
-    <nav class="navbar container">
+    <nav class="navbar container" aria-label="メインナビゲーション">
       <a href="index.html" class="logo">早稲田総合研究会</a>
-      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
-      <ul class="nav-menu">
+      <button class="hamburger" aria-label="メニュー開閉" aria-expanded="false" aria-controls="primary-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="primary-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="activities.html">Activities</a></li>
@@ -29,7 +55,7 @@
     </nav>
   </header>
 
-  <main class="page contact-page container contact-decor">
+  <main id="main" class="page contact-page container contact-decor">
     <header class="contact-header">
       <span class="contact-eyebrow">Contact</span>
       <h1 class="contact-title">お問い合わせ</h1>
@@ -46,7 +72,7 @@
           <li>Instagram：</li>
           <li><a href="https://www.instagram.com/ai_sousouken" target="_blank" rel="noopener">@ai_sousouken</a></li>
           <li><a href="https://www.instagram.com/startup_sousouken" target="_blank" rel="noopener">@startup_sousouken</a></li>
-          <li><a href="https://www.instagram.com/career_sousouken" target="_blank" rel="noopener">@carrer_sousouken</a></li>
+          <li><a href="https://www.instagram.com/career_sousouken" target="_blank" rel="noopener">@career_sousouken</a></li>
           <li><a href="https://www.instagram.com/media_sousouken" target="_blank" rel="noopener">@media_sousouken</a></li>
         </ul>
         <h3 style="margin-top:18px;">よくある質問</h3>
@@ -80,8 +106,10 @@
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <!-- タイムスタンプ（簡易ボット対策） -->
           <input type="hidden" name="ts" id="ts" />
+          <!-- ページ識別（任意で通知本文に含める） -->
+          <input type="hidden" name="page" value="contact" />
 
-          <div style="display:flex; align-items:center; gap:12px; margin-top:14px;">
+          <div class="form-actions">
             <button type="submit" class="btn btn-primary" id="submitBtn">送信する</button>
             <span class="status" id="form-status" aria-live="polite"></span>
           </div>
@@ -92,68 +120,29 @@
     </section>
   </main>
 
+  <!-- Share CTA（広めてもらう導線） -->
+  <section class="share-cta">
+    <div class="container">
+      <div class="cta-card share-card">
+        <span class="share-eyebrow">Spread</span>
+        <h3>この活動、友だちにも届けよう</h3>
+        <p class="text-muted">気になる人にURLをシェアすると、最新のイベント情報が届きます。</p>
+        <div class="share-buttons">
+          <button class="btn btn-primary" id="btn-webshare">端末でシェア</button>
+          <a class="btn btn-line" id="btn-share-line" href="#" rel="noopener">LINEで送る</a>
+          <a class="btn" id="btn-share-x" href="#" rel="noopener">Xでポスト</a>
+          <button class="btn" id="btn-copy">リンクをコピー</button>
+        </div>
+        <small class="share-note" id="copy-ok" hidden>リンクをコピーしました！</small>
+      </div>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
 
-  <!-- Ajax送信（成功時は thanks ページへ遷移） -->
-  <script>
-    (function () {
-      const form = document.querySelector(".contact-form");
-      if (!form) return;
-
-      const statusEl = document.getElementById("form-status");
-      const submitBtn = document.getElementById("submitBtn");
-      const tsEl = document.getElementById("ts");
-      if (tsEl) tsEl.value = Date.now();
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        if (!form.checkValidity()) {
-          statusEl.textContent = "未入力の項目があります。ご確認ください。";
-          statusEl.className = "status ng";
-          return;
-        }
-
-        submitBtn.disabled = true;
-        statusEl.textContent = "送信中…";
-        statusEl.className = "status";
-
-        try {
-          const res = await fetch(form.action, {
-            method: "POST",
-            headers: { "Accept": "application/json" },
-            body: new FormData(form),
-          });
-
-          if (res.ok) {
-            // ★ 成功時はサンクスページへ
-            window.location.href = "thanks.html";
-            return;
-          } else {
-            const raw = await res.text();
-            let msg = "";
-            try {
-              const j = JSON.parse(raw);
-              msg = j.errors ? j.errors.map(e => e.message).join(" / ") : raw;
-            } catch { msg = raw || "送信に失敗しました。時間をおいて再度お試しください。"; }
-            statusEl.textContent = msg;
-            statusEl.className = "status ng";
-          }
-        } catch (err) {
-          console.error(err);
-          statusEl.textContent = "ネットワークエラーが発生しました。";
-          statusEl.className = "status ng";
-        } finally {
-          submitBtn.disabled = false;
-          if (tsEl) tsEl.value = Date.now();
-        }
-      });
-    })();
-  </script>
-
-  <!-- 既存のナビ開閉など -->
-  <script src="js/script.js"></script>
+  <!-- JS（ナビ開閉 / 共有CTA / フォームAjax / tsセットは js/script.js 側で処理） -->
+  <script src="js/script.js" defer></script>
 </body>
 </html>
