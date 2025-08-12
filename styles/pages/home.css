@@ -1,0 +1,18 @@
+/* ==== pages/home.css ==== */
+/* Hero background */
+.hero--home{ --hero-bg:url('../images/images_hero/image_logo_gray_wide.png'); --hero-overlay:rgba(0,0,0,.30); }
+
+/* MVV background blocks */
+.mvv-hero{position:relative;width:100%;display:grid;place-items:center;text-align:center;background:var(--color-bg);padding:0}
+.mvv-inner{width:100%}
+.mvv-stack{display:flex;flex-direction:column}
+.mvv-item{position:relative;min-height:60vh;display:grid;place-items:center;text-align:center;color:#fff;padding:2rem 1rem}
+.mvv-item::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:0}
+.mvv-item .label,.mvv-item .lead,.mvv-item .sub{position:relative;z-index:1}
+.mvv-item .label{display:block;font-size:clamp(.85rem,1.2vw,1rem);letter-spacing:.22em;margin-bottom:.25rem;opacity:.85}
+.mvv-item .lead{font-weight:800;font-size:clamp(1.8rem,4.8vw,3.25rem);letter-spacing:.02em;line-height:1.2;margin-bottom:.4rem;text-wrap:balance}
+.mvv-item .sub{font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.9;max-width:72ch;margin:0 auto;opacity:.95}
+.mvv-item.mission{background:url('../images/images_hero/syukatusei_wide.png') center/cover no-repeat}
+.mvv-item.vision {background:url('../images/images_hero/buildings_red_wide.png') center/cover no-repeat}
+.mvv-item.value  {background:url('../images/images_hero/improve_wide.png') center/cover no-repeat}
+@media(max-width:600px){.mvv-item{min-height:50vh}.mvv-item .lead{line-height:1.25}}
