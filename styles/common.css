@@ -64,9 +64,65 @@ h2{font-size:2rem;color:var(--color-primary);text-align:center;margin-bottom:2re
 .site-footer{background:#fff;text-align:center;padding:1.5rem 0;color:var(--color-muted);font-size:.9rem}
 
 /* 9. Responsive (nav) */
-@media(max-width:768px){
-  .nav-menu{display:none;flex-direction:column;width:100%;margin-top:1rem}
-  .nav-menu.show{display:flex}
-  .hamburger{display:block;background:none;border:none;cursor:pointer}
-  .hamburger span{display:block;width:25px;height:3px;background:var(--color-text);margin-bottom:4px}
+@media (max-width: 768px) {
+  .representative { flex-direction: column; }
+
+  .navbar { position: relative; }
+  .hamburger { display: block; background: none; border: 1px solid transparent; cursor: pointer; position: relative; z-index: 1001; }
+  .hamburger span { display: block; width: 25px; height: 3px; background: var(--color-text); margin-bottom: 4px; }
+
+  /* ここを変更：右上ポップオーバー化 */
+  .nav-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: min(78vw, 320px);
+    margin: 0;
+    padding: 8px;
+    list-style: none;
+
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+
+    /* 閉じた状態 */
+    opacity: 0;
+    transform: translateY(-6px) scale(.98);
+    transform-origin: top right;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+  }
+  .nav-menu.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-menu li a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  .nav-menu li a:hover,
+  .nav-menu li a.active { background: #fafafa; color: var(--color-primary); }
+
+  /* 背景クリック用オーバーレイ（JSで付け外し） */
+  .nav-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.25);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .18s ease, visibility .18s ease;
+    z-index: 900;
+  }
+  .nav-backdrop.show { opacity: 1; visibility: visible; pointer-events: auto; }
 }
