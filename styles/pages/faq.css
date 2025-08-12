@@ -1,0 +1,28 @@
+/* ==== pages/faq.css ==== */
+.hero--faq{ --hero-bg:url('../images/images_hero/image_logo_gray_wide.png'); --hero-overlay:rgba(0,0,0,.35); }
+
+.faq-main{padding-bottom:4rem}
+.faq-wrap{margin-top:2rem}
+.faq-tools{display:grid;gap:12px;margin-bottom:14px}
+.faq-search{width:100%;padding:12px 14px;border:1px solid #e6e6e9;border-radius:12px;font-family:var(--font-main);transition:border-color var(--transition),box-shadow var(--transition)}
+.faq-search:focus{outline:none;border-color:rgba(128,0,0,.35);box-shadow:0 0 0 4px rgba(128,0,0,.08)}
+.faq-tags{display:flex;gap:8px;flex-wrap:wrap}
+
+.faq-accordion{display:grid;gap:10px}
+.faq-item{background:#fff;border:1px solid #eee;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.04);transition:box-shadow .25s ease,border-color .25s ease}
+.faq-item.open{border-color:rgba(128,0,0,.22);box-shadow:0 10px 30px rgba(128,0,0,.08)}
+
+.faq-q{all:unset;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;width:100%;cursor:pointer;padding:16px 16px}
+.q-badge{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:rgba(128,0,0,.1);color:var(--color-primary);font-weight:800;font-size:.85rem}
+.faq-q .chev{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;opacity:.7;transition:transform .25s ease,opacity .2s ease}
+.faq-item.open .chev{transform:rotate(180deg);opacity:1}
+
+.faq-a{border-top:1px dashed #eee;padding:0 16px;max-height:0;overflow:hidden;opacity:0;transition:max-height .32s ease,opacity .25s ease,padding .25s ease}
+.faq-item.open .faq-a{padding:12px 16px 16px;opacity:1;max-height:1000px}
+.faq-a p,.faq-a ul{color:var(--color-muted)}
+.faq-a ul{padding-left:1.1rem}
+
+.faq-cta{text-align:center;margin-top:22px}
+.faq-cta p{color:var(--color-muted);margin-bottom:.6rem}
+
+@media(min-width:720px){.faq-tools{grid-template-columns:1fr auto;align-items:center}}
