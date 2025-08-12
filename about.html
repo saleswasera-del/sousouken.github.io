@@ -1,20 +1,32 @@
-<!-- about.html -->
+<!-- about.html (refined) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>早稲田大学総合研究会 | About</title>
+  <meta name="description" content="早稲田大学総合研究会の概要や代表挨拶、活動方針（VISION / MISSION / VALUE）をご紹介します。" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles/styles.css" />
+
+  <!-- CSS (split) -->
+  <link rel="stylesheet" href="styles/common.css" />
+  <link rel="stylesheet" href="styles/pages/about.css" />
 </head>
 <body data-page="about">
+  <!-- Skip link -->
+  <a href="#main" class="visually-hidden">本文へスキップ</a>
+
   <header class="site-header">
-    <nav class="navbar container">
-      <a href="index.html" class="logo">早稲田総合研究会
-</a>
-      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
-      <ul class="nav-menu">
+    <nav class="navbar container" aria-label="メインナビゲーション">
+      <a href="index.html" class="logo">早稲田総合研究会</a>
+      <button class="hamburger" aria-label="メニュー開閉" aria-expanded="false" aria-controls="primary-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="primary-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html" class="active" aria-current="page">About</a></li>
         <li><a href="activities.html">Activities</a></li>
@@ -25,26 +37,27 @@
     </nav>
   </header>
   
-<section class="vmv-section container">
-  <div class="vmv-card">
-    <h3 class="vmv-title">VISION</h3>
-    <p class="vmv-text">社会と繋がり、スキルを身につけ、視野を広げる場所</p>
-  </div>
-  <div class="vmv-card">
-    <h3 class="vmv-title">MISSION</h3>
-    <p class="vmv-text">就活のための就活をなくす</p>
-  </div>
-  <div class="vmv-card">
-    <h3 class="vmv-title">VALUE</h3>
-    <p class="vmv-text">「やってみよう」を尊重する</p>
-  </div>
-</section>
+  <!-- VMV cards -->
+  <section class="vmv-section container" aria-label="VISION / MISSION / VALUE">
+    <div class="vmv-card">
+      <h3 class="vmv-title">VISION</h3>
+      <p class="vmv-text">社会と繋がり、スキルを身につけ、視野を広げる場所</p>
+    </div>
+    <div class="vmv-card">
+      <h3 class="vmv-title">MISSION</h3>
+      <p class="vmv-text">就活のための就活をなくす</p>
+    </div>
+    <div class="vmv-card">
+      <h3 class="vmv-title">VALUE</h3>
+      <p class="vmv-text">「やってみよう」を尊重する</p>
+    </div>
+  </section>
 
-  <main class="page about-page container">
+  <main id="main" class="page about-page container">
     <h2>About 早稲田大学総合研究会</h2>
     <div class="about-wrap">
       <div class="about-text">
-        <h3>代表挨拶</h3>
+        <h3 id="greeting">代表挨拶</h3>
         <section aria-labelledby="greeting">
           <p>
             「就活のための就活」を超えて、本質的に成長できる場を。<br>
@@ -52,19 +65,19 @@
             その過程を自分の物語として積み重ねていけるコミュニティです。<br><br>
           </p>
 
-          <h5> 1. 就活のための就活とは？</h5>
+          <h4>1. 就活のための就活とは？</h4>
           <p>
             短期インターンを例にとって説明します。<br>
             数日間という限られた時間でも、多くの刺激や学びを得られる場です。<br>
             しかし、全体像がつかめないまま終わってしまったり、<br>
             模擬課題中心で実務のイメージが湧かなかったり、<br>
             評価の理由が見えず納得しづらい場面に出くわすことも少なくありません。<br>
-            私たちは、こうした<br>
-            <strong>経験が自分の成長や納得感につながらず、形だけになってしまう活動</strong><br>
+            私たちは、こうした
+            <strong>経験が自分の成長や納得感につながらず、形だけになってしまう活動</strong>
             を、<em>就活のための就活</em>と呼んでいます。<br><br>
           </p>
 
-          <h5>2. 本質的な成長を生むために</h5>
+          <h4>2. 本質的な成長を生むために</h4>
           <p>
             成長につながる経験には、目的や興味に沿っていることはもちろんですが、<br>
             それに加えて、実環境に触れられること、新しい知識や人脈を得られること、<br>
@@ -72,7 +85,7 @@
             早稲田大学総合研究会では、これらの条件が自然にそろう環境をデザインしています。<br><br>
           </p>
 
-          <h5>3. 早総研にできること</h5>
+          <h4>3. 早総研にできること</h4>
           <p>
             皆さん、アパレルブランドの「BEAMS」をご存じでしょうか。<br>
             BEAMSはセレクトショップとして、多様なブランドやスタイルを独自の視点で選び抜き、<br>
@@ -85,34 +98,40 @@
             あなたの次の一歩が、きっとここで見つかるはずです。<br><br>
           </p>
 
-          <h5>4. 最後に</h5>
+          <h4>4. 最後に</h4>
           <p>
             ここで得られるのは、表層的な経験値ではなく、自分の血肉となる物語です。<br>
             まずは僕たちのSNSからイベント情報をキャッチして<br>
             能動的にチャンスを掴む力を、一緒に鍛えていきましょう！<br><br>
           </p>
-          <p class="signature">早稲田大学総合研究会 代表　安冨 （2025年8月）<br></p>
+          <p class="signature">早稲田大学総合研究会 代表　安冨 （2025年8月）</p>
         </section>
 
         <h3>団体概要</h3>
-        <ul class="stats">
+        <ul class="stats" aria-label="基本情報">
           <li><strong>172名</strong><span>会員数</span></li>
           <li><strong>4大学</strong><span>参加大学</span></li>
           <li><strong>毎週木曜日</strong><span>定例MTG</span></li>
           <li><strong>0円</strong><span>年会費</span></li>
-          <br><br><br>
         </ul>
       </div>
-      <div class="about-image">
-        <img src="images/image_linkedin.jfif" alt="新入生歓迎会@Microsoft品川本社（2025年4月）" />
-        <p>新入生歓迎会@Microsoft品川本社（2025年4月）</p>
-      </div>
+
+      <figure class="about-image">
+        <img
+          src="images/image_linkedin.jfif"
+          alt="新入生歓迎会@Microsoft品川本社（2025年4月）"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>新入生歓迎会@Microsoft品川本社（2025年4月）</figcaption>
+      </figure>
     </div>
   </main>
 
   <footer class="site-footer">
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
-  <script src="js/script.js"></script>
+
+  <script src="js/script.js" defer></script>
 </body>
 </html>
