@@ -1,19 +1,51 @@
-<!-- faq.html -->
+<!-- faq.html (optimized) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>早稲田大学総合研究会 | FAQ</title>
+  <meta name="description" content="早稲田大学総合研究会のよくある質問（参加可否、活動頻度、費用、他大学参加、オンライン対応など）と回答を掲載しています。" />
+
+  <!-- Canonical / OGP -->
+  <link rel="canonical" href="https://saleswasera-del.github.io/sousouken.github.io/faq.html" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="早稲田総合研究会公式HP">
+  <meta property="og:title" content="FAQ | 早稲田総合研究会公式HP">
+  <meta property="og:description" content="参加可否、活動頻度、費用、他大学参加、オンライン対応などのよくある質問をまとめました。">
+  <meta property="og:url" content="https://saleswasera-del.github.io/sousouken.github.io/faq.html">
+  <meta property="og:image" content="https://saleswasera-del.github.io/sousouken.github.io/images/ogp/ogp_sousouken.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#800000">
+
+  <!-- Icons -->
+  <link rel="icon" href="images/logos/logo_sousouken.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="images/logos/logo_sousouken.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles/styles.css" />
+
+  <!-- CSS (split) -->
+  <link rel="stylesheet" href="styles/common.css" />
+  <link rel="stylesheet" href="styles/pages/faq.css" />
+
+  <!-- Preload hero background -->
+  <link rel="preload" as="image" href="images/images_hero/image_logo_gray_wide.png" />
 </head>
 <body data-page="faq">
+  <!-- Skip link -->
+  <a href="#main" class="visually-hidden">本文へスキップ</a>
+
   <header class="site-header">
     <nav class="navbar container" aria-label="メインナビゲーション">
       <a href="index.html" class="logo">早稲田総合研究会</a>
-      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
-      <ul class="nav-menu">
+      <button class="hamburger" aria-label="メニュー開閉" aria-expanded="false" aria-controls="primary-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="primary-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="activities.html">Activities</a></li>
@@ -24,20 +56,21 @@
     </nav>
   </header>
 
-  <main class="faq-main">
-    <section class="hero hero--faq">
+  <main id="main" class="faq-main">
+    <!-- Hero -->
+    <section class="hero hero--faq" aria-label="FAQメインビジュアル">
       <div class="hero-inner container">
-        <p class="sub">早稲田総合研究会 </p>
+        <p class="sub">早稲田総合研究会</p>
         <h1>FAQ</h1>
         <p class="sub">よくある質問と回答。困ったらまずはこちらをチェック。</p>
       </div>
     </section>
 
-    <section class="container faq-wrap">
-      <!-- 検索 -->
+    <section class="container faq-wrap" aria-label="FAQ一覧">
+      <!-- 検索 / タグ -->
       <div class="faq-tools">
         <input type="search" class="faq-search" placeholder="キーワードで検索（例：兼サー、他大学、会費…）" aria-label="FAQを検索">
-        <div class="faq-tags" aria-label="クイックフィルター">
+        <div class="faq-tags" role="list" aria-label="クイックフィルター">
           <button class="faq-tag" data-tag="参加">参加</button>
           <button class="faq-tag" data-tag="活動">活動</button>
           <button class="faq-tag" data-tag="費用">費用</button>
@@ -47,7 +80,6 @@
 
       <!-- アコーディオン -->
       <div class="faq-accordion" id="faqAccordion">
-        <!-- 既存Q&A（充実版に書き換え） -->
         <div class="faq-item" data-keywords="参加 兼サー 掛け持ち">
           <button class="faq-q" aria-expanded="false" aria-controls="faq1" id="q-faq1">
             <span class="q-badge">Q</span> 兼サーは可能ですか？
@@ -88,7 +120,6 @@
           </div>
         </div>
 
-        <!-- 追加Q&A（充実化） -->
         <div class="faq-item" data-keywords="費用 会費 年会費">
           <button class="faq-q" aria-expanded="false" aria-controls="faq5" id="q-faq5">
             <span class="q-badge">Q</span> 会費はかかりますか？
@@ -133,7 +164,6 @@
             </ul>
           </div>
         </div>
-
       </div>
 
       <!-- 追い込みCTA -->
@@ -144,90 +174,29 @@
     </section>
   </main>
 
+  <!-- Share CTA（広めてもらう導線） -->
+  <section class="share-cta">
+    <div class="container">
+      <div class="cta-card share-card">
+        <span class="share-eyebrow">Spread</span>
+        <h3>この活動、友だちにも届けよう</h3>
+        <p class="text-muted">気になる人にURLをシェアすると、最新のイベント情報が届きます。</p>
+        <div class="share-buttons">
+          <button class="btn btn-primary" id="btn-webshare">端末でシェア</button>
+          <a class="btn btn-line" id="btn-share-line" href="#" rel="noopener">LINEで送る</a>
+          <a class="btn" id="btn-share-x" href="#" rel="noopener">Xでポスト</a>
+          <button class="btn" id="btn-copy">リンクをコピー</button>
+        </div>
+        <small class="share-note" id="copy-ok" hidden>リンクをコピーしました！</small>
+      </div>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
 
-  <script src="js/script.js"></script>
- <script>
-  // --- FAQ アコーディオン & 検索（見切れない実寸アニメ） ---
-  (function(){
-    const items   = Array.from(document.querySelectorAll('.faq-item'));
-    const buttons = document.querySelectorAll('.faq-q');
-    const search  = document.querySelector('.faq-search');
-    const tags    = document.querySelectorAll('.faq-tag');
-
-    // 開く：実寸にセット→アニメ後 auto に
-    function openPanel(panel, item, btn) {
-      item.classList.add('open');
-      btn.setAttribute('aria-expanded', 'true');
-      panel.style.maxHeight = panel.scrollHeight + 'px';
-      const onEnd = (e) => {
-        if (e.propertyName !== 'max-height') return;
-        panel.style.maxHeight = 'none';           // これで見切れなくなる
-        panel.removeEventListener('transitionend', onEnd);
-      };
-      panel.addEventListener('transitionend', onEnd);
-    }
-
-    // 閉じる：auto → 実寸 → 0 にしてアニメ
-    function closePanel(panel, item, btn) {
-      btn.setAttribute('aria-expanded', 'false');
-      if (getComputedStyle(panel).maxHeight === 'none') {
-        panel.style.maxHeight = panel.scrollHeight + 'px';
-        // reflow
-        void panel.offsetHeight;
-      }
-      item.classList.remove('open');
-      panel.style.maxHeight = '0px';
-    }
-
-    // トグル
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item  = btn.closest('.faq-item');
-        const panel = item.querySelector('.faq-a');
-        const isOpen = item.classList.contains('open');
-        isOpen ? closePanel(panel, item, btn) : openPanel(panel, item, btn);
-      });
-    });
-
-    // 検索フィルタ
-    const filter = (q) => {
-      const keyword = (q || '').trim().toLowerCase();
-      items.forEach(it => {
-        const text = it.textContent.toLowerCase() + ' ' + (it.dataset.keywords || '').toLowerCase();
-        it.style.display = text.includes(keyword) ? '' : 'none';
-      });
-      // 表示切替後の高さを再計測
-      recalcOpenHeights();
-    };
-    if (search) search.addEventListener('input', e => filter(e.target.value));
-
-    // タグフィルタ
-    tags.forEach(tag => {
-      tag.addEventListener('click', () => {
-        const word = tag.dataset.tag || '';
-        search.value = word;
-        filter(word);
-      });
-    });
-
-    // リサイズ時に開いているものを再計測（レスポンシブでも見切れない）
-    function recalcOpenHeights() {
-      items.forEach(it => {
-        if (!it.classList.contains('open')) return;
-        const panel = it.querySelector('.faq-a');
-        panel.style.maxHeight = 'none';                       // 一旦自然高さ
-        const h = panel.scrollHeight;
-        panel.style.maxHeight = h + 'px';                     // 次回のために更新
-        // すぐ auto に戻す（アニメ不要のときは直接autoでOK）
-        requestAnimationFrame(() => { panel.style.maxHeight = 'none'; });
-      });
-    }
-    window.addEventListener('resize', recalcOpenHeights);
-  })();
-</script>
-
+  <!-- JS（ナビ開閉 / FAQアコーディオン / 検索 / 共有CTA は script.js に実装済み想定） -->
+  <script src="js/script.js" defer></script>
 </body>
 </html>
