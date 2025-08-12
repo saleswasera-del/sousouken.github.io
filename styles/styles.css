@@ -231,7 +231,7 @@ h2 {
 .mvv-item .lead { font-weight: 800; font-size: clamp(1.8rem, 4.8vw, 3.25rem); letter-spacing: .02em; line-height: 1.2; margin-bottom: .4rem; text-wrap: balance; }
 .mvv-item .sub { font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.9; max-width: 72ch; margin: 0 auto; opacity: .95; }
 .mvv-item.mission { background: url('../images/images_hero/syukatusei_wide.png') center/cover no-repeat; }
-.mvv-item.vision  { background: url('../images/images_hero/building_wide.png') center/cover no-repeat; }
+.mvv-item.vision  { background: url('../images/images_hero/buildings_red_wide.png') center/cover no-repeat; }
 .mvv-item.value   { background: url('../images/images_hero/improve_wide.png') center/cover no-repeat; }
 @media (max-width: 600px) {
   .mvv-item { min-height: 50vh; }
