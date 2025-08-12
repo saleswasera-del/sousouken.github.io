@@ -1,20 +1,39 @@
-<!-- index.html -->
+<!-- index.html (refined) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>早稲田大学総合研究会 | Home</title>
+  <meta name="description" content="早稲田大学総合研究会は、産学連携・メディア発信・起業・AI・キャリア研究などを通じて、学生に実践と挑戦の機会を提供するインカレ団体です。" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles/styles.css" />
+
+  <!-- CSS (split) -->
+  <link rel="stylesheet" href="styles/common.css" />
+  <link rel="stylesheet" href="styles/pages/home.css" />
+
+  <!-- Preload key hero images (CSS backgrounds) -->
+  <link rel="preload" as="image" href="images/images_hero/image_logo_gray_wide.png" />
+  <link rel="preload" as="image" href="images/images_hero/syukatusei_wide.png" />
+  <link rel="preload" as="image" href="images/images_hero/buildings_red_wide.png" />
+  <link rel="preload" as="image" href="images/images_hero/improve_wide.png" />
 </head>
 <body data-page="home">
+  <!-- Skip link -->
+  <a href="#main" class="visually-hidden">本文へスキップ</a>
+
   <!-- Header -->
   <header class="site-header">
     <nav class="navbar container" aria-label="メインナビゲーション">
       <a href="index.html" class="logo">早稲田総合研究会</a>
-      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
-      <ul class="nav-menu">
+      <button class="hamburger" aria-label="メニュー開閉" aria-expanded="false" aria-controls="primary-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="primary-menu">
         <li><a href="index.html" class="active" aria-current="page">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="activities.html">Activities</a></li>
@@ -25,65 +44,67 @@
     </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="hero hero--home">
-    <div class="hero-inner container">
-      <p class="sub">Growth & Experience Network </p>
-      <h1>早稲田総合研究会</h1>
-      <p class="sub">だれもが成長と経験の機会を得られるインカレ団体を目指して</p>
-      <div class="hero-buttons">
-        <a href="about.html" class="btn btn-primary">About</a>
-        <a href="activities.html" class="btn btn-outline">Activities</a>
-        <a href="members.html" class="btn btn-outline">Members</a>
-        <a href="faq.html" class="btn btn-outline">FAQ</a>
-        <a href="contact.html" class="btn btn-outline">Contact</a>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero hero--home" aria-label="メインビジュアル">
+      <div class="hero-inner container">
+        <p class="sub">Growth & Experience Network</p>
+        <h1>早稲田総合研究会</h1>
+        <p class="sub">だれもが成長と経験の機会を得られるインカレ団体を目指して</p>
+        <div class="hero-buttons">
+          <a href="about.html" class="btn btn-primary">About</a>
+          <a href="activities.html" class="btn btn-outline">Activities</a>
+          <a href="members.html" class="btn btn-outline">Members</a>
+          <a href="faq.html" class="btn btn-outline">FAQ</a>
+          <a href="contact.html" class="btn btn-outline">Contact</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- MVV Hero (各ブロックに背景画像) -->
-  <section class="mvv-hero">
-    <div class="mvv-inner">
-      <div class="mvv-stack">
+    <!-- MVV Hero (各ブロックに背景画像) -->
+    <section class="mvv-hero" aria-label="Mission, Vision, Value">
+      <div class="mvv-inner">
+        <div class="mvv-stack">
 
-        <!-- Mission -->
-        <div class="mvv-item mission">
-          <span class="label">MISSION</span>
-          <div class="lead">就活のための就活をやめる</div>
-          <div class="sub">
-            早総研は、肩書きづくりのためだけの活動を手放し、<b>日常の学びと実践</b>で成長する文化を広げます。
-            学外プロジェクトや共創の場を通じて、つくり手として社会に触れる機会を提供します。
+          <!-- Mission -->
+          <div class="mvv-item mission">
+            <span class="label">MISSION</span>
+            <div class="lead">就活のための就活をやめる</div>
+            <div class="sub">
+              早総研は、肩書きづくりのためだけの活動を手放し、<b>日常の学びと実践</b>で成長する文化を広げます。
+              学外プロジェクトや共創の場を通じて、つくり手として社会に触れる機会を提供します。
+            </div>
           </div>
-        </div>
 
-        <!-- Vision -->
-        <div class="mvv-item vision">
-          <span class="label">VISION</span>
-          <div class="lead">社会と繋がり、スキルを身につけ、視野を広げる場所</div>
-          <div class="sub">
-            早総研は、<b>産学連携プロジェクト</b>、<b>メディア発信</b>、<b>起業・AI・キャリア研究</b>などの活動を通して、
-            学生に<b>実践・挑戦・越境協働</b>の機会を提供しています。
+          <!-- Vision -->
+          <div class="mvv-item vision">
+            <span class="label">VISION</span>
+            <div class="lead">社会と繋がり、スキルを身につけ、視野を広げる場所</div>
+            <div class="sub">
+              早総研は、<b>産学連携プロジェクト</b>、<b>メディア発信</b>、<b>起業・AI・キャリア研究</b>などの活動を通して、
+              学生に<b>実践・挑戦・越境協働</b>の機会を提供しています。
+            </div>
           </div>
-        </div>
 
-        <!-- Value -->
-        <div class="mvv-item value">
-          <span class="label">VALUE</span>
-          <div class="lead">「やってみよう」を尊重する</div>
-          <div class="sub">
-            小さく始めて早く学ぶ。挑戦そのものを称える。学年や大学・分野を越えてコラボし、知見をオープンにシェアする。
+          <!-- Value -->
+          <div class="mvv-item value">
+            <span class="label">VALUE</span>
+            <div class="lead">「やってみよう」を尊重する</div>
+            <div class="sub">
+              小さく始めて早く学ぶ。挑戦そのものを称える。学年や大学・分野を越えてコラボし、知見をオープンにシェアする。
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer class="site-footer">
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js" defer></script>
 </body>
 </html>
