@@ -254,7 +254,9 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  margin: 4rem 0;
+  margin: 4rem auto;
+  max-width: 1000px;
+  justify-content: center; /* カード中央寄せ */
 }
 .vmv-card {
   background: #fff;
@@ -396,11 +398,7 @@ h2 {
 /*-----------------------------------
   6. About セクション（補助）
 -----------------------------------*/
-.vmv-section {
-  margin: 4rem auto;
-  max-width: 1000px; /* 中央に固定幅 */
-  justify-content: center; /* カード中央寄せ */
-}
+
 .about-wrap {
   display: flex;
   flex-direction: column;
