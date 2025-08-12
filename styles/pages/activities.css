@@ -1,0 +1,29 @@
+/* ==== pages/activities.css ==== */
+.hero--activities{ --hero-bg:url('../images/images_hero/image_logo_gray_wide.png'); --hero-overlay:rgba(0,0,0,.35); }
+.activities-main{padding:3rem 0 4rem}
+
+/* Blocks */
+.card-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card img{width:100%;height:auto}
+.card h3{margin:1rem 0 .5rem;color:var(--color-primary)}
+.card p{padding:0 1rem 1rem;color:var(--color-muted)}
+
+.club-block{background:#fff;border:1px solid #eee;border-radius:16px;padding:clamp(20px,3vw,32px);margin:0 auto 2rem;box-shadow:0 8px 28px rgba(0,0,0,.05)}
+.club-header{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;margin-bottom:1rem}
+.club-logo{width:60px;height:60px;object-fit:contain;border-radius:12px;background:#f7f7f8;border:1px solid #eee}
+.club-title{font-size:1.5rem;line-height:1.2;color:var(--color-primary);margin-bottom:.25rem}
+.club-desc{color:var(--color-muted)}
+
+.activity-list{list-style:none;display:grid;gap:18px;margin-top:14px}
+.activity-card{display:grid;grid-template-columns:1fr;gap:0;background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eee}
+.activity-media{position:relative;aspect-ratio:16 / 9;background:#f2f2f3}
+.activity-media img{width:100%;height:100%;object-fit:cover;display:block}
+.activity-body{padding:14px 16px 18px}
+.activity-title{font-size:1.2rem;margin:6px 0 6px;color:#2d2f31}
+.activity-text{color:var(--color-muted)}
+.activities-cta{margin-top:2.5rem}
+.cta-card h3{font-size:1.4rem;margin-bottom:.5rem;color:var(--color-primary)}
+.cta-card p{color:var(--color-muted);margin-bottom:1rem}
+
+@media(min-width:860px){.activity-card{grid-template-columns:5fr 6fr}.activity-body{padding:18px 22px}}
+@media(max-width:480px){.club-header{grid-template-columns:1fr;text-align:center}.club-logo{margin:0 auto}}
