@@ -1,34 +1,60 @@
+<!-- thanks.html (optimized) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>早稲田大学総合研究会 | Thank You</title>
+  <meta name="description" content="お問い合わせありがとうございました。担当より1–2営業日以内にご連絡します。" />
 
-  <!-- 既存フォント + 見出し用に上品なSerifを追加 -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <!-- Canonical / OGP -->
+  <link rel="canonical" href="https://saleswasera-del.github.io/sousouken.github.io/thanks.html" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="早稲田総合研究会公式HP">
+  <meta property="og:title" content="Thank You | 早稲田総合研究会公式HP">
+  <meta property="og:description" content="お問い合わせありがとうございました。担当より1–2営業日以内にご連絡します。">
+  <meta property="og:url" content="https://saleswasera-del.github.io/sousouken.github.io/thanks.html">
+  <meta property="og:image" content="https://saleswasera-del.github.io/sousouken.github.io/images/ogp/ogp_sousouken.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#800000">
 
-  <link rel="stylesheet" href="styles/styles.css" />
+  <!-- Icons -->
+  <link rel="icon" href="images/logos/logo_sousouken.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="images/logos/logo_sousouken.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+  <!-- CSS (split) -->
+  <link rel="stylesheet" href="styles/common.css" />
+  <link rel="stylesheet" href="styles/pages/thanks.css" />
 </head>
 <body class="thanks-body" data-page="thanks">
-  <!-- 既存ヘッダー（そのままコピペでOK） -->
+  <!-- Skip link -->
+  <a href="#main" class="visually-hidden">本文へスキップ</a>
+
   <header class="site-header">
-    <nav class="navbar container">
-      <a href="index.html" class="logo">早総研</a>
-      <button class="hamburger" aria-label="メニュー開閉"><span></span><span></span><span></span></button>
-      <ul class="nav-menu">
+    <nav class="navbar container" aria-label="メインナビゲーション">
+      <a href="index.html" class="logo">早稲田総合研究会</a>
+      <button class="hamburger" aria-label="メニュー開閉" aria-expanded="false" aria-controls="primary-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="primary-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="activities.html">Activities</a></li>
         <li><a href="members.html">Members</a></li>
         <li><a href="faq.html">FAQ</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="thanks-hero container" role="main">
+  <main id="main" class="thanks-hero container" role="main">
     <!-- 背景の柔らかい装飾 -->
     <div class="thanks-bg" aria-hidden="true"></div>
 
@@ -48,7 +74,7 @@
     <div class="thankyou-actions">
       <a class="btn btn-primary btn-large" href="index.html" aria-label="ホームに戻る">ホームに戻る</a>
       <a class="btn btn-ghost" href="faq.html">よくある質問</a>
-      <a class="btn btn-ghost" href="contact.html">contact</a>
+      <a class="btn btn-ghost" href="contact.html">Contact</a>
     </div>
 
     <!-- 祝福のきらめき（控えめなコンフェッティ） -->
@@ -59,7 +85,7 @@
     <p>&copy; 2025 早稲田大学総合研究会</p>
   </footer>
 
-  <!-- 既存JS（ナビの開閉など） -->
-  <script src="js/script.js"></script>
+  <!-- JS -->
+  <script src="js/script.js" defer></script>
 </body>
 </html>
