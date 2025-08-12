@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles/styles.css" />
 </head>
-<body>
+<body data-page="members">
   <header class="site-header">
     <nav class="navbar container">
       <a href="index.html" class="logo">早稲田総合研究会</a>
@@ -17,7 +17,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="activities.html">Activities</a></li>
-        <li><a href="members.html" class="active">Members</a></li>
+        <li><a href="members.html" class="active" aria-current="page">Members</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -47,16 +47,14 @@
 <section class="line-members">
   <div class="line-members-inner container">
     <h3>公式LINE登録者数</h3>
-    <span id="line-member-count" class="line-members-count">0</span>
-    <span class="line-members-unit">名</span>
-</section>
-<section>
+    <div class="line-count-wrapper">
+      <span id="line-member-count" class="line-members-count">0</span>
+      <span class="line-members-unit">名</span>
+    </div>
     <!-- QRコード & 登録ボタン -->
     <div class="line-cta">
       <img src="images/members/line_QR_sousouken_official.png" alt="公式LINE QRコード" class="line-qr" />
-      <a href="https://line.me/R/ti/p/@644ocnlx" target="_blank" rel="noopener noreferrer" class="btn btn-line">
-        登録はこちら
-      </a>
+      <a href="https://line.me/R/ti/p/@644ocnlx" target="_blank" rel="noopener noreferrer" class="btn btn-line">登録はこちら</a>
     </div>
   </div>
 </section>
