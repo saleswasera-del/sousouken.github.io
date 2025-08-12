@@ -100,3 +100,35 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(tick);
   }
 });
+// --- Stats count-up on about page (optional) ---
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.body.dataset.page !== 'about') return;
+
+  const nums = Array.from(document.querySelectorAll('.stats-cards .num[data-target]'));
+  if (!nums.length) return;
+
+  const easeOut = t => 1 - Math.pow(1 - t, 3); // smooth cubic
+  const animate = (el, target, dur = 1200) => {
+    const start = performance.now();
+    const from = 0;
+    const to = Number(target);
+
+    const tick = now => {
+      const p = Math.min((now - start) / dur, 1);
+      const v = Math.round(from + (to - from) * easeOut(p));
+      el.textContent = v.toLocaleString();
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const once = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      nums.forEach(el => animate(el, el.dataset.target));
+      obs.disconnect();
+    });
+  }, { threshold: 0.3 });
+
+  once.observe(document.querySelector('.stats-cards'));
+});
