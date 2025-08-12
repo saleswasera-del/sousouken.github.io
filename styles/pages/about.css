@@ -119,3 +119,78 @@
   color:var(--color-muted);
   font-size:.95rem;
 }
+
+/* ===== Stats compact cards ===== */
+.stats-cards { margin-top: 1rem; }
+.stat-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+}
+.stat-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.05);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.08);
+  border-color: #e6e6e6;
+}
+
+/* icon pill */
+.stat-icon {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  background: rgba(128,0,0,.08);
+  border: 1px solid rgba(128,0,0,.12);
+  box-shadow: 0 2px 6px rgba(0,0,0,.05);
+}
+.stat-icon svg { width: 22px; height: 22px; fill: var(--color-primary); opacity: .9; }
+
+/* numbers */
+.stat-meta { min-width: 0; }
+.stat-value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 1;
+}
+.stat-value .num {
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3.8vw, 2rem);
+  color: var(--color-primary);
+  letter-spacing: .02em;
+}
+.stat-value .unit, .stat-value .text {
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: clamp(1rem, 2.2vw, 1.05rem);
+}
+.stat-label {
+  color: var(--color-muted);
+  margin-top: 4px;
+  font-size: .95rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* small screens */
+@media (max-width: 420px) {
+  .stat-card { grid-template-columns: 40px 1fr; padding: 12px 12px; }
+  .stat-icon { width: 40px; height: 40px; border-radius: 10px; }
+}
+
