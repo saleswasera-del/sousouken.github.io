@@ -167,11 +167,11 @@ button:focus-visible,
 .hero-buttons .btn { margin: 0 0.5rem; }
 
 /* 各ページの差分（背景/オーバーレイ） */
-.hero--home       { --hero-bg: url('../images/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.30); }
-.hero--about      { --hero-bg: url('../images/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.25); }
+.hero--home       { --hero-bg: url('../images/images_hero/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.30); }
+.hero--about      { --hero-bg: url('../images/images_hero/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.25); }
 .hero--members    { --hero-bg: url('../images/members/members_hero.png'); --hero-overlay: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35)); }
-.hero--activities { --hero-bg: url('../images/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.35); }
-.hero--faq        { --hero-bg: url('../images/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.35); }
+.hero--activities { --hero-bg: url('../images/images_hero/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.35); }
+.hero--faq        { --hero-bg: url('../images/images_hero/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.35); }
 
 /*-----------------------------------
   6. セクション共通スタイル
@@ -230,9 +230,9 @@ h2 {
 .mvv-item .label { display: block; font-size: clamp(.85rem, 1.2vw, 1rem); letter-spacing: .22em; margin-bottom: .25rem; opacity: .85; }
 .mvv-item .lead { font-weight: 800; font-size: clamp(1.8rem, 4.8vw, 3.25rem); letter-spacing: .02em; line-height: 1.2; margin-bottom: .4rem; text-wrap: balance; }
 .mvv-item .sub { font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.9; max-width: 72ch; margin: 0 auto; opacity: .95; }
-.mvv-item.mission { background: url('../images/syukatusei_wide.png') center/cover no-repeat; }
-.mvv-item.vision  { background: url('../images/building_wide.png') center/cover no-repeat; }
-.mvv-item.value   { background: url('../images/improve_wide.png') center/cover no-repeat; }
+.mvv-item.mission { background: url('../images/images_hero/syukatusei_wide.png') center/cover no-repeat; }
+.mvv-item.vision  { background: url('../images/images_hero/building_wide.png') center/cover no-repeat; }
+.mvv-item.value   { background: url('../images/images_hero/improve_wide.png') center/cover no-repeat; }
 @media (max-width: 600px) {
   .mvv-item { min-height: 50vh; }
   .mvv-item .lead { line-height: 1.25; }
