@@ -1379,4 +1379,52 @@ body[data-page="contact"] .form-title .dot {
   background: var(--contact-primary);
 }
 
+/* ========== components: cards & chips (unify without HTML change) ========== */
+.card,
+.card--member,
+.cta-card,
+.club-block {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.card:hover,
+.card--member:hover,
+.cta-card:hover,
+.club-block:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* チップ（.badge と .faq-tag を近づける） */
+.badge,
+.faq-tag {
+  display: inline-block;
+  font-size: .85rem;
+  letter-spacing: .03em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #eee;
+  background: #fff;
+  color: var(--color-text);
+}
+.badge {
+  /* 既存のえんじ寄せバッジ感を維持 */
+  background: rgba(128,0,0,.08);
+  color: var(--color-primary);
+  border-color: rgba(128,0,0,.15);
+}
+.faq-tag {
+  cursor: pointer;
+  transition: transform .15s ease, background var(--transition), border-color var(--transition);
+}
+.faq-tag:hover {
+  transform: translateY(-1px);
+  background: #fafafa;
+  border-color: #e2e2e2;
+}
+
 ```
