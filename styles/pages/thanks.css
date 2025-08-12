@@ -1,0 +1,35 @@
+/* ==== pages/thanks.css ==== */
+.thanks-body{
+  background:
+    radial-gradient(1100px 620px at 82% -8%, rgba(128,0,0,.07), transparent 62%),
+    radial-gradient(900px 520px at -6% 18%, rgba(165,42,42,.06), transparent 66%),
+    linear-gradient(180deg,#ffffff 0%,#ffffff 100%);
+  color:var(--color-text)
+}
+.thanks-hero{position:relative;text-align:center;padding:clamp(64px,8vw,120px) 16px;min-height:calc(100svh - 160px);display:grid;place-items:center;gap:24px}
+.thanks-bg::before,.thanks-bg::after{content:"";position:absolute;inset:auto;filter:blur(60px);opacity:.6;z-index:-1}
+.thanks-bg::before{width:36vmax;height:36vmax;left:-12vmax;top:-14vmax;background:radial-gradient(circle at 30% 30%, rgba(128,0,0,.10), transparent 60%)}
+.thanks-bg::after{width:40vmax;height:40vmax;right:-14vmax;bottom:-16vmax;background:radial-gradient(circle at 70% 70%, rgba(165,42,42,.08), transparent 60%)}
+.thanks-check{width:clamp(72px,10vw,96px);height:auto;margin-bottom:8px}
+.thanks-check .ring{stroke:rgba(128,0,0,.20)}
+.thanks-check .tick{stroke:var(--color-primary);stroke-dasharray:90;stroke-dashoffset:90;animation:draw 900ms ease-out forwards 200ms}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+.thankyou-title{font-family:"Fraunces",ui-serif,Georgia,serif;font-size:clamp(40px,8vw,96px);line-height:1;letter-spacing:.02em;text-transform:uppercase;background:linear-gradient(180deg,#7b0000 0%,#8f1a1a 45%,#a52a2a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin:.2em 0;text-shadow:0 10px 34px rgba(128,0,0,.15)}
+.thankyou-lead{font-family:"Nunito",system-ui,-apple-system,"Segoe UI",Roboto,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;font-size:clamp(16px,2.1vw,20px);color:#5a5f61;max-width:56ch;margin:0 auto 8px}
+.thankyou-actions{display:inline-flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.btn.btn-ghost{background:transparent;color:var(--color-primary);border:1px solid rgba(128,0,0,.35);border-radius:999px;padding:12px 20px;transition:transform .2s ease,background .2s ease,color .2s ease,border-color .2s ease}
+.btn.btn-ghost:hover{transform:translateY(-1px);background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+.confetti{pointer-events:none;position:absolute;inset:0;background-image:
+  radial-gradient(circle 2px at 12% 18%, #a52a2a 98%, transparent 100%),
+  radial-gradient(circle 2px at 30% 12%, #c46565 98%, transparent 100%),
+  radial-gradient(circle 2px at 62% 22%, #e3b3b3 98%, transparent 100%),
+  radial-gradient(circle 2px at 82% 14%, #f2d6d6 98%, transparent 100%),
+  radial-gradient(circle 2px at 22% 78%, #b03a3a 98%, transparent 100%),
+  radial-gradient(circle 2px at 70% 84%, #dfa0a0 98%, transparent 100%);
+  opacity:0;animation:confettiFade 2.2s ease forwards .4s}
+@keyframes confettiFade{0%{transform:translateY(-10px);opacity:0}60%{opacity:.9}100%{transform:translateY(0);opacity:.35}}
+.thanks-body .site-header,.thanks-body .site-footer{background:#ffffff;border:none}
+.thanks-body .site-footer p{color:var(--color-muted)}
+.thanks-hero{animation:rise .6s ease-out both}
+@keyframes rise{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
