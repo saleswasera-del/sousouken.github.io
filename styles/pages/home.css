@@ -1,6 +1,6 @@
 /* ==== pages/home.css ==== */
 /* Hero background */
-.hero--home{ --hero-bg:url('../images/images_hero/image_logo_gray_wide.png'); --hero-overlay:rgba(0,0,0,.30); }
+.hero--home{ --hero-bg:url('../../images/images_hero/image_logo_gray_wide.png'); --hero-overlay:rgba(0,0,0,.30); }
 
 /* MVV background blocks */
 .mvv-hero{position:relative;width:100%;display:grid;place-items:center;text-align:center;background:var(--color-bg);padding:0}
