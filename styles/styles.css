@@ -240,7 +240,7 @@ body {
 }
 .metric {
   background: #fff;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   text-align: center;
   padding: 1.25rem 1rem;
   box-shadow: 0 2px 6px rgba(0,0,0,.05);
@@ -451,7 +451,7 @@ h2 {
 }
 .card {
   background: var(--color-white);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   text-align: center;
@@ -509,7 +509,7 @@ h2 {
   background: rgba(255,255,255,.82);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(0,0,0,.05);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: clamp(18px, 2.5vw, 28px);
   box-shadow: 0 12px 30px rgba(0,0,0,.06);
 }
@@ -649,7 +649,7 @@ h2 {
 .club-block {
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: clamp(20px, 3vw, 32px);
   margin: 0 auto 2rem;
   box-shadow: 0 8px 28px rgba(0,0,0,.05);
@@ -744,7 +744,7 @@ h2 {
   text-align: center;
   padding: 2rem 1.25rem;
   border: 1px solid #eee;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   background: linear-gradient(180deg, #fff, #fafafa);
   box-shadow: 0 10px 30px rgba(0,0,0,.05);
 }
@@ -881,7 +881,7 @@ h2 {
   display: inline-grid;
   place-items: center;
   width: 26px; height: 26px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: rgba(128,0,0,.1);
   color: var(--color-primary);
   font-weight: 800;
