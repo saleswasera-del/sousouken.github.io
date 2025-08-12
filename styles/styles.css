@@ -61,11 +61,14 @@ body {
 .btn {
   display: inline-block;
   padding: 0.8rem 1.6rem;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
   text-decoration: none;
   transition: background var(--transition), color var(--transition), border-color var(--transition);
+  transition-duration: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
 }
+.btn:hover { box-shadow: var(--shadow-md); }
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-white);
@@ -135,24 +138,20 @@ body {
 .hero {
   position: relative;
   height: 72vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   text-align: center;
+  color: var(--color-white);
+  background: var(--hero-bg, none) center/cover no-repeat;
 }
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--hero-overlay, rgba(0, 0, 0, 0.3));
 }
-.hero-inner {
-  position: relative;
-  z-index: 1;
-  color: var(--color-white);
-  max-width: 800px;
-  padding: 0 1rem;
-}
+.hero-inner { position: relative; z-index: 1; max-width: 800px; padding: 0 1rem; }
+
 .hero-inner h1 {
   font-size: clamp(2.4rem, 5.6vw, 3.4rem);
   margin-bottom: 0.5rem;
@@ -166,20 +165,16 @@ body {
 .hero-buttons .btn {
   margin: 0 0.5rem;
 }
-
-/*-----------------------------------
-  4A. index.html のみ適用: ヒーロー背景画像
------------------------------------*/
-.hero--home {
-  background: url('../images/image_logo_gray_wide.png') center/cover no-repeat;
-}
+/* 各ページの差分（クラス名は今まで通り） */
+.hero--home    { --hero-bg: url('../images/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.30); }
+.hero--about   { --hero-bg: url('../images/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.25); }
+.hero--members { --hero-bg: url('../images/members/members_hero.png'); --hero-overlay: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35)); }
+.hero--activities { --hero-bg: url('../images/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.35); }
+.hero--faq     { --hero-bg: url('../images/image_logo_gray_wide.png'); --hero-overlay: rgba(0,0,0,.35); }
 
 /*-----------------------------------
   4B. about.html のみ適用
 -----------------------------------*/
-.hero--about {
-  background: url('../images/image_logo_gray_wide.png') center/cover no-repeat;
-}
 .hero--about::before {
   background: rgba(0,0,0,0.25);
 }
@@ -493,9 +488,6 @@ h2 {
   color: var(--color-primary);
 }
 /* ===== Members ヒーロー（背景画像） ===== */
-.hero--members {
-  background: url('../images/members/members_hero.png') center/cover no-repeat;
-}
 .hero--members::before {
   /* 読みやすさ優先の濃いめオーバーレイ */
   background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35));
@@ -802,9 +794,6 @@ h2 {
 }
 /* ===== FAQ Stylish Accordion ===== */
 
-.hero--faq {
-  background: url('../images/image_logo_gray_wide.png') center/cover no-repeat;
-}
 .hero--faq::before { background: rgba(0,0,0,.35); }
 
 .faq-main { padding-bottom: 4rem; }
@@ -1160,4 +1149,48 @@ h2 {
     margin-bottom: 4px;
   }
 }
+
+/* 汎用ユーティリティ */
+.text-muted { color: var(--color-muted); }
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-pill { border-radius: var(--radius-pill); }
+
+/* 主要インタラクティブ要素の :focus-visible */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+.faq-q:focus-visible {
+  outline: 3px solid rgba(128,0,0,.35);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+/* カードの共通芯 */
+.card,
+.card--member,
+.cta-card,
+.club-block {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.card:hover,
+.card--member:hover,
+.cta-card:hover,
+.club-block:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
 ```
