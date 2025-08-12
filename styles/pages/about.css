@@ -14,3 +14,108 @@
 .stats li{list-style:none;text-align:center}
 .stats li strong{display:block;font-size:1.8rem;color:var(--color-primary)}
 .about-image img{width:100%;height:auto;border-radius:.5rem}
+
+/* ===== Greeting / Message block ===== */
+.about-message{
+  position: relative;
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:16px;
+  padding:clamp(20px,3vw,32px);
+  box-shadow:0 10px 28px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+
+/* 角のやわらかい彩り（ブランド色のほのかなグラデ） */
+.about-message::before,
+.about-message::after{
+  content:"";
+  position:absolute;
+  filter:blur(60px);
+  opacity:.35;
+  z-index:-1;
+}
+.about-message::before{
+  width:34vmax;height:34vmax;left:-18vmax;top:-22vmax;
+  background:radial-gradient(circle at 30% 30%, rgba(128,0,0,.10), transparent 60%);
+}
+.about-message::after{
+  width:30vmax;height:30vmax;right:-16vmax;bottom:-20vmax;
+  background:radial-gradient(circle at 70% 70%, rgba(165,42,42,.10), transparent 60%);
+}
+
+/* 小見出しピル */
+.about-eyebrow{
+  display:inline-block;
+  font-size:.8rem;
+  letter-spacing:.08em;
+  padding:6px 12px;
+  border-radius:999px;
+  background:var(--color-primary);
+  color:#fff;
+  border:1px solid rgba(0,0,0,.04);
+}
+
+/* リード文（読みやすい幅と左ライン） */
+.about-lead{
+  margin:12px 0 18px;
+  padding-left:14px;
+  border-left:4px solid rgba(128,0,0,.35);
+  line-height:1.9;
+  color:#444;
+}
+
+/* ステップのカード群 */
+.about-steps{
+  list-style:none;
+  display:grid;
+  gap:14px;
+  counter-reset: steps;
+  margin: 0;
+  padding: 0;
+}
+.step-card{
+  position:relative;
+  background:linear-gradient(180deg,#fff,#fefcfc);
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:14px 16px 16px 56px;
+  box-shadow:0 6px 18px rgba(0,0,0,.05);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.step-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(0,0,0,.08);
+  border-color:#e6e6e6;
+}
+
+/* 丸いナンバー */
+.step-card .num{
+  position:absolute;
+  left:16px; top:16px;
+  width:28px; height:28px;
+  display:grid; place-items:center;
+  border-radius:999px;
+  background:rgba(128,0,0,.08);
+  color:var(--color-primary);
+  font-weight:800;
+  border:1px solid rgba(128,0,0,.15);
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
+  font-size:.95rem;
+}
+
+/* タイポ */
+.step-card h4{
+  margin:0 0 4px;
+  color:var(--color-primary);
+  font-size:1.05rem;
+}
+.step-card p{ margin:0; color:var(--color-muted); line-height:1.85; }
+
+/* 署名は右寄せ・薄色 */
+.about-signature{
+  margin-top:18px;
+  text-align:right;
+  color:var(--color-muted);
+  font-size:.95rem;
+}
