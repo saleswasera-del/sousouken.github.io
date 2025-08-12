@@ -125,6 +125,56 @@ document.addEventListener('DOMContentLoaded', () => {
           nums.forEach(el => animate(el, Number(el.dataset.target) || 0));
           obs.disconnect();
         }
+
+        // --- Share CTA ---
+document.addEventListener('DOMContentLoaded', () => {
+  const title = '早稲田大学総合研究会';
+  const text  = '実践と挑戦の機会を提供するインカレ団体。';
+  const pageUrl = window.location.href;
+
+  const withUTM = (url, source) => {
+    const u = new URL(url, window.location.origin);
+    u.searchParams.set('utm_source', source);
+    u.searchParams.set('utm_medium', 'share');
+    u.searchParams.set('utm_campaign', 'site_share');
+    return u.toString();
+  };
+
+  const btnLine = document.getElementById('btn-share-line');
+  const btnX    = document.getElementById('btn-share-x');
+  const btnCopy = document.getElementById('btn-copy');
+  const btnWS   = document.getElementById('btn-webshare');
+  const ok      = document.getElementById('copy-ok');
+
+  if (btnLine) btnLine.href = 'https://social-plugins.line.me/lineit/share?url=' +
+    encodeURIComponent(withUTM(pageUrl, 'line'));
+
+  if (btnX) btnX.href = 'https://twitter.com/intent/tweet?text=' +
+    encodeURIComponent(`${title} — ${text}`) +
+    '&url=' + encodeURIComponent(withUTM(pageUrl, 'x'));
+
+  if (btnCopy) btnCopy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(withUTM(pageUrl, 'copy'));
+      if (ok) { ok.hidden = false; setTimeout(() => ok.hidden = true, 2000); }
+      window.gtag && gtag('event', 'share', { method: 'copy', page: location.pathname });
+    } catch {}
+  });
+
+  if (btnWS) btnWS.addEventListener('click', async () => {
+    const shareUrl = withUTM(pageUrl, 'webshare');
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, text, url: shareUrl });
+        window.gtag && gtag('event', 'share', { method: 'webshare', page: location.pathname });
+      } catch {}
+    } else {
+      // フォールバック：Xを開く
+      btnX && btnX.click();
+    }
+  });
+});
+
       }, { threshold: 0.3 });
       once.observe(targetSection);
     }
