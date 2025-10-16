@@ -185,42 +185,36 @@ document.addEventListener('DOMContentLoaded', () => {
  * 4) FAQ：アコーディオン（クリックで開閉）
  * ========================================= */
 (() => {
-  // FAQコンテナと、各質問ボタン(.faq-q)を取得
   const acc = document.getElementById('faqAccordion');
-  if (!acc) return; // このページにFAQが無ければ何もしない
+  if (!acc) return;
 
   const items = [...acc.querySelectorAll('.faq-item')];
   const qs    = [...acc.querySelectorAll('.faq-q')];
 
-  // 質問ボタンがクリックされたら開閉を切り替える
-  const toggle = (btn) => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    const panelId  = btn.getAttribute('aria-controls');
-    const panel    = document.getElementById(panelId);
-
-    // 1つだけ開く仕様にしたい場合：先に全部閉じる
-    //qs.forEach(b => b.setAttribute('aria-expanded', 'false'));
-    //items.forEach(it => {const a = it.querySelector('.faq-a');if (a) a.hidden = true;});
-
-    // クリックしたものは反転（今が閉じているなら開く）
-    btn.setAttribute('aria-expanded', String(!expanded));
-    if (panel) panel.hidden = expanded; // expanded=true→閉じる、false→開く
-  };
-
-  // 初期化：全部閉じた状態にしておく
-  items.forEach(it => {
-    const a = it.querySelector('.faq-a');
-    if (a) a.hidden = true;
-  });
+  // 初期状態：全て閉じる
+  items.forEach(it => it.classList.remove('open'));
   qs.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
 
-  // クリック&キーボード対応（Enter/Space）
+  // 1つだけ開く仕様（複数開きを許可したいなら、全閉じブロックを消す）
+  const toggle = (btn) => {
+    const item   = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+
+    // いったん全部閉じる（複数同時OKにしたい場合はこの3行を削除）
+    items.forEach(i => i.classList.remove('open'));
+    qs.forEach(b => b.setAttribute('aria-expanded', 'false'));
+
+    // クリック項目を反転
+    item.classList.toggle('open', !isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  };
+
+  // クリック & キーボード対応
   acc.addEventListener('click', (e) => {
     const btn = e.target.closest('.faq-q');
-    if (btn) {
-      e.preventDefault();
-      toggle(btn);
-    }
+    if (!btn) return;
+    e.preventDefault();
+    toggle(btn);
   });
   acc.addEventListener('keydown', (e) => {
     const btn = e.target.closest('.faq-q');
@@ -230,6 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
       toggle(btn);
     }
   });
+})();
+
 
   /* =========================================
  * 5) FAQ：検索 & タグフィルタ
