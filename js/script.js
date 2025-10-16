@@ -230,5 +230,138 @@ document.addEventListener('DOMContentLoaded', () => {
       toggle(btn);
     }
   });
+
+  /* =========================================
+ * 5) FAQ：検索 & タグフィルタ
+ *  - 入力中にライブ検索
+ *  - タグは1つだけ選択（再クリックで解除）
+ *  - 見つからない時は「該当なし」表示
+ * ========================================= */
+(() => {
+  const wrap = document.querySelector('.faq-wrap');
+  const acc  = document.getElementById('faqAccordion');
+  if (!wrap || !acc) return;
+
+  const searchInput = wrap.querySelector('.faq-search');
+  const tagButtons  = [...wrap.querySelectorAll('.faq-tags .faq-tag')];
+  const items       = [...acc.querySelectorAll('.faq-item')];
+
+  // 「該当なし」メッセージ（なければ作る）
+  let emptyMsg = wrap.querySelector('.faq-empty');
+  if (!emptyMsg) {
+    emptyMsg = document.createElement('p');
+    emptyMsg.className = 'faq-empty';
+    emptyMsg.hidden = true;
+    emptyMsg.textContent = '該当する質問は見つかりませんでした。キーワードやタグを変えてみてください。';
+    acc.after(emptyMsg);
+  }
+
+  // 全角/半角や大文字小文字の違いに強い正規化
+  const norm = (s) => (s || '')
+    .toString()
+    .normalize('NFKC')            // 全角→半角などを統一
+    .toLocaleLowerCase('ja');     // 日本語ロケールで小文字化
+
+  // 状態
+  let selectedTag = '';  // 例: "参加" / "活動" / ""(未選択)
+  let q = '';           // 検索クエリ
+
+  // 1つのアイテムが現在の条件に合うか判定
+  const matches = (item) => {
+    const kw = norm(item.dataset.keywords || '');
+    const textQ = norm(
+      (item.querySelector('.faq-q')?.textContent || '') + ' ' +
+      (item.querySelector('.faq-a')?.textContent || '')
+    );
+
+    // タグは data-keywords 内の語に「含まれるか」で判定（HTML側はOKな構造）
+    if (selectedTag && !kw.includes(norm(selectedTag))) return false;
+
+    // 検索はスペース区切りAND
+    if (q) {
+      const terms = norm(q).split(/\s+/).filter(Boolean);
+      for (const t of terms) {
+        if (!kw.includes(t) && !textQ.includes(t)) return false;
+      }
+    }
+    return true;
+  };
+
+  // フィルタの実行
+  const applyFilter = () => {
+    let visibleCount = 0;
+
+    items.forEach((it) => {
+      const ok = matches(it);
+      it.hidden = !ok;
+      // 隠すときは開いてても閉じる（視覚バグ防止）
+      if (!ok) {
+        const btn = it.querySelector('.faq-q');
+        const a   = it.querySelector('.faq-a');
+        btn?.setAttribute('aria-expanded', 'false');
+        if (a) a.hidden = true;
+      } else {
+        visibleCount++;
+      }
+    });
+
+    emptyMsg.hidden = visibleCount !== 0;
+
+    // 任意：計測しているならイベント送信（失敗しても無視）
+    try {
+      if (window.gtag) {
+        window.gtag('event', 'faq_filter', {
+          query: q,
+          tag: selectedTag || '(none)',
+          results: visibleCount
+        });
+      }
+    } catch {}
+  };
+
+  // 入力のデバウンス（打鍵のたびに無駄に走らないように）
+  const debounce = (fn, ms = 150) => {
+    let id; return (...args) => {
+      clearTimeout(id);
+      id = setTimeout(() => fn(...args), ms);
+    };
+  };
+
+  // イベント: 検索
+  if (searchInput) {
+    searchInput.addEventListener('input', debounce((e) => {
+      q = e.target.value || '';
+      applyFilter();
+    }, 180));
+  }
+
+  // イベント: タグ（1つだけ選択）
+  tagButtons.forEach((btn) => {
+    btn.setAttribute('aria-pressed', 'false');
+    btn.addEventListener('click', () => {
+      const tag = btn.dataset.tag || '';
+      const isActive = btn.classList.contains('active');
+
+      // いったん全解除
+      tagButtons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+
+      // 再クリックで解除、それ以外は選択
+      selectedTag = isActive ? '' : tag;
+      if (selectedTag) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      applyFilter();
+    });
+  });
+
+  // 初期実行
+  applyFilter();
+})();
+
 })();
 
