@@ -199,11 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel    = document.getElementById(panelId);
 
     // 1つだけ開く仕様にしたい場合：先に全部閉じる
-    qs.forEach(b => b.setAttribute('aria-expanded', 'false'));
-    items.forEach(it => {
-      const a = it.querySelector('.faq-a');
-      if (a) a.hidden = true;
-    });
+    //qs.forEach(b => b.setAttribute('aria-expanded', 'false'));
+    //items.forEach(it => {const a = it.querySelector('.faq-a');if (a) a.hidden = true;});
 
     // クリックしたものは反転（今が閉じているなら開く）
     btn.setAttribute('aria-expanded', String(!expanded));
