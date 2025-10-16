@@ -180,3 +180,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+/* =========================================
+ * 4) FAQ：アコーディオン（クリックで開閉）
+ * ========================================= */
+(() => {
+  // FAQコンテナと、各質問ボタン(.faq-q)を取得
+  const acc = document.getElementById('faqAccordion');
+  if (!acc) return; // このページにFAQが無ければ何もしない
+
+  const items = [...acc.querySelectorAll('.faq-item')];
+  const qs    = [...acc.querySelectorAll('.faq-q')];
+
+  // 質問ボタンがクリックされたら開閉を切り替える
+  const toggle = (btn) => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const panelId  = btn.getAttribute('aria-controls');
+    const panel    = document.getElementById(panelId);
+
+    // 1つだけ開く仕様にしたい場合：先に全部閉じる
+    qs.forEach(b => b.setAttribute('aria-expanded', 'false'));
+    items.forEach(it => {
+      const a = it.querySelector('.faq-a');
+      if (a) a.hidden = true;
+    });
+
+    // クリックしたものは反転（今が閉じているなら開く）
+    btn.setAttribute('aria-expanded', String(!expanded));
+    if (panel) panel.hidden = expanded; // expanded=true→閉じる、false→開く
+  };
+
+  // 初期化：全部閉じた状態にしておく
+  items.forEach(it => {
+    const a = it.querySelector('.faq-a');
+    if (a) a.hidden = true;
+  });
+  qs.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+
+  // クリック&キーボード対応（Enter/Space）
+  acc.addEventListener('click', (e) => {
+    const btn = e.target.closest('.faq-q');
+    if (btn) {
+      e.preventDefault();
+      toggle(btn);
+    }
+  });
+  acc.addEventListener('keydown', (e) => {
+    const btn = e.target.closest('.faq-q');
+    if (!btn) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle(btn);
+    }
+  });
+})();
+
