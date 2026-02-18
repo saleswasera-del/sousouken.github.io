@@ -362,3 +362,71 @@ document.addEventListener('DOMContentLoaded', () => {
   applyFilter();
 })();
 
+/* =========================================
+ * 6) Contact：フォーム送信（mailto:リンク）
+ * ========================================= */
+(() => {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const statusEl = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = form.querySelector('#name').value.trim();
+    const email = form.querySelector('#email').value.trim();
+    const message = form.querySelector('#message').value.trim();
+
+    // バリデーション
+    if (!name || !email || !message) {
+      if (statusEl) {
+        statusEl.textContent = 'すべての項目を入力してください。';
+        statusEl.className = 'status ng';
+      }
+      return;
+    }
+
+    // メールアドレスの簡易バリデーション
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      if (statusEl) {
+        statusEl.textContent = '正しいメールアドレスを入力してください。';
+        statusEl.className = 'status ng';
+      }
+      return;
+    }
+
+    // mailto:リンクを作成
+    const subject = encodeURIComponent('早総研HP: お問い合わせ');
+    const body = encodeURIComponent(
+      `お名前: ${name}\nメールアドレス: ${email}\n\n${message}`
+    );
+    const mailtoLink = `mailto:sales.wasera@gmail.com?subject=${subject}&body=${body}`;
+
+    // メールクライアントを開く
+    window.location.href = mailtoLink;
+
+    // 成功メッセージ
+    if (statusEl) {
+      statusEl.textContent = 'メールクライアントを開いています...';
+      statusEl.className = 'status ok';
+    }
+
+    // フォームをリセット（少し遅延させてから）
+    setTimeout(() => {
+      form.reset();
+      if (statusEl) {
+        statusEl.textContent = '';
+        statusEl.className = 'status';
+      }
+    }, 2000);
+  });
+
+  // タイムスタンプを設定（既存のコードとの互換性のため）
+  const tsInput = document.getElementById('ts');
+  if (tsInput) {
+    tsInput.value = Date.now().toString();
+  }
+})();
