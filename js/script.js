@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 /* =========================================
- * 6) Contact：フォーム送信（mailto:リンク）
+ * 6) Contact：フォーム送信（Formspree）
  * ========================================= */
 (() => {
   const form = document.getElementById('contactForm');
@@ -372,7 +372,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusEl = document.getElementById('form-status');
   const submitBtn = document.getElementById('submitBtn');
 
-  form.addEventListener('submit', (e) => {
+  // タイムスタンプを設定
+  const tsInput = document.getElementById('ts');
+  if (tsInput) {
+    tsInput.value = Date.now().toString();
+  }
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = form.querySelector('#name').value.trim();
@@ -398,35 +404,54 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // mailto:リンクを作成
-    const subject = encodeURIComponent('早総研HP: お問い合わせ');
-    const body = encodeURIComponent(
-      `お名前: ${name}\nメールアドレス: ${email}\n\n${message}`
-    );
-    const mailtoLink = `mailto:sales.wasera@gmail.com?subject=${subject}&body=${body}`;
-
-    // メールクライアントを開く
-    window.location.href = mailtoLink;
-
-    // 成功メッセージ
-    if (statusEl) {
-      statusEl.textContent = 'メールクライアントを開いています...';
-      statusEl.className = 'status ok';
+    // 送信ボタンを無効化
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送信中...';
     }
 
-    // フォームをリセット（少し遅延させてから）
-    setTimeout(() => {
-      form.reset();
-      if (statusEl) {
-        statusEl.textContent = '';
-        statusEl.className = 'status';
-      }
-    }, 2000);
-  });
+    if (statusEl) {
+      statusEl.textContent = '送信中...';
+      statusEl.className = 'status';
+    }
 
-  // タイムスタンプを設定（既存のコードとの互換性のため）
-  const tsInput = document.getElementById('ts');
-  if (tsInput) {
-    tsInput.value = Date.now().toString();
-  }
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        // 成功
+        if (statusEl) {
+          statusEl.textContent = '送信が完了しました。ありがとうございます！';
+          statusEl.className = 'status ok';
+        }
+        form.reset();
+      } else {
+        // エラー
+        const data = await response.json();
+        if (statusEl) {
+          statusEl.textContent = data.error || '送信に失敗しました。もう一度お試しください。';
+          statusEl.className = 'status ng';
+        }
+      }
+    } catch (error) {
+      // ネットワークエラーなど
+      if (statusEl) {
+        statusEl.textContent = '送信に失敗しました。ネットワーク接続を確認してください。';
+        statusEl.className = 'status ng';
+      }
+    } finally {
+      // 送信ボタンを再有効化
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '送信する';
+      }
+    }
+  });
 })();
