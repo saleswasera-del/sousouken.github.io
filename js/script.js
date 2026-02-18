@@ -297,6 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
         btn?.setAttribute('aria-expanded', 'false');
         if (a) a.hidden = true;
       } else {
+        // 表示されたアイテムの .faq-a から hidden 属性を削除
+        const a = it.querySelector('.faq-a');
+        if (a) a.removeAttribute('hidden');
         visibleCount++;
       }
     });
@@ -357,7 +360,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 初期実行
   applyFilter();
-})();
-
 })();
 
