@@ -395,6 +395,35 @@
             border: 1px solid rgba(255,255,255,.1); border-radius: var(--r-xl);
             padding: 40px 32px;
         }
+        .entry-assurance {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 0 0 20px;
+            padding: 14px 16px;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 14px;
+            text-align: left;
+        }
+        
+        .entry-assurance i {
+            color: #BFDBFE;
+            font-size: 16px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .entry-assurance p {
+            margin: 0;
+            color: rgba(255,255,255,.82);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+        
+        .entry-assurance strong {
+            color: #FFFFFF;
+        }
         .entry-money {
             display: flex; align-items: center; justify-content: center; gap: 10px;
             background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.2);
@@ -433,7 +462,7 @@
         .share-btn.x { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.12); }
         .share-btn:hover { transform: translateY(-1px); }
 
-        @media (max-width: 640px) { .entry-box { padding: 28px 20px; } }
+        @media (max-width: 640px) { . { padding: 28px 20px; } }
 
         /* ─── Footer ─── */
         .footer {
@@ -862,9 +891,16 @@
         <div class="entry-box">
             <div class="entry-money">
                 <i class="fa-solid fa-coins"></i>
-                参加者全員に就活支援金 10,000円（PayPay送金）
+                参加＋条件達成で全員に就活支援金 10,000円（PayPay送金）
             </div>
             <p>以下のボタンからエントリーフォームにお進みください。<br>フォーム回答後、公式LINEの登録もお忘れなく！</p>
+            <div class="entry-assurance">
+                <i class="fa-solid fa-shield-heart"></i>
+                <p>
+                    <strong>安心してお申し込みいただけます。</strong><br>
+                    2週間前まではキャンセル無料です。開催2週間前以降のキャンセルについては、円滑な運営のため、キャンセル料が発生する場合があります。
+                </p>
+            </div>
 
             <a href="https://forms.gle/p6BZfHBf5JDVn7DU8" target="_blank" rel="noopener" class="entry-cta-btn">
                 <i class="fa-solid fa-arrow-up-right-from-square" style="margin-right:8px;"></i>Google Forms でエントリー
