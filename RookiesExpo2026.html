@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>【RookiesExpo2026】28卒限定｜社会と仕事の解像度を上げる、キャリア探索イベント。</title>
     <meta property="og:title" content="RookiesExpo2026｜28卒限定キャリア探索イベント">
-    <meta property="og:description" content="早慶・東大・国公立・GMARCH 28卒限定。参加者全員にPayPayで1万円支給。企業との座談会を通じて、キャリアの解像度を上げる1日。">
+    <meta property="og:description" content="早慶・東大・国公立・GMARCH 28卒限定。参加者にPayPayで1万円支給（人数上限50名・早期申し込み限定）。企業との座談会を通じて、キャリアの解像度を上げる1日。">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="description" content="RookiesExpo2026｜28卒限定キャリア探索イベント。参加者全員に就活支援金1万円。6/27(土)都内開催。">
+    <meta name="description" content="RookiesExpo2026｜28卒限定キャリア探索イベント。参加者に就活支援金1万円（人数上限50名・早期申し込み限定）。6/27(土)都内開催。">
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -147,6 +147,12 @@
         }
         .hero-money-amt .yen { font-size: .55em; }
         .hero-money-txt { font-size: clamp(13px, 1.6vw, 16px); font-weight: 700; color: #92400E; line-height: 1.4; text-align: left; }
+        .hero-money-note { display: inline-block; }
+        @media (max-width: 640px) {
+            .hero-money { padding: 14px 18px; gap: 10px; }
+            .hero-money-txt { text-align: center; font-size: 12px; }
+            .entry-money { flex-wrap: wrap; line-height: 1.6; }
+        }
 
         .hero-cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 36px; }
         .hero-cta {
@@ -541,7 +547,7 @@
 
         <div class="hero-money">
             <div class="hero-money-amt"><span class="yen">¥</span>10,000</div>
-            <div class="hero-money-txt">参加者<strong>全員</strong>に就活支援金を<br>PayPayで支給</div>
+            <div class="hero-money-txt">参加者に就活支援金を<br>PayPayで支給<span class="hero-money-note">（上限50名・早期申込限定）</span></div>
         </div>
 
         <div class="hero-cta-row">
@@ -625,7 +631,7 @@
             <div class="card centered fade-up">
                 <div class="card-icon ci-gold"><i class="fa-solid fa-wallet"></i></div>
                 <h3>就活支援金 10,000円</h3>
-                <p>参加者全員にイベント後PayPayで送金。交通費・準備費用にお使いください。</p>
+                <p>参加者にイベント後PayPayで送金（上限あり）。交通費・準備費用にお使いください。</p>
             </div>
             <div class="card centered fade-up" style="transition-delay:.08s">
                 <div class="card-icon ci-blue"><i class="fa-solid fa-forward-fast"></i></div>
@@ -877,8 +883,8 @@
                 <div class="faq-a"><p>会場の詳細は確定次第、参加者の皆さまに順次ご案内いたします。都内での開催を予定しております。</p></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" onclick="tf(this)"><span>支援金1万円は全員もらえますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>支援金は、当日の所定プログラムにご参加いただいた方を対象にお渡ししています。大幅な遅刻・早退があった場合は、支給対象外となることがありますので、あらかじめご了承ください。</p></div>
+                <div class="faq-q" onclick="tf(this)"><span>支援金1万円はもらえますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
+                <div class="faq-a"><p>はい、基本的にはお渡ししています。ただし、支援金1万円は人数上限50名の早期申込者限定の特典です。ご参加予定の方は、お早めのお申し込みをおすすめします。なお、早期申込特典の対象外となった場合でも、5,000円をご支援します。当日の所定プログラムにご参加いただくことが支給条件となり、大幅な遅刻・早退がある場合は対象外となることがあります。</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-q" onclick="tf(this)"><span>交流会（17:00〜）は参加必須ですか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
@@ -903,7 +909,7 @@
         <div class="entry-box">
             <div class="entry-money">
                 <i class="fa-solid fa-coins"></i>
-                参加者全員に就活支援金 10,000円（PayPay送金）
+                参加者に就活支援金 10,000円（上限50名・早期申込限定・PayPay送金）
             </div>
             <p>以下のボタンからエントリーフォームにお進みください。<br>フォーム回答後、公式LINEの登録もお忘れなく！</p>
             <div class="entry-assurance">
@@ -929,7 +935,7 @@
     <div class="footer-inner">
         <div class="footer-logo">RookiesExpo2026</div>
         <ul class="footer-links">
-            <li><a href="https://drive.google.com/file/d/18xt-oRK1lgReGRJQ--p2a-Z-tpxEIWVB/view?usp=drivesdk">プライバシーポリシー</a></div>
+            <li><a href=“https://drive.google.com/file/d/18xt-oRK1lgReGRJQ--p2a-Z-tpxEIWVB/view?usp=drivesdk”>プライバシーポリシー</a></div>
             <li><a href="index.html">主催：早稲田総合研究会（早総研）</a></li>
         </ul>
         <p class="footer-copy">&copy; 2026 RookiesExpo / 早稲田総合研究会. All rights reserved.</p>
