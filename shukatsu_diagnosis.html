@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>就活の軸、診断 - Career Compass</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+  <!-- Framer Motion -->
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+
+  <!-- Babel (ブラウザ上でJSXをコンパイルするため) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body { margin: 0; padding: 0; background-color: #FBF8F1; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- type="text/babel" を指定して、Babelにコンパイルさせます -->
+  <script type="text/babel">
+    // --- モジュールのインポートの代わり ---
+    const { useState } = React;
+    const { motion, AnimatePresence } = window.Motion;
+
+    // --- 定数定義 ---
+    const QUESTIONS = [
+      {
+        id: 1,
+        prompt: "キャリアで、最も大切にしたいものは？",
+        options: [
+          { label: "圧倒的なスピードで成長し、実力をつけること", axis: "growth" },
+          { label: "社会や顧客に、意義のあるインパクトを残すこと", axis: "impact" },
+          { label: "信頼できる仲間と、良い関係を築きながら働くこと", axis: "env" },
+          { label: "経済的・社会的に、高い成功を手にすること", axis: "cond" },
+        ],
+      },
+      {
+        id: 2,
+        prompt: "5年後、どんな自分でありたい？",
+        options: [
+          { label: "希少性の高いスキルを武器にするプロフェッショナル", axis: "growth" },
+          { label: "何かを動かしている当事者・変革のリーダー", axis: "impact" },
+          { label: "仕事も私生活も、無理なく充実している人", axis: "env" },
+          { label: "トップティアで第一線を張る実力者", axis: "cond" },
+        ],
+      },
+      {
+        id: 3,
+        prompt: "理想の職場環境に最も近いのは？",
+        options: [
+          { label: "高い基準で鍛えられる、厳しくも学びの多い場", axis: "growth" },
+          { label: "社会課題と真剣に向き合える、使命感のある場", axis: "impact" },
+          { label: "心理的安全性が高く、人が魅力的な場", axis: "env" },
+          { label: "ブランドがあり、誇りと待遇で応えてくれる場", axis: "cond" },
+        ],
+      },
+      {
+        id: 4,
+        prompt: "最もやりがいを感じる瞬間は？",
+        options: [
+          { label: "難しい課題を突破し、自分の力量が一段上がったと実感するとき", axis: "growth" },
+          { label: "自分の仕事が、誰かや社会のためになったと感じるとき", axis: "impact" },
+          { label: "チームや顧客から感謝され、深く信頼されていると感じるとき", axis: "env" },
+          { label: "成果が正当に評価され、報酬や地位として返ってくるとき", axis: "cond" },
+        ],
+      },
+      {
+        id: 5,
+        prompt: "内定が2社で迷ったとき、最後に何を見る？",
+        options: [
+          { label: "どちらで、自分がより速く・深く成長できるか", axis: "growth" },
+          { label: "どちらの仕事に、やる意義を強く感じられるか", axis: "impact" },
+          { label: "どちらの人・カルチャーが、自分に合うか", axis: "env" },
+          { label: "どちらの待遇・将来オプションが優れているか", axis: "cond" },
+        ],
+      },
+    ];
+
+    const AXIS_LIST = ["growth", "impact", "env", "cond"];
+
+    const AXES = {
+      growth: { no: "01", name: "成長", subtitle: "Growth" },
+      impact: { no: "02", name: "使命", subtitle: "Purpose" },
+      env: { no: "03", name: "環境", subtitle: "People" },
+      cond: { no: "04", name: "条件", subtitle: "Capital" },
+    };
+
+    const TYPES = {
+      "growth-growth": {
+        name: "求道者",
+        en: "The Seeker",
+        phrase: "ひたすらに、自分の実力を高める",
+        detail: "成長への一途な欲求。余計なものを削ぎ落とし、自分の能力の最大化だけを見つめる純度の高さ。尖った専門性で評価される場を好みます。",
+        fit: "戦略コンサル／PE・VC／研究職",
+      },
+      "growth-impact": {
+        name: "開拓者",
+        en: "The Pioneer",
+        phrase: "成長の先に、社会を動かす未来を描く",
+        detail: "自分の力を伸ばすのは、いつか大きな変化を起こすため。学びの速さと、意義ある問いを両方持っているタイプ。",
+        fit: "政策・公共系コンサル／ソーシャルベンチャー／海外MBA志向",
+      },
+      "growth-env": {
+        name: "職人",
+        en: "The Artisan",
+        phrase: "信頼できる仲間と、腕を磨き合う",
+        detail: "成長は一人ではなく、共に高みを目指す仲間との関係のなかに宿ると考えるタイプ。長期で深い関係を築く。",
+        fit: "BIG4戦略部門／日系プロフェッショナルファーム／事業会社戦略室",
+      },
+      "growth-cond": {
+        name: "登山家",
+        en: "The Climber",
+        phrase: "高みを目指し、成果で報いを取る",
+        detail: "努力は正当に報われるべき、という強い合理観。成長と対価は切り離せないものとして一体で考える。",
+        fit: "外資系戦略ファーム／投資銀行／グローバルテック",
+      },
+
+      "impact-growth": {
+        name: "改革者",
+        en: "The Reformer",
+        phrase: "意義ある変化を、力で成し遂げる",
+        detail: "変えたい対象が先にあり、そのために能力を磨く。目的が手段を引っ張り上げるタイプ。",
+        fit: "戦略コンサル／官公庁系／グローバルNPO・財団",
+      },
+      "impact-impact": {
+        name: "使徒",
+        en: "The Devotee",
+        phrase: "信じるもののために、働く",
+        detail: "仕事に意味を求める純度が最も高いタイプ。テーマや使命感が合うかどうかが、すべての判断軸になる。",
+        fit: "社会課題特化ファーム／インパクト投資／NPO・国際機関",
+      },
+      "impact-env": {
+        name: "伴走者",
+        en: "The Companion",
+        phrase: "誰かのそばで、長く価値を届ける",
+        detail: "クライアントや仲間の個別の事情に寄り添う粘り強さ。短期の派手さより、関係性のなかで価値を積む。",
+        fit: "ヘルスケア特化／教育・ファミリービジネス支援／日系ブティック",
+      },
+      "impact-cond": {
+        name: "戦略家",
+        en: "The Strategist",
+        phrase: "大きな意義を、現実のゲームで勝ち取る",
+        detail: "理想論で終わらせず、実行と資本のロジックで意義を届ける。ビジネスと社会性の両立を冷静に設計するタイプ。",
+        fit: "M&A・PE／総合商社のインフラ・エネルギー事業／政策ファーム",
+      },
+
+      "env-growth": {
+        name: "共鳴者",
+        en: "The Resonator",
+        phrase: "良い人と、共に高い山に登る",
+        detail: "人から学ぶことで伸びるタイプ。尊敬できる相手とのチームが、成長の最大のドライバーになる。",
+        fit: "少数精鋭ファーム／事業会社経営企画／カルチャー重視スタートアップ",
+      },
+      "env-impact": {
+        name: "調停者",
+        en: "The Mediator",
+        phrase: "人の間に立ち、大事なものを守る",
+        detail: "人と人、組織と社会の間に立ち、関係性を整えることで価値を生む。静かに、しかし確かな影響力を持つ。",
+        fit: "組織・人事コンサル／HRテック／公共セクター",
+      },
+      "env-env": {
+        name: "共生家",
+        en: "The Communalist",
+        phrase: "人とのつながりが、仕事の意味そのもの",
+        detail: "成果や報酬より、「誰と、どんな空気で働くか」が軸の中心。心理的安全性への感度が非常に高い。",
+        fit: "日系優良企業／ファミリー経営企業／地域密着型ビジネス",
+      },
+      "env-cond": {
+        name: "巧者",
+        en: "The Sophisticate",
+        phrase: "心地よい場と、確かな見返りを両立する",
+        detail: "無理なく長く働ける環境と、妥当な対価の両方を見極めるバランス感覚。賢く働き続ける力がある。",
+        fit: "総合商社／日系大手金融・インフラ／BIG4アドバイザリー",
+      },
+
+      "cond-growth": {
+        name: "実力主義者",
+        en: "The Meritocrat",
+        phrase: "実力で結果を取り、対価と成長を両取りする",
+        detail: "能力と報酬の相関を信じる。「伸びる場所は稼げる場所」という合理的な確信で動く。",
+        fit: "外資トップティア／クオンツ・トレーディング／高成長スタートアップ",
+      },
+      "cond-impact": {
+        name: "現実家",
+        en: "The Pragmatist",
+        phrase: "冷静に選び、意義のある勝ちを積む",
+        detail: "感情で動かず、成果で信頼を獲得していくタイプ。派手さより、確実に届けることを優先する。",
+        fit: "大手総合コンサル／金融ソリューション／BtoB SaaS",
+      },
+      "cond-env": {
+        name: "安定派",
+        en: "The Anchor",
+        phrase: "確かな待遇と、信頼できる場を選ぶ",
+        detail: "リスクを取るより、確実性を積み上げる賢さ。長く勤めるほどリターンが増える選択を好む。",
+        fit: "日系大手金融・インフラ／国家公務員／大手事業会社",
+      },
+      "cond-cond": {
+        name: "勝負師",
+        en: "The Gambler",
+        phrase: "勝つために賭ける、合理の極致",
+        detail: "「得るもの」への視線が圧倒的に鋭い。ステータス・報酬・将来オプションを冷徹に評価する意思決定者。",
+        fit: "PE・ヘッジファンド／投資銀行／外資系CxO候補",
+      },
+    };
+
+    const AxisIcon = ({ axis, size = 48, stroke = 1.5, color = "currentColor" }) => {
+      const common = {
+        width: size,
+        height: size,
+        viewBox: "0 0 40 40",
+        fill: "none",
+        stroke: color,
+        strokeWidth: stroke,
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+      };
+      switch (axis) {
+        case "growth":
+          return (
+            <svg {...common}>
+              <line x1="7" y1="32" x2="33" y2="32" />
+              <line x1="12" y1="32" x2="12" y2="24" />
+              <line x1="20" y1="32" x2="20" y2="17" />
+              <line x1="28" y1="32" x2="28" y2="10" />
+              <path d="M25 13 L28 10 L31 13" />
+            </svg>
+          );
+        case "impact":
+          return (
+            <svg {...common}>
+              <circle cx="20" cy="20" r="3" fill={color} stroke="none" />
+              <circle cx="20" cy="20" r="9" />
+              <circle cx="20" cy="20" r="15" opacity="0.55" />
+            </svg>
+          );
+        case "env":
+          return (
+            <svg {...common}>
+              <circle cx="15" cy="20" r="8.5" />
+              <circle cx="25" cy="20" r="8.5" />
+            </svg>
+          );
+        case "cond":
+          return (
+            <svg {...common}>
+              <polygon points="20,7 32,20 20,33 8,20" />
+              <polygon points="20,14 26,20 20,26 14,20" fill={color} stroke="none" />
+            </svg>
+          );
+        default:
+          return null;
+      }
+    };
+
+    const ACCENT = "#8B2E2A";
+    const INK = "#1A1A1A";
+    const CREAM = "#F5F0E6";
+    const MUTED = "#7A6F62";
+    const PAPER = "#FBF8F1";
+
+    function getType(scores) {
+      const sorted = [...AXIS_LIST].sort((a, b) => {
+        if (scores[b] !== scores[a]) return scores[b] - scores[a];
+        return AXIS_LIST.indexOf(a) - AXIS_LIST.indexOf(b);
+      });
+      const primary = sorted[0];
+      const secondary = scores[sorted[1]] > 0 && sorted[1] !== primary ? sorted[1] : primary;
+      return {
+        primary,
+        secondary,
+        key: `${primary}-${secondary}`,
+        data: TYPES[`${primary}-${secondary}`],
+      };
+    }
+
+    function getTypeNumber(primary, secondary) {
+      return AXIS_LIST.indexOf(primary) * 4 + AXIS_LIST.indexOf(secondary) + 1;
+    }
+
+    // --- メインコンポーネント ---
+    function ShukatsuAxisDiagnosis() {
+      const [stage, setStage] = useState("start");
+      const [current, setCurrent] = useState(0);
+      const [answers, setAnswers] = useState([]);
+
+      const handleStart = () => {
+        setStage("quiz");
+        setCurrent(0);
+        setAnswers([]);
+      };
+
+      const handleSelect = (axis) => {
+        const next = [...answers, axis];
+        setAnswers(next);
+        if (current + 1 < QUESTIONS.length) {
+          setTimeout(() => setCurrent(current + 1), 180);
+        } else {
+          setTimeout(() => setStage("result"), 220);
+        }
+      };
+
+      const handleBack = () => {
+        if (current === 0) return;
+        setAnswers(answers.slice(0, -1));
+        setCurrent(current - 1);
+      };
+
+      const handleRestart = () => {
+        setStage("start");
+        setCurrent(0);
+        setAnswers([]);
+      };
+
+      const scores = { growth: 0, impact: 0, env: 0, cond: 0 };
+      answers.forEach((a) => (scores[a] += 1));
+      const result = answers.length === QUESTIONS.length ? getType(scores) : null;
+      const total = answers.length || 1;
+
+      return (
+        <div
+          className="min-h-screen w-full flex flex-col items-center justify-start px-5 py-10 md:py-16"
+          style={{
+            background: `radial-gradient(ellipse at top, ${PAPER} 0%, ${CREAM} 70%)`,
+            color: INK,
+            fontFamily: "'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+          }}
+        >
+          {/* 元コードのstyleタグをそのまま活用 */}
+          <style>{`
+            @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho+B1:wght@400;600;800&display=swap');
+
+            .serif-jp { font-family: 'Shippori Mincho B1', 'Noto Serif JP', serif; }
+            .serif-en { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+            .num { font-family: 'Fraunces', serif; font-feature-settings: "lnum"; }
+
+            .rule { height: 1px; background: ${INK}; opacity: 0.85; }
+            .hair { height: 1px; background: ${INK}; opacity: 0.15; }
+
+            .option-card {
+              transition: transform 0.25s cubic-bezier(.2,.8,.2,1), background 0.25s, border-color 0.25s;
+            }
+            .option-card:hover {
+              background: #fff;
+              border-color: ${ACCENT};
+              transform: translateX(4px);
+            }
+            .option-card:hover .option-arrow { transform: translateX(6px); opacity: 1; }
+            .option-arrow { transition: transform 0.25s, opacity 0.25s; opacity: 0.35; }
+
+            .btn-primary {
+              background: ${INK}; color: ${PAPER};
+              transition: background 0.2s, transform 0.2s;
+            }
+            .btn-primary:hover { background: ${ACCENT}; transform: translateY(-1px); }
+
+            .bar-track { background: rgba(26,26,26,0.08); }
+
+            .type-cell { transition: background 0.2s, border-color 0.2s; }
+            .type-cell:hover { background: #fff; }
+
+            .crest-glow { filter: drop-shadow(0 0 28px rgba(139, 46, 42, 0.14)); }
+          `}</style>
+
+          <div className="w-full max-w-2xl relative">
+            {/* Masthead */}
+            <header className="flex items-end justify-between mb-10 md:mb-14">
+              <div>
+                <div className="text-[10px] md:text-xs tracking-[0.3em] uppercase" style={{ color: MUTED }}>
+                  Career Compass  /  28卒 Edition
+                </div>
+                <div className="serif-jp text-[17px] md:text-xl mt-1" style={{ letterSpacing: "0.02em" }}>
+                  就活の軸、診断
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="num text-[11px] md:text-xs tracking-widest" style={{ color: MUTED }}>
+                  Vol.01
+                </div>
+                <div className="num text-[10px] md:text-xs tracking-widest mt-0.5" style={{ color: MUTED }}>
+                  5 questions · 16 types
+                </div>
+              </div>
+            </header>
+
+            <div className="rule mb-10 md:mb-14" />
+
+            <AnimatePresence mode="wait">
+              {stage === "start" && (
+                <motion.section
+                  key="start"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+                >
+                  <div className="num text-[13px] mb-6 tracking-[0.25em]" style={{ color: ACCENT }}>
+                    — INTRODUCTION
+                  </div>
+                  <h1
+                    className="serif-jp text-[32px] md:text-5xl leading-[1.35] md:leading-[1.3] mb-6"
+                    style={{ letterSpacing: "0.01em" }}
+                  >
+                    あなたが、<br />
+                    仕事で<span style={{ color: ACCENT }}>譲れない</span>ものは、<br />
+                    何ですか。
+                  </h1>
+
+                  <p className="text-[13px] md:text-[14px] leading-[2] mb-10" style={{ color: MUTED }}>
+                    就活の軸は、一つに決めるものではありません。複数の価値観の「優先順位」を見極めることが、後悔の少ない意思決定につながります。<br />
+                    この5問は、あなたの中にある4つの軸 ――
+                    <span className="serif-jp" style={{ color: INK }}>成長 / 使命 / 環境 / 条件</span>
+                     ―― のバランスと、<span style={{ color: INK, borderBottom: `1px solid ${ACCENT}` }}>16タイプ</span>のどこに位置するかを明らかにします。
+                  </p>
+
+                  <div className="hair mb-10" />
+
+                  <div className="grid grid-cols-4 gap-3 md:gap-5 mb-10">
+                    {AXIS_LIST.map((key) => {
+                      const a = AXES[key];
+                      return (
+                        <div key={key} className="flex flex-col items-start gap-2">
+                          <div style={{ color: ACCENT }}>
+                            <AxisIcon axis={key} size={32} stroke={1.3} />
+                          </div>
+                          <div className="num text-[10px] tracking-widest" style={{ color: MUTED }}>
+                            {a.no}
+                          </div>
+                          <div className="serif-jp text-[13px] md:text-[14px]">{a.name}</div>
+                          <div
+                            className="serif-en text-[9px] md:text-[10px] tracking-[0.2em]"
+                            style={{ color: MUTED, fontStyle: "italic" }}
+                          >
+                            {a.subtitle}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="flex justify-end">
+                    <button
+                      onClick={handleStart}
+                      className="btn-primary px-8 py-4 text-[13px] tracking-[0.2em] uppercase"
+                      style={{ fontFamily: "'Fraunces', serif" }}
+                    >
+                      Begin &nbsp;→
+                    </button>
+                  </div>
+                </motion.section>
+              )}
+
+              {stage === "quiz" && (
+                <motion.section
+                  key={`q-${current}`}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
+                >
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="num text-[11px] tracking-[0.3em]" style={{ color: MUTED }}>
+                      Q. {String(current + 1).padStart(2, "0")} / 0{QUESTIONS.length}
+                    </div>
+                    <div className="flex gap-1.5">
+                      {QUESTIONS.map((_, i) => (
+                        <div
+                          key={i}
+                          className="h-[2px] w-6 md:w-8 transition-all duration-300"
+                          style={{
+                            background: i < current ? ACCENT : i === current ? INK : "rgba(26,26,26,0.15)",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <h2
+                    className="serif-jp text-[22px] md:text-[30px] leading-[1.55] mb-10"
+                    style={{ letterSpacing: "0.01em" }}
+                  >
+                    {QUESTIONS[current].prompt}
+                  </h2>
+
+                  <div className="flex flex-col gap-3">
+                    {QUESTIONS[current].options.map((opt, i) => (
+                      <button
+                        key={i}
+                        onClick={() => handleSelect(opt.axis)}
+                        className="option-card text-left px-5 md:px-6 py-4 md:py-5 border flex items-start gap-4"
+                        style={{ borderColor: "rgba(26,26,26,0.18)", background: "transparent" }}
+                      >
+                        <span
+                          className="num text-[12px] pt-1 tracking-widest"
+                          style={{ color: ACCENT, minWidth: "24px" }}
+                        >
+                          {String.fromCharCode(65 + i)}.
+                        </span>
+                        <span
+                          className="flex-1 text-[13.5px] md:text-[15px] leading-[1.75]"
+                          style={{ color: INK }}
+                        >
+                          {opt.label}
+                        </span>
+                        <span className="option-arrow text-[14px] pt-1" style={{ color: ACCENT }}>
+                          →
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+
+                  {current > 0 && (
+                    <button
+                      onClick={handleBack}
+                      className="mt-8 text-[11px] tracking-[0.25em] uppercase"
+                      style={{ color: MUTED, fontFamily: "'Fraunces', serif" }}
+                    >
+                      ← Back
+                    </button>
+                  )}
+                </motion.section>
+              )}
+
+              {stage === "result" && result && (
+                <motion.section
+                  key="result"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
+                >
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1, duration: 0.5 }}
+                    className="flex items-center justify-between mb-6"
+                  >
+                    <div className="num text-[13px] tracking-[0.25em]" style={{ color: ACCENT }}>
+                      — RESULT
+                    </div>
+                    <div className="num text-[11px] tracking-[0.25em]" style={{ color: MUTED }}>
+                      TYPE {String(getTypeNumber(result.primary, result.secondary)).padStart(2, "0")} / 16
+                    </div>
+                  </motion.div>
+
+                  {/* Crest */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.25, duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
+                    className="crest-glow flex items-center justify-center gap-5 md:gap-8 my-10 md:my-14"
+                  >
+                    <div style={{ color: ACCENT }}>
+                      <AxisIcon axis={result.primary} size={110} stroke={1.2} />
+                    </div>
+                    {result.primary !== result.secondary ? (
+                      <>
+                        <div
+                          className="serif-en text-[22px]"
+                          style={{ color: MUTED, fontStyle: "italic" }}
+                        >
+                          ×
+                        </div>
+                        <div style={{ color: INK, opacity: 0.85 }}>
+                          <AxisIcon axis={result.secondary} size={62} stroke={1.2} />
+                        </div>
+                      </>
+                    ) : (
+                      <div
+                        className="serif-en text-[11px] tracking-[0.3em] self-end pb-2"
+                        style={{ color: MUTED, fontStyle: "italic" }}
+                      >
+                        / PURE
+                      </div>
+                    )}
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.45, duration: 0.5 }}
+                    className="text-center mb-10"
+                  >
+                    <div
+                      className="serif-en text-[11px] tracking-[0.4em] mb-2"
+                      style={{ color: ACCENT, fontStyle: "italic" }}
+                    >
+                      {result.data.en}
+                    </div>
+                    <h1
+                      className="serif-jp text-[44px] md:text-[64px] leading-none"
+                      style={{ letterSpacing: "0.08em" }}
+                    >
+                      {result.data.name}
+                    </h1>
+                    <div
+                      className="serif-jp text-[14px] md:text-[16px] mt-5"
+                      style={{ color: MUTED, letterSpacing: "0.04em" }}
+                    >
+                      —— {result.data.phrase} ——
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6, duration: 0.5 }}
+                    className="hair mb-8"
+                  />
+
+                  {/* Primary / Secondary labels */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.65, duration: 0.5 }}
+                    className="flex items-center justify-center gap-10 md:gap-16 mb-10"
+                  >
+                    <div className="text-center">
+                      <div className="num text-[10px] tracking-[0.3em]" style={{ color: MUTED }}>
+                        PRIMARY
+                      </div>
+                      <div
+                        className="serif-jp text-[20px] md:text-[24px] mt-2"
+                        style={{ color: ACCENT }}
+                      >
+                        {AXES[result.primary].name}
+                      </div>
+                      <div
+                        className="serif-en text-[10px] tracking-[0.25em] mt-1"
+                        style={{ color: MUTED, fontStyle: "italic" }}
+                      >
+                        {AXES[result.primary].subtitle}
+                      </div>
+                    </div>
+                    {result.primary !== result.secondary && (
+                      <div className="text-center">
+                        <div className="num text-[10px] tracking-[0.3em]" style={{ color: MUTED }}>
+                          SECONDARY
+                        </div>
+                        <div className="serif-jp text-[20px] md:text-[24px] mt-2">
+                          {AXES[result.secondary].name}
+                        </div>
+                        <div
+                          className="serif-en text-[10px] tracking-[0.25em] mt-1"
+                          style={{ color: MUTED, fontStyle: "italic" }}
+                        >
+                          {AXES[result.secondary].subtitle}
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+
+                  <div className="hair mb-8" />
+
+                  {/* Distribution */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.75, duration: 0.5 }}
+                    className="mb-10"
+                  >
+                    <div
+                      className="text-[10px] tracking-[0.3em] uppercase mb-5"
+                      style={{ color: MUTED, fontFamily: "'Fraunces', serif" }}
+                    >
+                      Axis Distribution
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      {Object.entries(scores)
+                        .sort(
+                          (a, b) =>
+                            b[1] - a[1] || AXIS_LIST.indexOf(a[0]) - AXIS_LIST.indexOf(b[0])
+                        )
+                        .map(([k, v], i) => {
+                          const a = AXES[k];
+                          const pct = (v / total) * 100;
+                          return (
+                            <div key={k} className="flex items-center gap-4">
+                              <div className="flex items-center gap-3 w-[130px] md:w-[160px]">
+                                <span
+                                  style={{
+                                    color: i === 0 ? ACCENT : INK,
+                                    opacity: i === 0 ? 1 : 0.5,
+                                  }}
+                                >
+                                  <AxisIcon axis={k} size={18} stroke={1.3} />
+                                </span>
+                                <span className="serif-jp text-[14px] md:text-[15px]">{a.name}</span>
+                              </div>
+                              <div className="flex-1 bar-track h-[6px] relative overflow-hidden">
+                                <motion.div
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${pct}%` }}
+                                  transition={{
+                                    delay: 0.9 + i * 0.1,
+                                    duration: 0.8,
+                                    ease: [0.2, 0.8, 0.2, 1],
+                                  }}
+                                  className="absolute top-0 left-0 h-full"
+                                  style={{
+                                    background: i === 0 ? ACCENT : INK,
+                                    opacity: i === 0 ? 1 : 0.55,
+                                  }}
+                                />
+                              </div>
+                              <div className="num text-[12px] w-8 text-right" style={{ color: MUTED }}>
+                                {v}/{total}
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </motion.div>
+
+                  <div className="hair mb-10" />
+
+                  {/* Detail */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.0, duration: 0.5 }}
+                    className="grid md:grid-cols-12 gap-6 md:gap-10 mb-10"
+                  >
+                    <div className="md:col-span-4">
+                      <div
+                        className="text-[10px] tracking-[0.3em] uppercase mb-3"
+                        style={{ color: MUTED, fontFamily: "'Fraunces', serif" }}
+                      >
+                        Who you are
+                      </div>
+                    </div>
+                    <div className="md:col-span-8">
+                      <p
+                        className="text-[13.5px] md:text-[14.5px] leading-[2]"
+                        style={{ color: INK }}
+                      >
+                        {result.data.detail}
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  <div className="hair mb-10" />
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.1, duration: 0.5 }}
+                    className="grid md:grid-cols-12 gap-6 md:gap-10 mb-12"
+                  >
+                    <div className="md:col-span-4">
+                      <div
+                        className="text-[10px] tracking-[0.3em] uppercase mb-3"
+                        style={{ color: MUTED, fontFamily: "'Fraunces', serif" }}
+                      >
+                        Good Fit
+                      </div>
+                    </div>
+                    <div className="md:col-span-8">
+                      <p
+                        className="serif-jp text-[15px] md:text-[16px] leading-[1.9]"
+                        style={{ color: INK }}
+                      >
+                        {result.data.fit}
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  <div className="rule mb-10" />
+
+                  {/* 16 Types Map */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2, duration: 0.5 }}
+                    className="mb-10"
+                  >
+                    <div className="flex items-baseline justify-between mb-2">
+                      <div
+                        className="text-[10px] tracking-[0.3em] uppercase"
+                        style={{ color: MUTED, fontFamily: "'Fraunces', serif" }}
+                      >
+                        16 Types Map
+                      </div>
+                      <div
+                        className="num text-[9px] md:text-[10px] tracking-[0.2em]"
+                        style={{ color: MUTED }}
+                      >
+                        ↓ Primary / Secondary →
+                      </div>
+                    </div>
+                    <p className="text-[11px] md:text-[12px] leading-[1.9] mb-5" style={{ color: MUTED }}>
+                      4つの軸の、1位×2位の組み合わせで計16タイプ。あなたの位置を確認してみてください。
+                    </p>
+
+                    <div
+                      className="grid gap-1.5"
+                      style={{ gridTemplateColumns: "auto repeat(4, 1fr)" }}
+                    >
+                      <div />
+                      {AXIS_LIST.map((s) => (
+                        <div
+                          key={`head-${s}`}
+                          className="flex flex-col items-center gap-1 pb-2"
+                          style={{ color: MUTED }}
+                        >
+                          <AxisIcon axis={s} size={14} stroke={1.2} />
+                          <div className="serif-jp text-[10px]">{AXES[s].name}</div>
+                        </div>
+                      ))}
+
+                      {AXIS_LIST.map((p) => (
+                        <React.Fragment key={`row-${p}`}>
+                          <div
+                            className="flex flex-col items-center justify-center gap-1 pr-2"
+                            style={{ color: MUTED }}
+                          >
+                            <AxisIcon axis={p} size={14} stroke={1.2} />
+                            <div className="serif-jp text-[10px]">{AXES[p].name}</div>
+                          </div>
+                          {AXIS_LIST.map((s) => {
+                            const t = TYPES[`${p}-${s}`];
+                            const isActive =
+                              result.primary === p && result.secondary === s;
+                            return (
+                              <motion.div
+                                key={`${p}-${s}`}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{
+                                  delay:
+                                    1.25 +
+                                    (AXIS_LIST.indexOf(p) * 4 + AXIS_LIST.indexOf(s)) *
+                                      0.025,
+                                  duration: 0.4,
+                                }}
+                                className="type-cell aspect-square border flex flex-col items-center justify-center p-1.5 md:p-2 relative"
+                                style={{
+                                  borderColor: isActive ? INK : "rgba(26,26,26,0.18)",
+                                  background: isActive ? INK : "transparent",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    color: isActive ? PAPER : INK,
+                                    opacity: isActive ? 1 : 0.7,
+                                  }}
+                                >
+                                  <AxisIcon axis={p} size={16} stroke={1.1} />
+                                </div>
+                                <div
+                                  className="serif-jp text-[9px] md:text-[11px] mt-1 text-center leading-tight"
+                                  style={{ color: isActive ? PAPER : INK }}
+                                >
+                                  {t.name}
+                                </div>
+                                {isActive && (
+                                  <div
+                                    className="num text-[7px] md:text-[8px] tracking-widest mt-0.5 absolute bottom-1"
+                                    style={{ color: ACCENT }}
+                                  >
+                                    ◆ YOU
+                                  </div>
+                                )}
+                              </motion.div>
+                            );
+                          })}
+                        </React.Fragment>
+                      ))}
+                    </div>
+
+                    <div
+                      className="num text-[10px] md:text-[11px] tracking-[0.2em] mt-5 text-right"
+                      style={{ color: MUTED }}
+                    >
+                      対角線上 = 純粋型 (4) / その他 = 複合型 (12)
+                    </div>
+                  </motion.div>
+
+                  <div className="rule mb-10" />
+
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.5, duration: 0.5 }}
+                    className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+                  >
+                    <div className="text-[11px] leading-[1.9]" style={{ color: MUTED }}>
+                      ※ 診断結果はあくまで言語化の入り口です。<br />
+                      同じタイプでも、配分の比率によって実際の姿は異なります。
+                    </div>
+                    <button
+                      onClick={handleRestart}
+                      className="btn-primary px-8 py-4 text-[12px] tracking-[0.2em] uppercase self-start md:self-auto whitespace-nowrap"
+                      style={{ fontFamily: "'Fraunces', serif" }}
+                    >
+                      Retake ↺
+                    </button>
+                  </motion.div>
+                </motion.section>
+              )}
+            </AnimatePresence>
+
+            <footer className="mt-16 md:mt-20">
+              <div className="hair mb-4" />
+              <div className="flex items-center justify-between">
+                <div
+                  className="text-[10px] tracking-[0.3em] uppercase"
+                  style={{ color: MUTED, fontFamily: "'Fraunces', serif" }}
+                >
+                  — Career Compass Series
+                </div>
+                <div
+                  className="num text-[10px] tracking-widest"
+                  style={{ color: MUTED }}
+                >
+                  001 / AXIS
+                </div>
+              </div>
+            </footer>
+          </div>
+        </div>
+      );
+    }
+
+    // --- レンダリング ---
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<ShukatsuAxisDiagnosis />);
+  </script>
+</body>
+</html>
