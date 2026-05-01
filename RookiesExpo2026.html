@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>【RookiesExpo2026】28卒限定｜社会と仕事の解像度を上げる、キャリア探索イベント。</title>
+    <title>【RookiesExpo2026】28卒限定｜自分の軸で、企業を見極める1日。</title>
     <meta property="og:title" content="RookiesExpo2026｜28卒限定キャリア探索イベント">
-    <meta property="og:description" content="早慶・東大・国公立・GMARCH 28卒限定。参加者にPayPayで1万円支給（人数上限50名・早期申し込み限定）。企業との座談会を通じて、キャリアの解像度を上げる1日。">
+    <meta property="og:description" content="28卒限定。AI時代の就活で差がつく『自分の軸』にフォーカスする1日完結イベント。6/27(土)都内開催。">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="description" content="RookiesExpo2026｜28卒限定キャリア探索イベント。参加者に就活支援金1万円（人数上限50名・早期申し込み限定）。6/27(土)都内開催。">
+    <meta name="description" content="RookiesExpo2026｜28卒限定。自分の軸で企業を見極める1日完結イベント。6/27(土)都内開催。">
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -36,7 +36,7 @@
             -webkit-font-smoothing: antialiased; overflow-x: hidden;
         }
 
-        /* ─── Header ─── */
+        /* Header */
         .header {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
             background: rgba(255,255,255,.92); backdrop-filter: blur(14px);
@@ -82,103 +82,94 @@
             .mob-toggle { display: block; }
         }
 
-        /* ─── Hero (bright) ─── */
+        /* Hero — ビジネスフレッシュ高層ビル背景 */
         .hero {
             position: relative; min-height: 100vh; min-height: 100dvh;
             display: flex; align-items: center;
             padding: 100px 0 60px; overflow: hidden;
-            background: linear-gradient(175deg, #DBEAFE 0%, #EFF6FF 40%, #FFFFFF 100%);
+            background: #0A1B3D;
         }
         .hero::before {
             content: ''; position: absolute; inset: 0;
-            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80') center bottom/cover;
-            opacity: 0.06;
+            background:
+                linear-gradient(120deg, rgba(10,27,61,.85) 0%, rgba(37,99,235,.55) 50%, rgba(10,27,61,.7) 100%),
+                url('https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=2400&q=80') center center/cover;
+            opacity: 1;
         }
-        /* decorative circles */
+        .hero::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(255,255,255,.08) 100%);
+            pointer-events: none;
+        }
         .hero-circle {
-            position: absolute; border-radius: 50%; opacity: .08;
-            background: var(--primary); animation: drift 20s ease-in-out infinite;
+            position: absolute; border-radius: 50%; opacity: .12;
+            background: #FFFFFF; animation: drift 20s ease-in-out infinite; pointer-events: none;
         }
-        .hero-circle.c1 { width: 400px; height: 400px; top: -80px; right: -60px; }
-        .hero-circle.c2 { width: 250px; height: 250px; bottom: 5%; left: -50px; animation-delay: -6s; }
-        .hero-circle.c3 { width: 140px; height: 140px; top: 35%; right: 20%; animation-delay: -12s; opacity: .05; }
+        .hero-circle.c1 { width: 400px; height: 400px; top: -80px; right: -60px; opacity: .04; }
+        .hero-circle.c2 { width: 250px; height: 250px; bottom: 5%; left: -50px; animation-delay: -6s; opacity: .03; }
+        .hero-circle.c3 { width: 140px; height: 140px; top: 35%; right: 20%; animation-delay: -12s; opacity: .03; }
         @keyframes drift {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
         }
 
-        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 780px; margin: 0 auto; }
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 820px; margin: 0 auto; }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 8px;
-            background: var(--white); border: 1px solid #DBEAFE;
-            padding: 8px 20px; border-radius: 100px;
-            font-weight: 700; font-size: 13px; color: var(--primary);
-            box-shadow: 0 2px 12px rgba(37,99,235,.08);
+            background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+            backdrop-filter: blur(10px);
+            padding: 9px 22px; border-radius: 100px;
+            font-weight: 700; font-size: 13px; color: #FFFFFF;
             margin-bottom: 28px;
         }
         .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: blink 2s infinite; }
         @keyframes blink { 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
 
         .hero-sub {
-            font-size: clamp(15px, 2vw, 20px); font-weight: 700;
-            color: var(--text-sub); letter-spacing: .1em; margin-bottom: 16px;
+            font-size: clamp(15px, 2vw, 19px); font-weight: 700;
+            color: rgba(255,255,255,.75); letter-spacing: .12em; margin-bottom: 18px;
         }
         .hero-title {
-            font-size: clamp(32px, 6vw, 64px); font-weight: 900;
-            line-height: 1.2; margin-bottom: 24px; color: var(--text);
+            font-size: clamp(32px, 6vw, 62px); font-weight: 900;
+            line-height: 1.2; margin-bottom: 26px; color: #FFFFFF;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 24px rgba(0,0,0,.3);
         }
         .hero-title .em {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: linear-gradient(135deg, #93C5FD, #6EE7B7);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        /* money callout in hero */
-        .hero-money {
-            display: inline-flex; align-items: center; gap: 14px;
-            background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
-            border: 1.5px solid rgba(245,158,11,.3);
-            padding: 16px 32px; border-radius: 20px; margin-bottom: 32px;
-            box-shadow: 0 4px 20px rgba(245,158,11,.1);
-            flex-wrap: wrap; justify-content: center;
-        }
-        .hero-money-amt {
-            font-family: 'Outfit', sans-serif; font-weight: 900;
-            font-size: clamp(30px, 5vw, 44px); color: var(--gold-dark); line-height: 1;
-        }
-        .hero-money-amt .yen { font-size: .55em; }
-        .hero-money-txt { font-size: clamp(13px, 1.6vw, 16px); font-weight: 700; color: #92400E; line-height: 1.4; text-align: left; }
-        .hero-money-note { display: inline-block; }
-        @media (max-width: 640px) {
-            .hero-money { padding: 14px 18px; gap: 10px; }
-            .hero-money-txt { text-align: center; font-size: 12px; }
-            .entry-money { flex-wrap: wrap; line-height: 1.6; }
+        .hero-lead {
+            font-size: clamp(14px, 1.7vw, 17px); color: rgba(255,255,255,.85);
+            line-height: 1.95; margin-bottom: 36px; max-width: 640px; margin-left: auto; margin-right: auto;
+            font-weight: 500;
         }
 
-        .hero-cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 36px; }
+        .hero-cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 28px; }
         .hero-cta {
             display: inline-flex; align-items: center; gap: 8px;
-            background: var(--primary); color: #fff;
-            font-weight: 900; font-size: clamp(15px, 2vw, 20px);
+            background: #FFFFFF; color: var(--primary);
+            font-weight: 900; font-size: clamp(15px, 2vw, 19px);
             padding: 18px 44px; border-radius: 100px; text-decoration: none;
-            box-shadow: 0 4px 24px rgba(37,99,235,.25); transition: all .25s;
+            box-shadow: 0 8px 32px rgba(0,0,0,.25); transition: all .25s;
         }
-        .hero-cta:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,99,235,.3); }
+        .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,.35); }
         .hero-cta-ghost {
             display: inline-flex; align-items: center; gap: 6px;
-            background: var(--white); border: 1.5px solid #DBEAFE;
-            color: var(--primary); font-weight: 700; font-size: 15px;
+            background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.3);
+            color: #FFFFFF; font-weight: 700; font-size: 15px;
             padding: 16px 32px; border-radius: 100px; text-decoration: none;
-            transition: all .2s;
+            transition: all .2s; backdrop-filter: blur(10px);
         }
-        .hero-cta-ghost:hover { background: var(--primary-light); }
+        .hero-cta-ghost:hover { background: rgba(255,255,255,.2); }
 
-        .hero-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .hero-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 22px; }
         .hero-tag {
             display: flex; align-items: center; gap: 6px;
-            background: var(--white); border: 1px solid #E5E7EB;
+            background: rgba(255,255,255,.95); border: 1px solid rgba(255,255,255,.4);
             padding: 10px 18px; border-radius: 14px;
             font-weight: 700; font-size: 13px; color: var(--text);
-            box-shadow: 0 1px 4px rgba(0,0,0,.04);
+            box-shadow: 0 4px 16px rgba(0,0,0,.15);
         }
         .hero-tag i { font-size: 14px; }
         .t-blue { color: var(--primary); }
@@ -186,18 +177,52 @@
         .t-gold { color: var(--gold); }
         .t-pink { color: var(--coral); }
 
-        /* ─── Container ─── */
+        .hero-money-mini {
+            display: inline-block; font-size: 11px; color: rgba(255,255,255,.7);
+            line-height: 1.6;
+        }
+        .hero-money-mini strong { color: #FCD34D; font-weight: 700; }
+
+        /* Container */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-        /* ─── Section common ─── */
+        /* Section common */
         .sec-label {
             font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 12px;
             color: var(--primary); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 10px;
         }
-        .sec-title { font-size: clamp(22px, 3.5vw, 38px); font-weight: 900; line-height: 1.3; margin-bottom: 14px; }
-        .sec-desc { font-size: 15px; color: var(--text-sub); line-height: 1.8; max-width: 560px; }
+        .sec-title { font-size: clamp(22px, 3.5vw, 36px); font-weight: 900; line-height: 1.35; margin-bottom: 14px; }
+        .sec-desc { font-size: 15px; color: var(--text-sub); line-height: 1.85; max-width: 640px; }
 
-        /* ─── Concept ─── */
+        /* Background story */
+        .bg-story {
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+            padding: 88px 0; border-bottom: 1px solid #F3F4F6;
+        }
+        .bg-story-inner { max-width: 740px; margin: 0 auto; }
+        .bg-story-head { text-align: center; margin-bottom: 44px; }
+        .bg-story-body p {
+            font-size: 15px; color: var(--text); line-height: 2.0;
+            margin-bottom: 22px; text-align: justify;
+        }
+        .bg-story-body p strong {
+            background: linear-gradient(transparent 60%, rgba(245,158,11,.18) 60%);
+            font-weight: 700; padding: 0 2px;
+        }
+        .bg-story-body .lead {
+            font-size: clamp(17px, 2vw, 20px); font-weight: 700;
+            color: var(--text); text-align: center; line-height: 1.7;
+            margin-bottom: 32px; padding-bottom: 24px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .bg-story-quote {
+            margin-top: 32px; padding: 24px 28px;
+            background: var(--primary-light); border-left: 3px solid var(--primary);
+            border-radius: 0 16px 16px 0;
+            font-size: 15px; color: var(--text); line-height: 1.85; font-weight: 600;
+        }
+
+        /* Concept */
         .concept { background: var(--primary-light); padding: 48px 0; border-bottom: 1px solid #DBEAFE; }
         .concept-row {
             display: grid; grid-template-columns: auto 1fr; gap: 24px;
@@ -206,31 +231,48 @@
         .concept-icon { width: 60px; height: 60px; background: var(--primary); border-radius: 18px; display: grid; place-items: center; }
         .concept-icon i { color: #fff; font-size: 24px; }
         .concept-body h3 { font-size: 18px; font-weight: 900; margin-bottom: 6px; }
-        .concept-body p { font-size: 14px; color: var(--text-sub); line-height: 1.75; }
+        .concept-body p { font-size: 14px; color: var(--text-sub); line-height: 1.85; }
         @media (max-width: 640px) { .concept-row { grid-template-columns: 1fr; text-align: center; justify-items: center; } }
 
-        /* ─── Partners ─── */
-        .partners { background: var(--white); padding: 48px 0; }
+        /* Partners */
+        .partners { background: var(--white); padding: 56px 0; }
         .partners-lbl {
             text-align: center; font-family: 'Outfit', sans-serif; font-size: 11px;
-            font-weight: 800; color: #D1D5DB; letter-spacing: .5em; text-transform: uppercase; margin-bottom: 28px;
+            font-weight: 800; color: #9CA3AF; letter-spacing: .5em; text-transform: uppercase; margin-bottom: 28px;
         }
         .partners-row {
             display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 24px; text-align: center; align-items: center; opacity: .35; transition: opacity .5s;
+            gap: 20px; text-align: center; align-items: center; margin-bottom: 18px;
         }
-        .partners-row:hover { opacity: .7; }
-        .p-name { font-family: 'Outfit','Noto Sans JP',sans-serif; font-weight: 800; font-size: clamp(14px, 2.2vw, 22px); color: var(--primary); }
+        .p-name {
+            font-family: 'Outfit','Noto Sans JP',sans-serif; font-weight: 800;
+            font-size: clamp(13px, 1.8vw, 19px); color: var(--primary);
+            opacity: .55; line-height: 1.3;
+        }
+        .partners-others {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            margin-top: 16px; max-width: 760px; margin-left: auto; margin-right: auto;
+        }
+        .p-other {
+            font-size: 12px; color: var(--text-sub); font-weight: 600;
+            padding: 6px 14px; border: 1px dashed #D1D5DB; border-radius: 100px;
+            background: var(--bg);
+        }
+        .partners-note {
+            text-align: center; font-size: 11px; color: var(--text-sub);
+            margin-top: 18px; line-height: 1.6;
+        }
         @media (max-width: 640px) { .partners-row { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
 
-        /* ─── Cards grid (uniform) ─── */
+        /* Cards grid */
         .cards-sec { padding: 88px 0; }
         .cards-sec.alt { background: var(--bg); }
         .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 44px; }
-        @media (max-width: 768px) { .cards-grid { grid-template-columns: 1fr; } }
+        .cards-grid.four { grid-template-columns: repeat(2, 1fr); max-width: 880px; margin-left: auto; margin-right: auto; }
+        @media (max-width: 768px) { .cards-grid, .cards-grid.four { grid-template-columns: 1fr; } }
 
         .card {
-            background: var(--white); border-radius: var(--r-xl); padding: 40px 28px;
+            background: var(--white); border-radius: var(--r-xl); padding: 36px 28px;
             border: 1px solid #E5E7EB; transition: all .3s;
         }
         .cards-sec.alt .card { border-color: #F3F4F6; box-shadow: 0 2px 16px rgba(0,0,0,.03); }
@@ -246,34 +288,75 @@
         .card-icon.ci-pink { background: #FDF2F8; color: var(--coral); }
 
         .card h3 { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
-        .card p { font-size: 14px; color: var(--text-sub); line-height: 1.7; }
+        .card p { font-size: 14px; color: var(--text-sub); line-height: 1.85; }
 
-        /* centered card variant */
         .card.centered { text-align: center; }
         .card.centered .card-icon { margin: 0 auto 20px; }
 
-        /* ─── Target ─── */
+        /* Pre-content */
+        .precontent {
+            background: var(--white); padding: 88px 0;
+        }
+        .pc-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            max-width: 880px; margin: 44px auto 0;
+        }
+        @media (max-width: 768px) { .pc-grid { grid-template-columns: 1fr; } }
+        .pc-card {
+            background: var(--bg); border-radius: var(--r-lg); padding: 32px;
+            border: 1px solid #F3F4F6;
+        }
+        .pc-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .pc-card h3 i { color: var(--primary); font-size: 18px; }
+        .pc-card .pc-original {
+            display: inline-block; font-size: 11px; font-weight: 700;
+            color: var(--gold-dark); background: #FFFBEB;
+            padding: 3px 10px; border-radius: 100px; margin-bottom: 12px;
+            border: 1px solid #FDE68A;
+        }
+        .pc-card p { font-size: 13.5px; color: var(--text-sub); line-height: 1.85; margin-bottom: 14px; }
+        .pc-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 13px; font-weight: 700; color: var(--primary);
+            text-decoration: none; padding: 8px 14px; background: var(--primary-light);
+            border-radius: 100px; transition: all .2s;
+        }
+        .pc-link:hover { background: var(--primary); color: #fff; }
+        .pc-link i { font-size: 11px; }
+        .pc-note {
+            max-width: 880px; margin: 18px auto 0;
+            font-size: 12px; color: var(--text-sub); text-align: center; line-height: 1.7;
+        }
+
+        /* Target */
         .target-card {
             background: var(--white); border-radius: var(--r-xl); padding: 44px;
             max-width: 760px; margin: 44px auto 0; border: 1px solid #E5E7EB;
         }
-        .tc-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+        .tc-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
         .tc-row:last-child { margin-bottom: 0; }
         .tc-check {
             flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px;
             background: var(--accent); display: grid; place-items: center;
             color: #fff; font-size: 12px;
         }
-        .tc-text h4 { font-weight: 800; font-size: 15px; margin-bottom: 4px; }
-        .tc-text p { font-size: 14px; color: var(--text-sub); line-height: 1.6; }
-        .uni-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .tc-text h4 { font-weight: 800; font-size: 15px; margin-bottom: 6px; }
+        .tc-text p { font-size: 14px; color: var(--text-sub); line-height: 1.7; }
+        .uni-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
         .uni-tag {
             background: var(--primary-light); color: var(--primary);
-            font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 6px;
+            font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 6px;
         }
+        .selection-notice {
+            max-width: 760px; margin: 16px auto 0;
+            background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px;
+            padding: 14px 20px; font-size: 13px; color: #92400E; line-height: 1.7;
+            display: flex; align-items: flex-start; gap: 10px;
+        }
+        .selection-notice i { color: var(--gold-dark); margin-top: 2px; flex-shrink: 0; }
         @media (max-width: 640px) { .target-card { padding: 28px 20px; } }
 
-        /* ─── Flow ─── */
+        /* Flow */
         .flow-timeline { max-width: 680px; margin: 44px auto 0; position: relative; }
         .flow-timeline::before {
             content: ''; position: absolute; top: 0; bottom: 0; left: 24px;
@@ -289,25 +372,28 @@
             font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 16px;
             background: var(--primary-light); color: var(--primary); position: relative; z-index: 2;
         }
-        .fl-step.hl .fl-num { background: var(--primary-light); color: var(--primary); }
+        .fl-step.hl .fl-num { background: var(--primary); color: #fff; }
+        .fl-step.featured .fl-num { background: var(--gold); color: #fff; box-shadow: 0 4px 16px rgba(245,158,11,.3); }
         .fl-body {
             background: var(--bg); border-radius: 18px; padding: 20px 24px;
             border: 1px solid #F3F4F6;
         }
         .fl-step.hl .fl-body { background: var(--primary-light); border-color: #DBEAFE; }
+        .fl-step.featured .fl-body { background: #FFFBEB; border-color: #FDE68A; }
         .fl-lbl { font-size: 12px; color: var(--text-sub); font-weight: 600; margin-bottom: 3px; }
+        .fl-step.featured .fl-lbl { color: var(--gold-dark); font-weight: 700; }
         .fl-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
-        .fl-desc { font-size: 13px; color: var(--text-sub); line-height: 1.7; }
+        .fl-desc { font-size: 13.5px; color: var(--text-sub); line-height: 1.8; }
 
         .fl-note {
             max-width: 680px; margin: 24px auto 0;
             background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px;
-            padding: 14px 20px; font-size: 13px; color: var(--text-sub); line-height: 1.6;
+            padding: 14px 20px; font-size: 13px; color: var(--text-sub); line-height: 1.7;
             display: flex; align-items: flex-start; gap: 8px;
         }
         .fl-note i { color: var(--gold-dark); margin-top: 2px; flex-shrink: 0; }
 
-        /* ─── Info table ─── */
+        /* Info table */
         .info-card {
             background: var(--white); border-radius: var(--r-xl); padding: 44px;
             max-width: 760px; margin: 44px auto 0; border: 1px solid #E5E7EB;
@@ -317,7 +403,7 @@
         .info-tbl tr:last-child { border-bottom: none; }
         .info-tbl th {
             text-align: left; padding: 16px 16px 16px 0; font-weight: 700;
-            font-size: 13px; color: var(--primary); white-space: nowrap; vertical-align: top; width: 100px;
+            font-size: 13px; color: var(--primary); white-space: nowrap; vertical-align: top; width: 110px;
         }
         .info-tbl td { padding: 16px 0; font-size: 14px; line-height: 1.7; }
         .info-tbl .sub { font-size: 12px; color: var(--text-sub); }
@@ -327,7 +413,7 @@
             .info-tbl tr { padding: 10px 0; display: block; }
         }
 
-        /* ─── Entry flow steps ─── */
+        /* Entry flow */
         .entry-flow {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
             margin: 36px auto 0; max-width: 760px;
@@ -344,9 +430,9 @@
         }
         .ef-icon { font-size: 24px; color: var(--primary); margin-bottom: 10px; }
         .ef-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
-        .ef-desc { font-size: 12px; color: var(--text-sub); line-height: 1.5; }
+        .ef-desc { font-size: 12px; color: var(--text-sub); line-height: 1.6; }
 
-        /* ─── Voices ─── */
+        /* Voices */
         .voice-card {
             background: var(--bg); border-radius: var(--r-lg); padding: 28px;
             border: 1px solid #F3F4F6;
@@ -359,9 +445,9 @@
         }
         .voice-name { font-weight: 700; font-size: 14px; }
         .voice-uni { font-size: 12px; color: var(--text-sub); }
-        .voice-txt { font-size: 14px; color: var(--text-sub); line-height: 1.8; }
+        .voice-txt { font-size: 14px; color: var(--text-sub); line-height: 1.85; }
 
-        /* ─── FAQ ─── */
+        /* FAQ */
         .faq-list { max-width: 680px; margin: 44px auto 0; }
         .faq-item { background: var(--white); border-radius: 18px; margin-bottom: 12px; border: 1px solid #E5E7EB; overflow: hidden; }
         .faq-q {
@@ -373,10 +459,10 @@
         .faq-q .arr { transition: transform .25s; font-size: 12px; color: var(--primary); flex-shrink: 0; }
         .faq-item.open .faq-q .arr { transform: rotate(180deg); }
         .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s; padding: 0 24px; }
-        .faq-item.open .faq-a { max-height: 300px; padding: 0 24px 20px; }
-        .faq-a p { font-size: 14px; color: var(--text-sub); line-height: 1.8; }
+        .faq-item.open .faq-a { max-height: 500px; padding: 0 24px 20px; }
+        .faq-a p { font-size: 14px; color: var(--text-sub); line-height: 1.85; }
 
-        /* ─── Entry CTA ─── */
+        /* Entry CTA */
         .entry-sec {
             background: linear-gradient(170deg, #1E40AF 0%, #2563EB 50%, #3B82F6 100%);
             padding: 88px 0; position: relative; overflow: hidden;
@@ -394,7 +480,7 @@
             display: inline-flex; align-items: center; gap: 8px;
             background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
             padding: 8px 20px; border-radius: 100px;
-            color: rgba(255,255,255,.8); font-weight: 800; font-size: 13px; margin-bottom: 24px;
+            color: rgba(255,255,255,.85); font-weight: 800; font-size: 13px; margin-bottom: 24px;
         }
         .entry-box {
             background: rgba(255,255,255,.07); backdrop-filter: blur(14px);
@@ -402,42 +488,29 @@
             padding: 40px 32px;
         }
         .entry-assurance {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin: 0 0 20px;
-            padding: 14px 16px;
+            display: flex; align-items: flex-start; gap: 10px;
+            margin: 0 0 20px; padding: 14px 16px;
             background: rgba(255,255,255,.08);
             border: 1px solid rgba(255,255,255,.14);
-            border-radius: 14px;
-            text-align: left;
+            border-radius: 14px; text-align: left;
         }
-        
         .entry-assurance i {
-            color: #BFDBFE;
-            font-size: 16px;
-            margin-top: 2px;
-            flex-shrink: 0;
+            color: #BFDBFE; font-size: 16px; margin-top: 2px; flex-shrink: 0;
         }
-        
         .entry-assurance p {
-            margin: 0;
-            color: rgba(255,255,255,.82);
-            font-size: 13px;
-            line-height: 1.7;
+            margin: 0; color: rgba(255,255,255,.82);
+            font-size: 13px; line-height: 1.75;
         }
-        
-        .entry-assurance strong {
-            color: #FFFFFF;
-        }
+        .entry-assurance strong { color: #FFFFFF; }
         .entry-money {
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.2);
+            background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.25);
             border-radius: 14px; padding: 14px 20px; margin-bottom: 28px;
-            color: #FCD34D; font-weight: 800; font-size: 14px;
+            color: #FCD34D; font-weight: 700; font-size: 13px; line-height: 1.6;
         }
-        .entry-money i { font-size: 18px; }
-        .entry-box > p { color: rgba(255,255,255,.65); font-size: 14px; line-height: 1.7; margin-bottom: 24px; }
+        .entry-money i { font-size: 16px; flex-shrink: 0; }
+        .entry-money strong { font-weight: 900; color: #FDE68A; }
+        .entry-box > p { color: rgba(255,255,255,.65); font-size: 14px; line-height: 1.85; margin-bottom: 24px; }
         .entry-cta-btn {
             display: block; width: 100%; text-align: center;
             background: linear-gradient(135deg, var(--gold), var(--gold-dark));
@@ -454,23 +527,9 @@
             box-shadow: 0 4px 16px rgba(6,199,85,.2);
         }
         .entry-line-btn:hover { transform: translateY(-2px); }
-        .entry-note { text-align: center; font-size: 11px; color: rgba(255,255,255,.3); margin-top: 14px; line-height: 1.5; }
+        .entry-note { text-align: center; font-size: 11px; color: rgba(255,255,255,.4); margin-top: 14px; line-height: 1.6; }
 
-        .share-strip { text-align: center; padding: 20px 0 0; }
-        .share-strip p { font-size: 11px; color: rgba(255,255,255,.3); margin-bottom: 10px; }
-        .share-btns { display: flex; justify-content: center; gap: 10px; }
-        .share-btn {
-            display: inline-flex; align-items: center; gap: 5px;
-            padding: 8px 16px; border-radius: 10px; font-size: 12px;
-            font-weight: 700; text-decoration: none; transition: all .2s;
-        }
-        .share-btn.line { background: #06C755; color: #fff; }
-        .share-btn.x { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.12); }
-        .share-btn:hover { transform: translateY(-1px); }
-
-        @media (max-width: 640px) { . { padding: 28px 20px; } }
-
-        /* ─── Footer ─── */
+        /* Footer */
         .footer {
             background: #111827; padding: 40px 0 24px; color: rgba(255,255,255,.3);
         }
@@ -485,7 +544,7 @@
         .footer-links a:hover { color: #fff; }
         .footer-copy { width: 100%; text-align: center; font-size: 11px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.05); }
 
-        /* ─── Mobile floating CTA ─── */
+        /* Mobile floating CTA */
         .float-cta {
             display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
             background: rgba(255,255,255,.95); backdrop-filter: blur(10px);
@@ -500,7 +559,7 @@
         }
         @media (max-width: 768px) { .float-cta { display: block; } body { padding-bottom: 70px; } }
 
-        /* ─── Anim ─── */
+        /* Anim */
         .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
         .fade-up.vis { opacity: 1; transform: translateY(0); }
     </style>
@@ -515,6 +574,7 @@
             RookiesExpo<span class="acc">2026</span>
         </a>
         <nav><ul class="nav">
+            <li><a href="#story">Story</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#program">Program</a></li>
             <li><a href="#info">Info</a></li>
@@ -524,6 +584,7 @@
         <button class="mob-toggle" onclick="document.getElementById('mn').classList.toggle('open')" aria-label="メニュー"><i class="fa-solid fa-bars"></i></button>
     </div>
     <nav id="mn" class="mob-nav">
+        <a href="#story" onclick="cm()">開催背景</a>
         <a href="#about" onclick="cm()">このイベントについて</a>
         <a href="#program" onclick="cm()">プログラム</a>
         <a href="#info" onclick="cm()">開催概要</a>
@@ -540,29 +601,63 @@
     <div class="container hero-content">
         <div class="hero-badge">
             <div class="dot"></div>
-            6/27（土）開催・28卒限定・先着50名
+            6/27（土）開催・28卒限定・選考制
         </div>
-        <p class="hero-sub">キャリアの第一歩は、知ることから。</p>
-        <h1 class="hero-title">社会と仕事の<br><span class="em">解像度</span>を上げる1日。</h1>
-
-        <div class="hero-money">
-            <div class="hero-money-amt"><span class="yen">¥</span>10,000</div>
-            <div class="hero-money-txt">参加者に就活支援金を<br>PayPayで支給<span class="hero-money-note">（上限50名・早期申込限定）</span></div>
-        </div>
+        <p class="hero-sub">AI時代の就活で、差がつくもの。</p>
+        <h1 class="hero-title">自分の<span class="em">軸</span>で、<br>企業を見極める1日。</h1>
+        <p class="hero-lead">
+            28卒に向けた、1日完結のキャリア探索イベント。<br>
+            自分の軸を言語化し、有名企業の現場社員と本音で対話する場です。
+        </p>
 
         <div class="hero-cta-row">
-            <a href="https://forms.gle/NnWyNoVyabBE7ZSF8" target="_blank" rel="noopener" class="hero-cta">
+            <a href="https://forms.gle/PoDS5NB4JN25Sm3DA" target="_blank" rel="noopener" class="hero-cta">
                 エントリーする <i class="fa-solid fa-arrow-right"></i>
             </a>
-            <a href="#about" class="hero-cta-ghost">
+            <a href="#story" class="hero-cta-ghost">
                 <i class="fa-solid fa-circle-info"></i> 詳しく見る
             </a>
         </div>
 
         <div class="hero-tags">
-            <div class="hero-tag"><i class="fa-solid fa-bolt t-blue"></i> 早期選考パス</div>
-            <div class="hero-tag"><i class="fa-solid fa-user-group t-green"></i> 限定50名</div>
+            <div class="hero-tag"><i class="fa-solid fa-bullseye t-blue"></i> 自分の軸を見つける</div>
+            <div class="hero-tag"><i class="fa-solid fa-comments t-green"></i> 現場社員と本音対話</div>
+            <div class="hero-tag"><i class="fa-solid fa-bolt t-gold"></i> 選考パス</div>
             <div class="hero-tag"><i class="fa-solid fa-calendar t-pink"></i> 6/27（土）都内</div>
+        </div>
+
+        <p class="hero-money-mini">
+            <strong>※ 当日全プログラム参加者には、就活支援金5,000円を支給予定（先着・期間限定）</strong>
+        </p>
+    </div>
+</section>
+
+<!-- Background Story -->
+<section id="story" class="bg-story">
+    <div class="container">
+        <div class="bg-story-inner">
+            <div class="bg-story-head">
+                <p class="sec-label">Why Now</p>
+                <h2 class="sec-title fade-up">なぜ今、「自分の軸」なのか。</h2>
+            </div>
+            <div class="bg-story-body fade-up">
+                <p class="lead">
+                    AIによって、就活の「作業」は<br>誰でも効率化できる時代になりました。
+                </p>
+                <p>
+                    エントリーシートの作成、企業研究、スケジュール管理。これらは生成AIに任せられる時代です。<strong>その結果として浮いた時間を、何に使うか</strong>。自己投資、課外活動、専門性の獲得、人とのつながり。時間の使い方ひとつで、就活生の間に明確な差が生まれる時代になりました。
+                </p>
+                <p>
+                    そして、もう一つ大切なものがあります。それは、<strong>AIには代替できない「自分の軸」</strong>です。何に心が動くのか、どんな環境で力を発揮できるのか。これは、自分自身が見て、聞いて、考えて決めるしかありません。そして、その軸の太さ・信念の厚みこそが、今の採用現場で見られているポイントでもあります。
+                </p>
+                <p>
+                    Rookies Expoは、こうした時代背景の中で、学生一人ひとりが「自分の軸」と向き合うために設計されたイベントです。
+                </p>
+                <div class="bg-story-quote">
+                    自分の軸を言語化するワーク、有名企業の社員が「自分はどんな軸で入社したのか」を語る場、そしてその軸で複数の企業を見比べ、自分に合う進路を見つける時間。<br><br>
+                    このイベントが終わる頃には、あなたの「自分の軸」の解像度は確実に上がり、周りの就活生とは一線を画したスタンスで、就職活動に臨めることでしょう。
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -574,7 +669,7 @@
             <div class="concept-icon"><i class="fa-solid fa-compass"></i></div>
             <div class="concept-body">
                 <h3>内定テクニックを教える場では、ありません。</h3>
-                <p>RookiesExpoは、企業や業界を自分の目で比較し、社会人と本音で語り合い、自分の関心や価値観を深めるための場です。「内定の取り方」ではなく「自分に合う道の見つけ方」にフォーカスします。</p>
+                <p>RookiesExpoは、企業や業界を自分の目で比較し、社会人と本音で語り合い、自分の関心や価値観を深めるための場です。「内定の取り方」ではなく「自分の軸の見つけ方」にフォーカスします。</p>
             </div>
         </div>
     </div>
@@ -585,11 +680,18 @@
     <div class="container">
         <p class="partners-lbl">Participating Companies</p>
         <div class="partners-row">
-            <!--<div class="p-name">SoftBank</div>-->
-            <div class="p-name">住信SBIネット銀行</div>
-            <div class="p-name">DeNA</div>
             <div class="p-name">Leverages</div>
+            <div class="p-name">PERSOL CAREER</div>
+            <div class="p-name">DeNA</div>
+            <div class="p-name">住信SBIネット銀行</div>
         </div>
+        <div class="partners-others">
+            <span class="p-other">大手IT・Webサービス企業</span>
+            <span class="p-other">大手コンサルティングファーム</span>
+            <span class="p-other">大手通信・メガベンチャー</span>
+            <span class="p-other">他、複数社調整中</span>
+        </div>
+        <p class="partners-note">※ 参加予定企業は、確定次第順次公開いたします。</p>
     </div>
 </section>
 
@@ -598,52 +700,54 @@
     <div class="container">
         <div style="text-align:center;" class="fade-up">
             <p class="sec-label">What You'll Get</p>
-            <h2 class="sec-title">この1日で得られること</h2>
+            <h2 class="sec-title">この1日で得られるもの</h2>
         </div>
-        <div class="cards-grid">
+        <div class="cards-grid four">
             <div class="card fade-up">
-                <div class="card-icon ci-blue"><i class="fa-solid fa-binoculars"></i></div>
-                <h3>社会と仕事の解像度が上がる</h3>
-                <p>企業のショートピッチ＋少人数座談会で、ネットでは得られない「現場のリアル」に触れる。業界や仕事の具体像がクリアになります。</p>
+                <div class="card-icon ci-blue"><i class="fa-solid fa-bullseye"></i></div>
+                <h3>自分の軸の解像度向上</h3>
+                <p>事前ワークと当日の対話を通じて、「自分は何に惹かれるのか」を言語化。曖昧だった志向が、企業選びの明確な基準に変わります。</p>
             </div>
             <div class="card fade-up" style="transition-delay:.08s">
-                <div class="card-icon ci-green"><i class="fa-solid fa-route"></i></div>
-                <h3>自分に合う進路のヒントが見つかる</h3>
-                <p>複数の企業・社員と対話する中で、「自分は何に惹かれるのか」「何が合うのか」が言語化されていきます。</p>
+                <div class="card-icon ci-green"><i class="fa-solid fa-comments"></i></div>
+                <h3>有名企業の現場社員との本音対話</h3>
+                <p>少人数の座談会形式で、人事ではなく現場で活躍する社員と直接対話。Webや会社説明会では得られない、リアルなキャリア観に触れられます。</p>
             </div>
             <div class="card fade-up" style="transition-delay:.16s">
-                <div class="card-icon ci-pink"><i class="fa-solid fa-people-group"></i></div>
-                <h3>同世代のネットワークができる</h3>
-                <p>チーム制の座談会と共有タイムを通じて、同じフェーズで就活に向き合う仲間とつながれます。</p>
+                <div class="card-icon ci-pink"><i class="fa-solid fa-lightbulb"></i></div>
+                <h3>サマー選考を勝ち抜くヒント</h3>
+                <p>人事は学生の何を見ているのか。社員自身は何を軸に企業を選んだのか。AI時代に評価される人物像とは。明日の選考に直結する知見が得られます。</p>
+            </div>
+            <div class="card fade-up" style="transition-delay:.24s">
+                <div class="card-icon ci-gold"><i class="fa-solid fa-forward-fast"></i></div>
+                <h3>選考パス</h3>
+                <p>マッチした企業から、一次選考免除等の特別選考ルートが提供されます。</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Benefits -->
-<section class="cards-sec">
+<!-- Pre-content -->
+<section class="precontent">
     <div class="container">
         <div style="text-align:center;" class="fade-up">
-            <p class="sec-label">Special Benefits</p>
-            <h2 class="sec-title">参加特典</h2>
+            <p class="sec-label">Pre-event Contents</p>
+            <h2 class="sec-title">事前コンテンツ</h2>
+            <p class="sec-desc" style="margin:0 auto;">当日の対話の質を高めるため、事前に取り組んでいただけるコンテンツをご用意しています。</p>
         </div>
-        <div class="cards-grid">
-            <div class="card centered fade-up">
-                <div class="card-icon ci-gold"><i class="fa-solid fa-wallet"></i></div>
-                <h3>就活支援金 10,000円</h3>
-                <p>参加者にイベント後PayPayで送金（上限あり）。交通費・準備費用にお使いください。</p>
+        <div class="pc-grid fade-up">
+            <div class="pc-card">
+                <h3><i class="fa-solid fa-user-gear"></i>16タイプ就活軸診断</h3>
+                <span class="pc-original">早総研オリジナル</span>
+                <p>就活軸を16タイプに分類する診断コンテンツです。所要時間は約5分。当日のグループ分けの基礎データとしても活用します。</p>
             </div>
-            <div class="card centered fade-up" style="transition-delay:.08s">
-                <div class="card-icon ci-blue"><i class="fa-solid fa-forward-fast"></i></div>
-                <h3>早期選考パス</h3>
-                <p>マッチした企業から、一次選考免除等の特別選考ルートが提供されます。</p>
-            </div>
-            <div class="card centered fade-up" style="transition-delay:.16s">
-                <div class="card-icon ci-green"><i class="fa-solid fa-calendar-check"></i></div>
-                <h3>1on1面談の機会</h3>
-                <p>イベント後、興味のある企業と個別面談の機会を設けます。</p>
+            <div class="pc-card">
+                <h3><i class="fa-solid fa-graduation-cap"></i>業界別・就活基礎体力チェックテスト</h3>
+                <span class="pc-original">早総研オリジナル</span>
+                <p>8業界の基礎知識から、就活生としての基礎体力を測るテスト形式のコンテンツ。難易度3段階で、業界研究の起点としてご活用いただけます。当日のディスカッションの土台にもなります。</p>
             </div>
         </div>
+        <p class="pc-note">※ 内容は調整中の項目を含みます。事前コンテンツへのアクセスは、参加確定者の方にご案内いたします。</p>
     </div>
 </section>
 
@@ -652,14 +756,14 @@
     <div class="container">
         <div style="text-align:center;" class="fade-up">
             <p class="sec-label">Who Can Join</p>
-            <h2 class="sec-title">こんな方が対象です</h2>
+            <h2 class="sec-title">参加対象</h2>
         </div>
         <div class="target-card fade-up">
             <div class="tc-row">
                 <div class="tc-check"><i class="fa-solid fa-check"></i></div>
                 <div class="tc-text">
-                    <h4>2028年3月に卒業予定の方（28卒）</h4>
-                    <p>就活の進捗は問いません。まだ何も始めていない方も大歓迎です。</p>
+                    <h4>2028年3月卒業予定（28卒）の方</h4>
+                    <p>大学3年生・大学院修士1年生が中心です。</p>
                 </div>
             </div>
             <div class="tc-row">
@@ -681,6 +785,10 @@
                 </div>
             </div>
         </div>
+        <div class="selection-notice fade-up">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>本イベントは<strong>選考制</strong>です。応募フォームの記入内容（志望動機・就活進捗等）に基づき、運営にて参加可否を判断させていただきます。また、枠に限りがありますため、お申し込み順を重視させていただく場合がございます。あらかじめご了承ください。</p>
+        </div>
     </div>
 </section>
 
@@ -689,61 +797,54 @@
     <div class="container">
         <div style="text-align:center;" class="fade-up">
             <p class="sec-label">Program</p>
-            <h2 class="sec-title">当日のプログラム</h2>
+            <h2 class="sec-title">当日のプログラム（仮）</h2>
+            <p class="sec-desc" style="margin:0 auto;">現時点での想定プログラムです。最終版は開催前に参加者へご案内します。</p>
         </div>
         <div class="flow-timeline fade-up">
             <div class="fl-step">
                 <div class="fl-num">1</div>
                 <div class="fl-body">
-                    <div class="fl-lbl">13:00</div>
+                    <div class="fl-lbl">13:00〜</div>
                     <h4 class="fl-title">オープニング & アイスブレイク</h4>
-                    <p class="fl-desc">イベントの趣旨説明の後、チームメンバー同士でアイスブレイク。</p>
+                    <p class="fl-desc">本日のコンセプト共有、参加企業による1分自己紹介の後、グループ単位でアイスブレイクを実施します。<strong style="color:var(--text);">この時間でグループ内の関係性を温めておくことが、午後の座談会での発言の質、休憩時間でのネットワーク構築の濃度に直結します。</strong>遅刻するとここを逃すため、開始時間にお越しいただくことを強く推奨します。</p>
                 </div>
             </div>
             <div class="fl-step hl">
                 <div class="fl-num">2</div>
                 <div class="fl-body">
-                    <div class="fl-lbl">企業パート</div>
-                    <h4 class="fl-title">企業ショートピッチ（5分 × 4社）</h4>
-                    <p class="fl-desc">参画企業が事業内容・カルチャー・求める人材像を凝縮プレゼン。</p>
+                    <div class="fl-lbl">トークセッション</div>
+                    <h4 class="fl-title">人事・現場社員によるパネルセッション</h4>
+                    <p class="fl-desc">「就活軸の見られ方」「AI時代の就活」「登壇者自身の就活体験」に加え、<strong style="color:var(--text);">各業界の最新トレンド・現場で起きている変化</strong>もテーマに含まれます。情報収集の場としてもご活用いただける設計です。</p>
                 </div>
             </div>
             <div class="fl-step hl">
                 <div class="fl-num">3</div>
                 <div class="fl-body">
                     <div class="fl-lbl">メインセッション</div>
-                    <h4 class="fl-title">座談会ローテーション（少人数 × 複数ブース）</h4>
-                    <p class="fl-desc">少人数テーブルで現場社員と本音トーク。複数ブースをローテーションし、様々な業界・職種のリアルに触れます。</p>
+                    <h4 class="fl-title">座談会ローテーション（全企業×少人数）</h4>
+                    <p class="fl-desc">少人数のグループ単位で、参加全企業の座談ブースをローテーション形式で訪問。各社の現場社員と密度の高い対話の機会を提供します。</p>
                 </div>
             </div>
-            <div class="fl-step">
+            <div class="fl-step featured">
                 <div class="fl-num">4</div>
                 <div class="fl-body">
-                    <div class="fl-lbl">チームタイム</div>
-                    <h4 class="fl-title">学生同士の共有タイム</h4>
-                    <p class="fl-desc">チームに戻り、座談会で感じたことを共有。他の人の視点から自分の気づきが深まります。</p>
+                    <div class="fl-lbl">クロージング</div>
+                    <h4 class="fl-title">振り返り & 1on1進出学生の発表</h4>
+                    <p class="fl-desc">本編の振り返りに加え、<strong style="color:var(--text);">事前コンテンツの取り組みや当日の言動を踏まえて、各企業から1on1面談に進む学生を指名・発表</strong>します。あなたの軸が、各社にどう映ったか。それがその場で明らかになります。</p>
                 </div>
             </div>
             <div class="fl-step">
                 <div class="fl-num">5</div>
                 <div class="fl-body">
-                    <div class="fl-lbl">〜17:00</div>
-                    <h4 class="fl-title">アンケート & クロージング</h4>
-                    <p class="fl-desc">振り返りと、興味のある企業との1on1面談希望を提出。</p>
-                </div>
-            </div>
-            <div class="fl-step">
-                <div class="fl-num">6</div>
-                <div class="fl-body">
-                    <div class="fl-lbl">17:00–19:00</div>
-                    <h4 class="fl-title">フリー交流会（任意参加）</h4>
-                    <p class="fl-desc">企業の方・学生同士で自由に交流。気になった社員に直接聞けるチャンスです。</p>
+                    <div class="fl-lbl">立食交流会・1on1面談</div>
+                    <h4 class="fl-title">フリー交流 & 個別面談（並行実施）</h4>
+                    <p class="fl-desc">立食形式での自由交流と、企業からの指名による1on1面談を並行して実施します。</p>
                 </div>
             </div>
         </div>
         <div class="fl-note">
             <i class="fa-solid fa-triangle-exclamation"></i>
-            <span>※ プログラムの内容・タイムスケジュールは変更になる可能性があります。確定版は参加者に別途ご案内します。<br>※ イベント前に、希望者向けの事前オンラインセッションを実施する場合があります。詳細は後日ご案内いたします。</span>
+            <span>※ プログラムの内容・タイムスケジュール・登壇企業は変更の可能性があります。確定版は参加者の皆様に開催前に別途ご案内いたします。</span>
         </div>
     </div>
 </section>
@@ -761,7 +862,7 @@
                 <div class="ef-num">1</div>
                 <div class="ef-icon"><i class="fa-solid fa-file-lines"></i></div>
                 <h4 class="ef-title">フォームに回答</h4>
-                <p class="ef-desc">専用の Google Forms に<br>アクセスして質問に回答</p>
+                <p class="ef-desc">専用のGoogle Formsに<br>アクセスして質問に回答</p>
             </div>
             <div class="ef-step">
                 <div class="ef-num">2</div>
@@ -794,13 +895,13 @@
         </div>
         <div class="info-card fade-up">
             <table class="info-tbl">
-                <tr><th><i class="fa-regular fa-calendar" style="margin-right:4px;"></i>日程</th><td>2026年6月27日（土）13:00〜17:00<br><span class="sub">交流会 17:00〜19:00（任意参加）</span></td></tr>
+                <tr><th><i class="fa-regular fa-calendar" style="margin-right:4px;"></i>日程</th><td>2026年6月27日（土）13:00〜</td></tr>
                 <tr><th><i class="fa-solid fa-location-dot" style="margin-right:4px;"></i>会場</th><td>都内（調整中）<br><span class="sub">確定次第、参加者にご案内いたします。</span></td></tr>
                 <tr><th><i class="fa-solid fa-users" style="margin-right:4px;"></i>対象</th><td>28卒（2028年3月卒業予定）の大学生・大学院生<br><span class="sub">早慶・東大・国公立・GMARCH 在籍者</span></td></tr>
-                <tr><th><i class="fa-solid fa-user-check" style="margin-right:4px;"></i>定員</th><td><strong style="color:var(--primary);">50名</strong><span class="sub" style="margin-left:6px;">（先着順・定員に達し次第締切）</span></td></tr>
+                <tr><th><i class="fa-solid fa-list-check" style="margin-right:4px;"></i>選考</th><td>応募フォームの記入内容に基づき、運営にて参加可否を判断<br><span class="sub">枠に限りがあるため、お申し込み順を重視させていただく場合があります。</span></td></tr>
                 <tr><th><i class="fa-solid fa-yen-sign" style="margin-right:4px;"></i>参加費</th><td><strong style="color:var(--primary);">無料</strong></td></tr>
-                <tr><th><i class="fa-solid fa-wallet" style="margin-right:4px;"></i>支援金</th><td><strong style="color:var(--gold-dark);">10,000円</strong><span class="sub" style="margin-left:6px;">（イベント後、PayPayにて送金）</span></td></tr>
-                <tr><th><i class="fa-solid fa-vest" style="margin-right:4px;"></i>服装</th><td>自由（私服推奨・スーツ可）</td></tr>
+                <tr><th><i class="fa-solid fa-wallet" style="margin-right:4px;"></i>支援金</th><td>当日全プログラム参加者には<strong style="color:var(--gold-dark);">5,000円</strong>を支給予定<br><span class="sub">※ 先着・期間限定の早期申込特典です。詳細はFAQをご覧ください。</span></td></tr>
+                <tr><th><i class="fa-solid fa-vest" style="margin-right:4px;"></i>服装</th><td>ビジネスカジュアル推奨（スーツも可）</td></tr>
                 <tr><th><i class="fa-solid fa-bag-shopping" style="margin-right:4px;"></i>持ち物</th><td>学生証、筆記用具</td></tr>
                 <tr><th><i class="fa-solid fa-building" style="margin-right:4px;"></i>主催</th><td>早稲田総合研究会（早総研）</td></tr>
             </table>
@@ -822,21 +923,21 @@
                     <div class="voice-av">K</div>
                     <div><p class="voice-name">K.T さん</p><p class="voice-uni">慶應義塾大学 商学部</p></div>
                 </div>
-                <p class="voice-txt">「社員の方の話を聞いて"この業界おもしろいかも"と思えた。漠然とした不安が、具体的な興味に変わりました。」</p>
+                <p class="voice-txt">「自分の軸が言語化できた感覚があった。社員の方の話を聞きながら、漠然とした不安が、具体的な興味と判断基準に変わったのが大きな収穫でした。」</p>
             </div>
             <div class="voice-card">
                 <div class="voice-meta">
                     <div class="voice-av" style="background:var(--accent);">M</div>
                     <div><p class="voice-name">M.S さん</p><p class="voice-uni">東京大学 工学部</p></div>
                 </div>
-                <p class="voice-txt">「少人数の座談会で、普段聞けない"入社してからのギャップ"を聞けた。OB訪問では得られない本音が聞けるのが良かったです。」</p>
+                <p class="voice-txt">「少人数の座談会で、普段聞けない『入社してからのギャップ』を聞けた。OB訪問では得られない本音が聞けたのが印象的でした。」</p>
             </div>
             <div class="voice-card">
                 <div class="voice-meta">
                     <div class="voice-av" style="background:var(--gold);">A</div>
                     <div><p class="voice-name">A.N さん</p><p class="voice-uni">早稲田大学 政治経済学部</p></div>
                 </div>
-                <p class="voice-txt">「同じ温度感の仲間ができたのが一番の収穫。チームでの共有タイムが意外と盛り上がって、視野が広がりました。」</p>
+                <p class="voice-txt">「同じ温度感の仲間ができたのが収穫でした。複数企業を一度に比較できる構造が、自分の軸を考える上で非常に有効に機能しました。」</p>
             </div>
         </div>
     </div>
@@ -847,48 +948,56 @@
     <div class="container">
         <div style="text-align:center;" class="fade-up">
             <p class="sec-label">FAQ</p>
-            <h2 class="sec-title">よくある質問</h2>
+            <h2 class="sec-title">よくあるご質問</h2>
         </div>
         <div class="faq-list fade-up">
             <div class="faq-item open">
                 <div class="faq-q" onclick="tf(this)"><span>就活をまだ始めていないのですが、参加できますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>はい、大歓迎です。選考対策の場ではなく、キャリアの方向性を探る場なので、準備不要でお越しください。</p></div>
+                <div class="faq-a"><p>はい、ご参加いただけます。本イベントは選考対策の場ではなく、自分の軸を見つけるためのキャリア探索の場ですので、就活経験の有無は問いません。</p></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" onclick="tf(this)"><span>支援金1万円はいつ、どのようにもらえますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>イベント終了後、PayPayにて送金いたします。面倒な手続きは不要です。</p></div>
+                <div class="faq-q" onclick="tf(this)"><span>支援金5,000円はいつ、どのように受け取れますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
+                <div class="faq-a"><p>イベント終了後、PayPayにて送金いたします。ただし、人数上限・期間限定の早期申込特典となります。当日の所定プログラムへの参加が支給条件となり、大幅な遅刻・早退・無断欠席があった場合は対象外となることがあります。</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-q" onclick="tf(this)"><span>選考パスとは何ですか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
                 <div class="faq-a"><p>参画企業が提供する特別選考ルートです。書類選考や一次面接が免除されるなど、短縮されたフローで選考に進めます。</p></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" onclick="tf(this)"><span>服装は自由ですか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>はい、完全に自由です。私服推奨ですが、スーツでもお越しいただけます。</p></div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="tf(this)"><span>対象大学に含まれていないのですが参加できますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>原則として記載の大学在籍者を対象としております。該当しない場合でも、ご関心のある方はお問い合わせください。</p></div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="tf(this)"><span>当日キャンセルはできますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>定員が限られているため、当日キャンセルは原則お受けできません。体調不良等やむを得ない場合はできるだけ早くご連絡ください。無断キャンセルの場合、今後のイベントへの参加をお断りする場合がございます。</p></div>
-            </div>
-            <div class="faq-item">
                 <div class="faq-q" onclick="tf(this)"><span>参加にあたって選考はありますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>本イベントは原則先着順でのご案内です。なお、応募状況に応じて、参加目的等について簡単に確認させていただく場合があります。</p></div>
+                <div class="faq-a"><p>はい、選考制となります。応募フォームの記入内容（志望動機・就活進捗等）に基づき、運営にて参加可否を判断させていただきます。また、枠に限りがありますため、お申し込み順を重視させていただく場合があります。</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="tf(this)"><span>1on1面談に指名されませんでした、終わりですか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
+                <div class="faq-a"><p><strong>いいえ、学生からも指名できます。</strong>話をしてみたい企業があったら、当日のアンケートフォームから積極的に面談を申し込んでみてください。本イベントの1on1面談は「当日：企業からの指名」「後日：学生からの指名」のデュアル設計です。</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="tf(this)"><span>1on1面談は必ず受けられますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
+                <div class="faq-a"><p>本イベントの1on1面談は、<strong>「当日：企業からの指名制」「後日：学生からの希望制」のデュアル設計</strong>です。当日の1on1面談は、各企業が事前情報や当日の言動をもとに学生を指名する形で実施します。当日に1on1へ進めなかった場合でも、後日学生側から個別に企業へアプローチする機会を別途設ける予定です。</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="tf(this)"><span>参加企業の詳細はいつ分かりますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
+                <div class="faq-a"><p>参加企業は順次調整中で、確定次第、本ページおよび参加者の皆様にご案内いたします。現時点では、レバレジーズ様、パーソルキャリア様、DeNA様、住信SBIネット銀行様の参加が調整中で、その他大手IT・コンサル・通信領域の複数社とも調整しております。</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="tf(this)"><span>服装は自由ですか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
+                <div class="faq-a"><p>ビジネスカジュアルを推奨しておりますが、スーツでもお越しいただけます。本イベントは「軸を本音で話す場」というコンセプトのため、過度に堅苦しい服装は必須ではありません。</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="tf(this)"><span>対象大学に含まれていないのですが、参加できますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
+                <div class="faq-a"><p>原則として記載の大学に在籍中の方を対象としております。該当しない場合でもご関心のある方は、応募フォームよりお問い合わせください。状況に応じて個別にご相談させていただきます。</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="tf(this)"><span>当日キャンセルは可能ですか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
+                <div class="faq-a"><p>定員が限られているため、当日キャンセルは原則お受けできません。体調不良等やむを得ない場合は、できるだけ早くご連絡ください。無断キャンセルの場合、今後のイベントへの参加をお断りする場合がございます。</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-q" onclick="tf(this)"><span>会場の詳細はいつ分かりますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>会場の詳細は確定次第、参加者の皆さまに順次ご案内いたします。都内での開催を予定しております。</p></div>
+                <div class="faq-a"><p>会場の詳細は、確定次第、参加者の皆様に順次ご案内いたします。都内での開催を予定しております。</p></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" onclick="tf(this)"><span>支援金1万円はもらえますか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>はい、基本的にはお渡ししています。ただし、支援金1万円は人数上限50名の早期申込者限定の特典です。ご参加予定の方は、お早めのお申し込みをおすすめします。なお、早期申込特典の対象外となった場合でも、5,000円をご支援します。当日の所定プログラムにご参加いただくことが支給条件となり、大幅な遅刻・早退がある場合は対象外となることがあります。</p></div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q" onclick="tf(this)"><span>交流会（17:00〜）は参加必須ですか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
-                <div class="faq-a"><p>任意参加です。本編（13:00〜17:00）のみの参加でも問題ありません。</p></div>
+                <div class="faq-q" onclick="tf(this)"><span>事前コンテンツの参加は必須ですか？</span><i class="fa-solid fa-chevron-down arr"></i></div>
+                <div class="faq-a"><p>当日の対話の質を高めるためにご用意しているものです。詳細・取り組み方は参加確定後にご案内いたします。</p></div>
             </div>
         </div>
     </div>
@@ -898,25 +1007,26 @@
 <section id="entry" class="entry-sec">
     <div class="container entry-inner">
         <p class="sec-label">Entry</p>
-        <h2 class="sec-title" style="font-size:clamp(24px,4vw,36px);">エントリーする</h2>
-        <p class="sec-desc">参加無料・先着50名限定。</p>
+        <h2 class="sec-title" style="font-size:clamp(24px,4vw,36px);">エントリー</h2>
+        <p class="sec-desc">参加費無料・選考制。</p>
 
         <div class="entry-remaining">
             <i class="fa-solid fa-circle-exclamation"></i>
-            先着50名・定員に達し次第締切
+            選考制・定員に達し次第締切
         </div>
 
         <div class="entry-box">
             <div class="entry-money">
                 <i class="fa-solid fa-coins"></i>
-                参加者に就活支援金 10,000円（上限50名・早期申込限定・PayPay送金）
+                <span>当日全プログラム参加者には、就活支援金<strong>5,000円</strong>を支給予定（先着・期間限定）</span>
             </div>
-            <p>以下のボタンからエントリーフォームにお進みください。<br>フォーム回答後、公式LINEの登録もお忘れなく！</p>
+            <p>以下のボタンからエントリーフォームにお進みください。<br>フォーム回答後、公式LINEのご登録もお忘れなく。</p>
             <div class="entry-assurance">
                 <i class="fa-solid fa-shield-heart"></i>
                 <p>
                     <strong>安心してお申し込みいただけます。</strong><br>
-                    1週間前までは無料でキャンセルいただけます。開催1週間前以降のキャンセルについては、運営準備の都合上、キャンセル料として5,000円を申し受けます。                </p>
+                    1週間前までは無料でキャンセルいただけます。開催1週間前以降のキャンセルについては、運営準備の都合上、キャンセル料として5,000円を申し受けます。
+                </p>
             </div>
 
             <a href="https://forms.gle/PoDS5NB4JN25Sm3DA" target="_blank" rel="noopener" class="entry-cta-btn">
@@ -925,7 +1035,7 @@
             <a href="https://line.me/R/ti/p/@644ocnlx" target="_blank" rel="noopener" class="entry-line-btn">
                 <i class="fa-brands fa-line" style="font-size:20px;"></i> 公式LINE を友だち追加
             </a>
-            <p class="entry-note">※ 個人情報は本イベントの運営目的のみに使用します。</p>
+            <p class="entry-note">※ 個人情報は本イベントの運営目的のみに使用いたします。</p>
         </div>
     </div>
 </section>
@@ -944,7 +1054,7 @@
 
 <!-- Mobile floating CTA -->
 <div class="float-cta">
-    <a href="https://forms.gle/PoDS5NB4JN25Sm3DA" target="_blank" rel="noopener">エントリーする（無料・50名限定）</a>
+    <a href="https://forms.gle/PoDS5NB4JN25Sm3DA" target="_blank" rel="noopener">エントリーする（参加費無料）</a>
 </div>
 
 <script>
