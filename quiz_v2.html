@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サマー選考 基礎体力チェック</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: '#F3EDE1',
+            surface: '#FBF7EE',
+            dark: '#1C1C1E',
+            accent: '#C73E3A',
+            success: '#4A7C59',
+            warning: '#C98A1F',
+            sub: '#58544E',
+            muted: '#EDE4D2',
+            error: '#F8E3E2',
+            correctbg: '#E8F0E7'
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            serif: ['"Shippori Mincho B1"', 'serif'],
+            display: ['"Zen Kaku Gothic New"', 'sans-serif'],
+          },
+          boxShadow: {
+            'brutal-dark': '4px 4px 0px #1C1C1E',
+            'brutal-dark-lg': '8px 8px 0px #1C1C1E',
+            'brutal-accent': '4px 4px 0px #C73E3A',
+            'brutal-accent-sm': '3px 3px 0px #C73E3A',
+            'brutal-success': '6px 6px 0px #4A7C59',
+            'brutal-error': '6px 6px 0px #C73E3A',
+          }
+        }
+      }
+    }
+  </script>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    /* 背景のドットパターン */
+    body {
+      background-color: #F3EDE1;
+      background-image: radial-gradient(#d5cebc 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+    }
+    /* スムーズな出現アニメーション */
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-slide-up {
+      animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="font-sans text-dark antialiased min-h-screen">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    // ============================================================
+    // 問題バンク
+    // ============================================================
+    const quizBank = {
+      consulting: {
+        name: 'コンサル', nameEn: 'CONSULTING', description: '戦略・総合・IT系コンサルティングファーム',
+        questions: [
+          { level: 'basic', category: 'タイミング', question: '28卒にとってサマーインターンに参加するベストな時期は?', options: ['2025年夏', '2026年夏(M1/B3の夏)', '2027年夏', '卒業直前'], answer: 1, explanation: '28卒(2028年3月卒業)のサマーは、卒業1.5〜2年前の2026年夏が本命。ここを逃すと早期選考ルートの多くを失う。' },
+          { level: 'basic', category: '業界基礎', question: 'コンサル業界で「MBB」と呼ばれる3社は?', options: ['McKinsey, BCG, Bain', 'Mitsubishi, Mizuho, MUFG', 'McKinsey, Bain, Boston Scientific', 'Meta, Microsoft, Mandiant'], answer: 0, explanation: 'McKinsey & Company、Boston Consulting Group、Bain & Companyの頭文字。世界トップクラスの戦略コンサル3社。' },
+          { level: 'basic', category: '業界基礎', question: '会計系コンサル「BIG4」に含まれないのは?', options: ['Deloitte', 'PwC', 'Accenture', 'KPMG'], answer: 2, explanation: 'BIG4はDeloitte / PwC / EY / KPMG。Accentureは総合系コンサル最大手だがBIG4ではない。' },
+          { level: 'basic', category: '業界基礎', question: '戦略系コンサルと総合系コンサルの主な違いは?', options: ['扱う業界の違い', '課題の範囲と実行フェーズの有無', '会社の規模', '出身大学のレンジ'], answer: 1, explanation: '戦略系は経営層の意思決定支援に特化(短期・小規模)。総合系はIT・業務改革・実行支援まで広くカバー(長期・大規模)。' },
+          { level: 'basic', category: 'タイミング', question: '28卒サマーインターンのエントリー ボリュームゾーンは?', options: ['2026年1〜3月', '2026年4〜6月', '2026年7〜8月', '2026年9〜11月'], answer: 1, explanation: '多くのファームが4〜6月にエントリー受付、6〜7月に選考、8〜9月にインターン実施。外資は4月締切もある。' },
+          { level: 'basic', category: '戦略', question: 'サマーインターンに参加する最大のメリットは?', options: ['必ず内定がもらえる', '早期選考ルートに乗れる可能性が高い', 'アルバイト代が稼げる', '大学の単位が出る'], answer: 1, explanation: '多くのファームで優秀者に早期選考の案内が届く。本選考より倍率が有利になる「実質的な最短内定ルート」。' },
+          { level: 'intermediate', category: '選考手法', question: '「ケース面接」で問われる本質的な能力は?', options: ['暗記力と知識量', '構造化・仮説構築・論理展開力', '英語プレゼンスキル', '業界の詳細知識'], answer: 1, explanation: '未知の課題に対し、論点を構造化し仮説を立て、定量・定性で検証する思考プロセスを見る。知識より思考の型が重要。' },
+          { level: 'intermediate', category: '選考手法', question: 'フェルミ推定の基本アプローチで正しいのは?', options: ['正確な調査データを暗記する', '問題を分解し仮定を積み上げて概算する', '経験則で答える', '競合他社と比較する'], answer: 1, explanation: '「日本の電柱の数は?」等の問いを、人口・面積・密度等に分解し、仮定を重ねて概算する。分解の切り口と妥当性がカギ。' },
+          { level: 'intermediate', category: '選考フロー', question: 'コンサル選考の典型的な順序は?', options: ['ES→Webテスト→GD→ケース面接→最終面接', '面接→ES→GD→Webテスト', 'GD→面接→ES→ケース', 'Webテスト→最終面接→ES'], answer: 0, explanation: '書類→適性検査→集団→個別選考の順が基本。ファームによりGDを省略したり、ケースが複数回あったりする。' },
+          { level: 'intermediate', category: '選考手法', question: 'GD(グループディスカッション)で最も評価されにくいのは?', options: ['積極的な論点整理・構造化', '他メンバーの意見を活かす発言', '自分一人で結論を押し通す', '時間管理・ファシリテーション'], answer: 2, explanation: 'GDは「一人で勝つ場」ではなく「チームで結論に到達する場」。独断専行はクラッシャー扱いされ、通過率が著しく下がる。' },
+          { level: 'intermediate', category: '戦略', question: 'ESの「Why Consulting」で評価される答えは?', options: ['年収が高いから', '自身の志向・経験と業務内容との論理的な接続が語れている', 'みんなが志望しているから', '成長できそうだから'], answer: 1, explanation: '「成長」「論理思考」等の抽象ワードだけでは不十分。自分の原体験→行きたい方向性→なぜコンサルかを一本の線でつなぐ。' },
+          { level: 'intermediate', category: '業界基礎', question: '国内系戦略コンサル(DI, IGPI, ADL等)の特徴は?', options: ['MBBと全く同じビジネスモデル', '日系企業中心・長期伴走型の案件が比較的多い', 'ITシステム導入が主業務', '監査業務がメイン'], answer: 1, explanation: '国内系は日系クライアントとの長期関係・実行支援・ハンズオンが特徴。MBBよりもクライアント密着度が高い傾向。' },
+          { level: 'advanced', category: 'キャリア', question: 'コンサル出身者のキャリアとして最も典型的なのは?', options: ['同じファームで定年まで勤務', 'PEファンド・事業会社経営企画・起業等への転身', '官公庁への転職', 'アカデミアへの転身'], answer: 1, explanation: 'Up or Outの文化もあり、3〜7年で転身する人が多数派。PE/VC、事業会社CxO・経営企画、スタートアップ起業/参画が王道。' },
+          { level: 'advanced', category: '選考手法', question: 'ケース面接で評価を下げやすい「悪い回答」として正しいのは?', options: ['最初にissueを定義する', '仮説なしで事実を列挙し続ける', 'MECEな切り口で構造化する', '面接官と対話しながら進める'], answer: 1, explanation: '「情報を並べるだけで結論に至らない」「切り口がMECEでない」「仮説が立っていない」が三大NG。仮説思考が評価軸の核。' },
+          { level: 'advanced', category: '業界基礎', question: 'MBBと総合系(Accenture/BIG4)の案件単価・規模の違いは?', options: ['総合系のほうが単価・規模ともに大きい', 'MBBのほうが単価が高く、総合系のほうが案件規模は大きい傾向', '両者ほぼ同じ', 'MBBは単価・規模ともに小さい'], answer: 1, explanation: 'MBBは少人数・短期・高単価の戦略案件中心。総合系はITや実行支援を含む大規模・長期案件で総額は大きくなりやすい。' },
+          { level: 'advanced', category: 'キャリア', question: 'コンサルの「Up or Out」制度の本質は?', options: ['年功序列で全員が昇進する', '一定期間で昇進できないと退職が暗に求められる', '入社時に役職が決まっている', '希望すれば誰でも昇進できる'], answer: 1, explanation: '役職ごとに滞在年数の目安があり、次のレベルに届かない人は外で活躍するよう促される文化。その代わり退職後のキャリア形成は強い。' },
+          { level: 'advanced', category: '戦略', question: '複数ファーム通過時の比較軸として不適切なのは?', options: ['得意領域(戦略/IT/オペレーション)', '案件の規模感・プロジェクト期間', '単なる初任給の金額差', 'カルチャー・評価制度・卒業後のキャリアパス'], answer: 2, explanation: '初任給は短期的指標。得意領域・プロジェクト性質・退職後キャリア・カルチャー適合が長期キャリアに効く。' },
+        ]
+      },
+      ib: {... （残り
