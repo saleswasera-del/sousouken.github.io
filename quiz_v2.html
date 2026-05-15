@@ -195,4 +195,536 @@
           { level: 'basic', category: '業界基礎', question: 'POSデータで主に分かることは?', options: ['いつ、どの商品が、いくつ売れたか', '来店しなかった顧客の全ての理由', '競合店の仕入れ原価の詳細', '商品の製造工程ごとの不良率'], answer: 0, explanation: 'POSは販売時点情報。売上、時間帯、店舗、商品単位のデータから発注や売場改善につなげる。' },
           { level: 'basic', category: '職種理解', question: '小売のバイヤーの役割として近いものは?', options: ['販売する商品の選定・仕入れ条件の交渉', '店舗スタッフの勤務シフトだけを作成する', 'ECサイトのサーバー運用だけを担当する', '全店舗の会計監査だけを行う'], answer: 0, explanation: 'バイヤーは顧客ニーズや売上データを踏まえ、商品を選び、仕入先と価格や数量を交渉する。' },
           { level: 'basic', category: 'タイミング', question: '流通・小売のインターンでよく扱われるテーマは?', options: ['売場改善、商品企画、マーケティング、店舗運営体験', '金融商品の価格変動を予測するトレーディング体験', '工場の量産工程だけを設計する技術演習', '省庁の政策立案プロセスを体験する官庁訪問'], answer: 0, explanation: '現場理解が重要な業界のため、店舗視察、商品企画、売上分析、接客体験などがテーマになりやすい。' },
-          { level: 'intermediate', category: '業界基礎', question: '粗利率を高める施策として適切なのは?', options: ['付加価値の高い商品構成やPB比率を高める', '売上を増やすために値引き販売だけを増やす', '低粗利商品を大量に仕入れて販売数量だけを追う', '販売価格を固定し、仕入原... （残り64 KB）
+          { level: 'intermediate', category: '業界基礎', question: '粗利率を高める施策として適切なのは?', options: ['付加価値の高い商品構成やPB比率を高める', '売上を増やすために値引き販売だけを増やす', '低粗利商品を大量に仕入れて販売数量だけを追う', '販売価格を固定し、仕入原価の変化を見ない'], answer: 0, explanation: '粗利率は売上から仕入原価を差し引いた利益率。PBや高付加価値商品、値引き抑制が改善に効く。' },
+          { level: 'intermediate', category: '業界基礎', question: '在庫回転率が重要な理由は?', options: ['資金効率や欠品・廃棄リスクに直結するため', '在庫が多いほど必ず利益率が高まるため', '在庫回転率は顧客満足と無関係な会計指標だから', '欠品を避けるには全商品を常に大量保有すればよいため'], answer: 0, explanation: '在庫が多すぎると資金が寝て廃棄や値引きが増える。一方で少なすぎると欠品するため、適正管理が重要。' },
+          { level: 'intermediate', category: '戦略', question: 'オムニチャネル戦略の説明として正しいのは?', options: ['店舗、EC、アプリなど複数接点を統合して購買体験を高める', 'ECを伸ばすために実店舗の在庫情報を切り離す', '店舗販売とオンライン販売を別会社のように運営する', '紙チラシをデジタル広告に置き換えるだけで完了する'], answer: 0, explanation: '顧客はオンラインとオフラインを行き来する。会員ID、在庫、物流、販促をつなげることが競争力になる。' },
+          { level: 'intermediate', category: '選考手法', question: '小売業界の面接で評価されやすい視点は?', options: ['顧客理解と現場改善を具体例で語れること', '企業規模や知名度だけを中心に志望理由を話すこと', '店舗ではなく本社機能だけに関心があると伝えること', '売上や客単価などの数字に触れずに印象だけで語ること'], answer: 0, explanation: '店舗やECを実際に観察し、顧客導線、品揃え、価格、接客、データ活用まで語れると説得力がある。' },
+          { level: 'intermediate', category: '業界基礎', question: 'PB商品のメリットとして正しいのは?', options: ['差別化や利益率向上につながりやすい', '仕入れ先との交渉や品質管理が不要になる', 'メーカー品より必ず低価格で高品質になる', '販売データを見なくても安定して売れる'], answer: 0, explanation: 'PBはPrivate Brand。自社で企画するため、価格・品質・利益率・ブランド体験を設計しやすい。' },
+          { level: 'advanced', category: '戦略', question: 'ECと実店舗を組み合わせる際の重要論点は?', options: ['在庫連携、配送、返品、顧客ID、体験設計', 'EC売上を伸ばすため実店舗の顧客情報を使わないこと', '店舗受け取りを避け、配送だけに統一すること', 'オンラインと店舗で価格や在庫の整合性を見ないこと'], answer: 0, explanation: 'オンライン注文の店舗受取、店舗在庫のEC活用、返品導線などを整えることで顧客体験と在庫効率が改善する。' },
+          { level: 'advanced', category: '業界基礎', question: '小売のユニットエコノミクスで見るべき指標は?', options: ['客単価、購入頻度、粗利、獲得コスト、物流費', '店舗数、社員数、知名度だけ', '広告出稿量、SNSフォロワー数、企画本数だけ', '仕入先数、商品点数、倉庫面積だけ'], answer: 0, explanation: '1顧客または1注文あたりの採算を見ることで、成長しても利益が残るモデルかを判断できる。' },
+          { level: 'advanced', category: '戦略', question: '店舗網を持つ企業がアプリを重視する理由は?', options: ['購買データを活用し、CRMや来店促進につなげられるため', 'アプリがあれば店舗運営や接客改善が不要になるため', '会員登録を増やせば購買頻度は必ず上がるため', '紙のポイントカードをなくすこと自体が最終目的だから'], answer: 0, explanation: '会員アプリはクーポン配信、購買履歴分析、ポイント、予約、EC連携などの基盤になる。' },
+          { level: 'advanced', category: '業界基礎', question: 'カテゴリーマネジメントの目的は?', options: ['商品カテゴリー単位で売場・品揃え・利益を最適化する', '売れ筋商品だけを全店舗に同じ量で並べる', 'メーカーごとに棚を固定し、顧客ニーズを見ない', '単品ごとの売上だけを見て関連購買を考えない'], answer: 0, explanation: '単品ではなくカテゴリー全体で顧客ニーズ、売上、粗利、棚割りを設計する考え方。' },
+          { level: 'advanced', category: 'キャリア', question: '流通・小売で得られる強みとして本質的なのは?', options: ['生活者接点とデータをもとに改善を回す経験', '顧客接点よりも本社資料作成だけを重視する経験', 'メーカーの研究開発工程を直接設計する経験', '規制や予算を通じて公共政策を作る経験'], answer: 0, explanation: '現場で顧客行動を見ながら、売上データを使って仮説検証する力は、事業運営やマーケティングに応用しやすい。' },
+        ]
+      },
+      serviceInfra: {
+        name: 'サービス・インフラ', nameEn: 'SERVICE / INFRA', description: '鉄道、航空、通信、電力、物流、不動産など',
+        questions: [
+          { level: 'basic', category: '業界基礎', question: 'インフラ業界の特徴として正しいのは?', options: ['社会生活を支える基盤サービスを安定供給する', '短期的なキャンペーンで需要を作ることが主な収益源である', '在庫を多く持つほど競争力が高まる消費財産業である', '利用者数よりも製品のデザイン性が最重要になる'], answer: 0, explanation: '鉄道、航空、通信、電力、物流などは生活や企業活動の前提となるサービスを提供する。安定性と公共性が大きい。' },
+          { level: 'basic', category: '業界基礎', question: 'サービス業で重要な「無形性」とは?', options: ['商品が形として残らず、体験や成果として提供される性質', 'サービス提供後も在庫として保管できる性質', '品質が常に一定で、顧客対応の影響を受けない性質', '価格よりも設備投資だけで価値が決まる性質'], answer: 0, explanation: 'サービスは接客、移動、通信、宿泊など体験として提供されるため、品質のばらつきや顧客満足の管理が重要。' },
+          { level: 'basic', category: '職種理解', question: 'インフラ企業の総合職で関わる可能性がある仕事は?', options: ['運行計画、営業企画、設備投資、用地、地域連携など', '商品棚の陳列と店舗販売だけ', '広告クリエイティブの制作だけ', '工場での新素材開発だけ'], answer: 0, explanation: '現場運営だけでなく、需要予測、投資計画、自治体連携、新規事業など幅広い仕事がある。' },
+          { level: 'basic', category: '業界基礎', question: '通信インフラ企業が提供する代表的な価値は?', options: ['通信ネットワークとデジタルサービスの基盤', '端末販売だけによる短期的な売上', 'コンテンツ制作だけによる広告収入', '店舗接客だけによる顧客体験'], answer: 0, explanation: '通信は個人のスマホ利用だけでなく、企業のDX、IoT、クラウド、災害時通信にも関わる社会基盤。' },
+          { level: 'basic', category: 'タイミング', question: 'サービス・インフラ業界のインターンで見られやすいテーマは?', options: ['地域課題解決、需要創出、安全運行、顧客体験改善', 'M&AバリュエーションとLBOモデル構築', '店舗のPB商品開発と棚割り改善だけ', '広告コピーとメディアバイイングだけ'], answer: 0, explanation: '公共性と事業性を両立するテーマが多い。地域活性化、観光、物流効率化、顧客接点改善などが出やすい。' },
+          { level: 'intermediate', category: '業界基礎', question: 'インフラ企業で規制対応が重要な理由は?', options: ['料金、安全、供給責任などが社会全体に影響するため', '規制により競争や投資判断を考えなくてよくなるため', '公共性が高いほど顧客満足を見なくてよくなるため', '規制対応は法務部門だけで完結し、事業戦略に影響しないため'], answer: 0, explanation: '公共性が高い産業では、料金認可、安全基準、供給義務などの規制が事業戦略に大きく関わる。' },
+          { level: 'intermediate', category: '戦略', question: '鉄道会社が沿線開発を行う主な目的は?', options: ['沿線人口や利用機会を増やし、交通と不動産の相乗効果を出す', '鉄道運賃収入から不動産収入へ完全に置き換える', '乗車人数を減らして運行コストだけを下げる', '駅周辺の商業施設を増やせば安全投資が不要になる'], answer: 0, explanation: '駅ナカ、商業施設、住宅、観光開発などにより、移動需要と沿線価値を同時に高めるモデルがある。' },
+          { level: 'intermediate', category: '業界基礎', question: '航空やホテルで使われるイールドマネジメントとは?', options: ['需要に応じて価格や在庫を調整し収益を最大化すること', '繁忙期も閑散期も同一価格を維持して公平性を高めること', '予約数を見ずに原価に一定率を乗せて価格を決めること', '空席や空室を減らすために全在庫を早期に最安値で売ること'], answer: 0, explanation: '座席や客室は売れ残ると在庫価値が消えるため、予約状況や需要予測に応じた価格設計が重要。' },
+          { level: 'intermediate', category: '選考手法', question: 'サービス・インフラの志望動機で強いものは?', options: ['公共性と収益性の両立に対する自分なりの問題意識がある', '安定性や知名度を中心に、配属希望だけを強く伝える', '利用者として好きなサービスであることだけを話す', '現場業務には触れず、本社企画だけへの関心を示す'], answer: 0, explanation: '安定性だけでは弱い。どんな社会課題を、どの事業資産を使って解決したいかまで言えると良い。' },
+          { level: 'intermediate', category: '業界基礎', question: '物流インフラで重要性が高まっている課題は?', options: ['人手不足、再配達、ラストワンマイル、2024年問題', '店舗での接客品質と棚割り最適化だけ', 'テレビ広告枠の仕入れと視聴率予測', '素材価格の変動と工場稼働率だけ'], answer: 0, explanation: 'EC拡大とドライバー不足により、配送効率化、共同配送、拠点設計、デジタル化が重要課題になっている。' },
+          { level: 'advanced', category: '戦略', question: 'インフラ企業の設備投資で重要な観点は?', options: ['安全性、長期需要、更新コスト、規制、資金回収期間', '初期投資額を大きくすれば需要予測は不要になること', '短期利益を優先し、老朽化設備の更新を後回しにすること', '広告効果が高い設備から優先して投資すること'], answer: 0, explanation: '設備寿命が長く投資額も大きいため、長期需要と安全性、更新タイミング、規制環境を踏まえる必要がある。' },
+          { level: 'advanced', category: '戦略', question: 'インフラ企業が防災・レジリエンスを重視する理由は?', options: ['災害時にも社会機能を維持する責任があるため', '災害時の対応は自治体だけが担い、企業には関係が薄いため', '通常時の収益最大化と切り離して考えられるため', '復旧の速さよりも平時の広告認知が信頼を決めるため'], answer: 0, explanation: '災害やサイバー攻撃などに備え、止まらない仕組みや早期復旧力を高めることが社会的信頼に直結する。' },
+          { level: 'advanced', category: '業界基礎', question: 'ネットワーク効果が働きやすいインフラの例は?', options: ['通信網や交通網のように接続点が増えるほど価値が高まるもの', '利用者が増えるほど必ず一人あたりの価値が下がる店舗網', '接続先が少ないほど利便性が高まる閉じたシステム', '規模が大きくなるほど固定費が完全になくなる設備産業'], answer: 0, explanation: '利用者や接続先が増えるほど利便性が高まるため、ネットワークの規模と密度が競争力になる。' },
+          { level: 'advanced', category: 'キャリア', question: 'サービス・インフラで若手が鍛えやすい力は?', options: ['多様な利害関係者を巻き込み、安定運営と改善を両立する力', '短期の広告施策だけで成果を出す力', '個人の専門作業だけで完結させる力', '製品設計だけで顧客接点を見ない力'], answer: 0, explanation: '自治体、利用者、現場、規制当局、取引先など関係者が多く、調整力と実行力が重要になる。' },
+          { level: 'advanced', category: '戦略', question: '脱炭素がインフラ業界に与える影響として正しいのは?', options: ['電源構成、車両、建物、物流網などの投資判断に影響する', '利用者には関係するが設備投資にはほぼ影響しない', '広報活動のテーマであり、事業計画には反映されにくい', '短期的な採用ブランディングだけを目的に行われる'], answer: 0, explanation: '電力、鉄道、航空、物流、不動産ではエネルギー効率やCO2排出削減が長期戦略の中心テーマになっている。' },
+        ]
+      },
+      advertising: {
+        name: '広告', nameEn: 'ADVERTISING', description: '広告代理店、デジタル広告、PR、マーケティング支援',
+        questions: [
+          { level: 'basic', category: '業界基礎', question: '広告会社の基本的な役割は?', options: ['企業と生活者をつなぐコミュニケーション戦略を設計・実行する', '広告枠を仕入れて販売するだけで、戦略や制作には関わらない', '商品開発から製造までを自社で一貫して担う', '生活者ではなく企業の社内広報だけを対象にする'], answer: 0, explanation: '広告会社は課題設定、戦略、メディア、クリエイティブ、効果測定を組み合わせてブランドや売上に貢献する。' },
+          { level: 'basic', category: '職種理解', question: '広告会社の営業職に近い役割は?', options: ['クライアント課題を把握し、社内外を動かして提案を形にする', '媒体社との価格交渉だけを行い、企画には関わらない', '制作物のデザインだけを担当し、顧客折衝は行わない', '広告配信後の数値入力だけを担当する'], answer: 0, explanation: '広告営業は単なる枠売りではなく、クライアントの事業課題を理解し、プランナーや制作と連携して解決策を出す。' },
+          { level: 'basic', category: '業界基礎', question: 'デジタル広告の特徴として正しいのは?', options: ['配信対象や成果をデータで細かく測定・改善しやすい', '一度配信したらターゲティングや予算配分を変更できない', 'テレビCMより必ずブランド形成に向いている', 'クリック数が多ければ必ず売上も最大化する'], answer: 0, explanation: '検索、SNS、動画、ディスプレイ広告などはクリック、CV、CPAなどを見ながら改善できる。' },
+          { level: 'basic', category: '業界基礎', question: '広告における「媒体」とは?', options: ['広告を届けるメディアや掲載場所', '広告主の社内承認フロー', '商品の価格や販路の設計', '生活者インサイトそのもの'], answer: 0, explanation: 'テレビ、新聞、雑誌、Web、SNS、屋外広告など、広告メッセージを届ける場を媒体と呼ぶ。' },
+          { level: 'basic', category: 'タイミング', question: '広告業界のインターンでよくある課題は?', options: ['企業や商品のコミュニケーション企画を考える', '商品原価を計算して生産計画を立てる', '店舗在庫と棚割りだけを改善する', '公共政策の予算配分を設計する'], answer: 0, explanation: 'グループワークでブランド課題を分析し、ターゲット、インサイト、施策、効果指標を提案する形式が多い。' },
+          { level: 'intermediate', category: '業界基礎', question: 'CPAとは何の指標?', options: ['1件の獲得にかかった広告費', '広告表示1回あたりの売上総額', '広告接触者の平均購入単価', '広告予算全体に占める制作費比率'], answer: 0, explanation: 'CPAはCost Per Acquisition。資料請求や購入など1コンバージョン獲得に必要な広告費を示す。' },
+          { level: 'intermediate', category: '戦略', question: '統合マーケティングコミュニケーションの考え方として正しいのは?', options: ['複数接点で一貫したブランド体験を設計する', '最も費用の高い媒体に予算を集中させる', 'テレビCMとデジタル広告を別々の目的で完全に分断する', '購買後の顧客体験は広告とは無関係として扱う'], answer: 0, explanation: 'テレビ、デジタル、店頭、PR、イベントなどをバラバラにせず、顧客体験として統合する考え方。' },
+          { level: 'intermediate', category: '選考手法', question: '広告業界の企画選考で重要な順序は?', options: ['課題定義、ターゲット理解、インサイト、施策、効果指標', 'コピー案を先に出し、後からターゲットを当てはめる', '競合分析を省き、施策の新しさだけで押し切る', '予算や実現性を見ずに話題化しそうな案を並べる'], answer: 0, explanation: '面白いアイデアだけでは不十分。誰のどんな態度変容を狙うのか、なぜ効くのかを論理的に示す必要がある。' },
+          { level: 'intermediate', category: '業界基礎', question: '消費者インサイトとは?', options: ['本人も明確に言語化していない本音や行動の理由', 'アンケートで最も多かった回答をそのまま採用すること', '広告主が生活者に伝えたい商品特徴そのもの', 'ターゲット属性を年齢と性別だけで分けたもの'], answer: 0, explanation: 'インサイトは深い顧客理解から見つける動機や葛藤。良い企画の核になる。' },
+          { level: 'intermediate', category: '業界基礎', question: 'ROASの説明として正しいのは?', options: ['広告費に対してどれだけ売上が生まれたかを示す指標', '広告配信後に獲得できたフォロワー数の割合', '広告制作費に対する媒体費の比率', '広告接触者のうちブランドを知っていた人の割合'], answer: 0, explanation: 'ROASはReturn On Advertising Spend。売上を広告費で割って広告投資効率を見る。' },
+          { level: 'advanced', category: '戦略', question: 'Cookie規制で広告業界に求められる対応は?', options: ['ファーストパーティデータ活用や同意管理を強化する', '第三者Cookieに依存した精密ターゲティングをさらに強める', '効果測定をせず、媒体社のレポートだけで判断する', 'データ活用をやめて全ての広告を同じ相手に配信する'], answer: 0, explanation: 'プライバシー規制により、顧客同意に基づくデータ活用、コンテキスト広告、統計的な効果測定が重要になる。' },
+          { level: 'advanced', category: '戦略', question: 'ブランド広告と獲得広告の違いとして正しいのは?', options: ['ブランド広告は認知・好意形成、獲得広告は購入や申込などの行動を重視する', 'ブランド広告は短期売上だけ、獲得広告は中長期の好意形成だけを重視する', 'ブランド広告はデータで測れず、獲得広告はクリエイティブが不要である', '両者は目的が同じなのでKPIも常に同じでよい'], answer: 0, explanation: '短期CVだけでなく、中長期のブランド資産も事業成長に効く。目的に応じたKPI設計が必要。' },
+          { level: 'advanced', category: '業界基礎', question: 'CDPの役割として近いものは?', options: ['顧客データを統合し、マーケティング活用しやすくする基盤', '広告制作物を自動生成するデザインツール', 'テレビCMの放映枠を購入する取引システム', '検索広告の入札単価だけを自動調整する仕組み'], answer: 0, explanation: 'Customer Data Platform。会員、購買、Web行動などを統合し、セグメント配信や分析に使う。' },
+          { level: 'advanced', category: '業界基礎', question: 'メディアミックスを考える際に重要なのは?', options: ['目的、ターゲット、接触態度、予算、効果測定を踏まえること', '全ての媒体に同じメッセージと同じ予算を均等配分すること', '認知施策でも獲得施策でもクリック単価だけで判断すること', '担当者が好きな媒体から順番に予算を付けること'], answer: 0, explanation: '媒体ごとにリーチ、頻度、態度変容、購買貢献が異なる。役割分担を設計する必要がある。' },
+          { level: 'advanced', category: 'キャリア', question: '広告業界で鍛えやすい力は?', options: ['課題設定、生活者理解、企画、巻き込み、プレゼン力', '製品の量産工程を改善する専門技術力', '行政制度を設計し予算化する政策立案力', '店舗在庫を日々発注するオペレーション力'], answer: 0, explanation: '多様な業界の課題に触れ、クライアント、制作、媒体、データの関係者を動かす経験が得られる。' },
+        ]
+      },
+      media: {
+        name: 'マスコミ', nameEn: 'MASS MEDIA', description: 'テレビ、新聞、出版、Webメディア、コンテンツ',
+        questions: [
+          { level: 'basic', category: '業界基礎', question: 'マスコミ業界に含まれる代表的な領域は?', options: ['テレビ、新聞、出版、ラジオ、Webメディア', '広告代理店、PR会社、リサーチ会社のみ', '通信キャリア、クラウド、SIerのみ', '百貨店、スーパー、専門店のみ'], answer: 0, explanation: 'マスコミは情報やコンテンツを広く社会に届ける産業。近年はデジタル配信やSNS対応も重要。' },
+          { level: 'basic', category: '職種理解', question: '記者職の基本的な役割は?', options: ['取材し、事実を確認して社会に伝える', '広告主の課題を聞き、媒体出稿計画を作る', '商品の仕入れ条件を交渉し、売場を作る', '通信ネットワークの保守計画を作る'], answer: 0, explanation: '記者は取材、裏取り、執筆を通じてニュースを伝える。正確性、公正性、スピードのバランスが問われる。' },
+          { level: 'basic', category: '業界基礎', question: 'テレビ局の収益源として代表的なのは?', options: ['広告収入、番組販売、配信、イベントなど', '放送免許料だけによる固定収入', '視聴者からの受信料だけに完全依存する収入', '番組制作費を全て出演者が負担する収入'], answer: 0, explanation: '従来の広告収入に加え、配信、IP展開、イベント、海外販売など収益源の多角化が進んでいる。' },
+          { level: 'basic', category: '業界基礎', question: '編集者の役割として近いものは?', options: ['企画、著者・制作陣との調整、原稿やコンテンツの品質管理', '広告配信の入札単価だけを調整する', '工場の生産ラインを設計し品質保証する', '店舗の発注数と棚割りだけを決める'], answer: 0, explanation: '出版やWebメディアの編集者は、企画立案から制作進行、品質管理、読者への届け方まで担う。' },
+          { level: 'basic', category: 'タイミング', question: 'マスコミ業界の選考で特徴的な対策は?', options: ['時事問題、作文、企画力、発信物の研究', 'ケース面接とフェルミ推定だけを重点対策する', '技術職でなくてもコーディングテストが必須になる', '店舗観察と棚割り改善案だけを準備する'], answer: 0, explanation: 'ニュース感度や文章力、企画力が見られやすい。志望媒体の論調やコンテンツ研究も重要。' },
+          { level: 'intermediate', category: '業界基礎', question: 'メディアのデジタル化で重要になった指標は?', options: ['PV、滞在時間、会員登録、継続率など', '工場稼働率、歩留まり、設備更新年数', '在庫回転率、棚効率、客単価だけ', '運行本数、乗車率、遅延時間だけ'], answer: 0, explanation: '紙面や放送だけでなく、Webやアプリでどれだけ読まれ、継続利用されるかが重要になっている。' },
+          { level: 'intermediate', category: '業界基礎', question: 'IPビジネスの説明として正しいのは?', options: ['作品やキャラクターなどの知的財産を多方面に展開する', 'ニュース記事を無料公開し、権利管理を行わないモデル', '広告枠を仕入れて販売するメディアバイイング', '読者データを使わず紙面販売だけに集中するモデル'], answer: 0, explanation: 'アニメ、漫画、番組、キャラクターを配信、グッズ、イベント、海外展開などに広げることで収益化する。' },
+          { level: 'intermediate', category: '選考手法', question: 'マスコミの面接で評価されやすい姿勢は?', options: ['自分の関心領域と社会的意義を具体的に語れる', '好きな番組や媒体名だけを多く挙げて終える', 'ニュースへの関心よりも安定性を中心に話す', '発信経験や企画経験に触れずに志望度だけを強調する'], answer: 0, explanation: 'どんなテーマを追いたいか、なぜその媒体で伝えたいか、実際にどう取材・企画したいかが問われる。' },
+          { level: 'intermediate', category: '業界基礎', question: 'ファクトチェックが重要な理由は?', options: ['誤情報が社会的影響や信頼低下につながるため', '記事の公開本数を増やすほど正確性が自動的に高まるため', '取材源が一つでも速報性があれば十分とされるため', 'SNSで拡散されれば内容の正確性は後から確認すればよいため'], answer: 0, explanation: 'メディアの信頼は正確性に支えられる。情報源確認、複数証言、データ検証が欠かせない。' },
+          { level: 'intermediate', category: '戦略', question: '新聞社や出版社が有料会員モデルを強化する背景は?', options: ['広告依存を下げ、継続収益を作るため', '無料記事を増やせば取材費を必ず回収できるため', '紙媒体の販売だけで長期的な成長が保証されるため', '会員化すると編集品質や読者理解が不要になるため'], answer: 0, explanation: 'デジタル広告単価の課題もあり、質の高いコンテンツに対して直接課金するモデルが重要になっている。' },
+          { level: 'advanced', category: '戦略', question: 'プラットフォーム依存のリスクとして正しいのは?', options: ['検索やSNSのアルゴリズム変更で流入が大きく変わる', '外部流入が増えるほど自社会員基盤が必ず強くなる', 'SNSで読まれる記事は著作権管理が不要になる', 'プラットフォーム配信では編集方針を考えなくてよい'], answer: 0, explanation: '外部プラットフォームからの流入に依存しすぎると、ルール変更で収益や読者接点が揺らぐ。自社会員基盤が重要。' },
+          { level: 'advanced', category: '業界基礎', question: '報道倫理で重要な観点は?', options: ['正確性、公平性、プライバシー、人権への配慮', '速報性とクリック数を常に最優先すること', '広告主の意向を記事内容より優先すること', '読者の反応が良ければ取材過程は問わないこと'], answer: 0, explanation: '報道は社会的影響が大きいため、知る権利と個人の権利、公共性、取材方法の妥当性を考える必要がある。' },
+          { level: 'advanced', category: '戦略', question: 'ローカルメディアの価値として正しいのは?', options: ['地域課題や生活情報を継続的に伝え、住民の意思決定を支える', '全国ニュースを転載し、地域取材を減らすほど価値が高まる', '地域広告に依存しないため、読者との関係性は重要でない', '規模が小さいため、防災や行政監視には関わりにくい'], answer: 0, explanation: '地域行政、災害、教育、産業、生活情報など、地域に密着した取材は民主主義や暮らしの基盤になる。' },
+          { level: 'advanced', category: '業界基礎', question: 'コンテンツビジネスで二次利用が重要な理由は?', options: ['一つの作品を配信、商品化、イベント、海外展開などに広げられるため', '初回放送や初版販売だけで収益化が完了するため', '権利処理を行わないほど展開スピードが上がるため', 'ファンコミュニティを作らず単発販売に集中できるため'], answer: 0, explanation: '良いIPは複数の収益機会を生む。権利管理と展開戦略が収益性を左右する。' },
+          { level: 'advanced', category: 'キャリア', question: 'マスコミ志望者が準備すべきポートフォリオとして有効なのは?', options: ['記事、動画、企画書、取材経験など自分の発信実績', '媒体名や番組名を多く暗記したリスト', '志望理由を抽象的にまとめた自己PRだけ', '発信物は作らず、読者としての感想だけを集めたもの'], answer: 0, explanation: '実際に書く、撮る、編集する、企画する経験があると、関心と行動力を具体的に示せる。' },
+        ]
+      },
+      publicSector: {
+        name: '官公庁', nameEn: 'PUBLIC SECTOR', description: '国家公務員、地方自治体、独立行政法人など',
+        questions: [
+          { level: 'basic', category: '業界基礎', question: '官公庁の基本的な役割は?', options: ['公共の利益のために政策や行政サービスを担う', '民間企業と同じく株主利益の最大化を最優先する', '広告収入を主な財源として事業を運営する', '特定の商品販売を通じて市場シェアを競う'], answer: 0, explanation: '官公庁は法律や予算に基づき、教育、福祉、防災、産業、外交など社会全体に関わる業務を担う。' },
+          { level: 'basic', category: '業界基礎', question: '国家公務員と地方公務員の違いとして正しいのは?', options: ['国家は国全体の政策、地方は地域住民に近い行政を主に担う', '国家公務員は制度設計だけで、現場や地域とは一切関わらない', '地方公務員は国の法律や制度に影響を受けず独自に全て決める', '国家と地方は採用区分が違うだけで業務範囲は同じ'], answer: 0, explanation: '国家は省庁で制度設計や全国政策を担い、地方自治体は住民に近い行政サービスや地域政策を担う。' },
+          { level: 'basic', category: '選考フロー', question: '官公庁志望で一般的に必要になる準備は?', options: ['公務員試験、官庁訪問、政策研究、面接対策', 'ケース面接、フェルミ推定、M&Aモデリング', '店舗観察、棚割り改善、PB商品企画', '広告企画、コピー制作、メディアプランニングだけ'], answer: 0, explanation: '職種や自治体により異なるが、筆記試験、人物試験、官庁訪問、政策理解の準備が重要。' },
+          { level: 'basic', category: '業界基礎', question: '官公庁の仕事で重視される観点は?', options: ['公平性、公共性、法令遵守、説明責任', '短期売上、粗利率、広告効果', 'ブランド好感度、SNS拡散、話題性', '市場シェア、競合優位、株主還元'], answer: 0, explanation: '税金を使って社会全体に影響する意思決定を行うため、公平性と透明性が強く求められる。' },
+          { level: 'basic', category: 'タイミング', question: '官公庁のインターンや説明会で確認したいことは?', options: ['政策分野、働き方、試験区分、官庁訪問の流れ', '商品カテゴリー別の粗利率と棚割り', '広告出稿額と媒体別CPA', '工場の歩留まりと設備更新計画'], answer: 0, explanation: '民間企業と選考形式が異なるため、志望先の試験区分、採用スケジュール、業務内容を早めに確認したい。' },
+          { level: 'intermediate', category: '業界基礎', question: '政策立案で重要なプロセスとして正しいのは?', options: ['課題把握、データ分析、制度設計、関係者調整、実行評価', '人気のある施策を先に決め、根拠は後から探す', '短期的な話題化を優先し、効果検証は行わない', '担当部署だけで完結させ、現場や住民の意見は見ない'], answer: 0, explanation: '政策は社会課題を定義し、根拠を集め、制度や予算に落とし込み、実行後に効果を検証する。' },
+          { level: 'intermediate', category: '戦略', question: 'EBPMとは何を重視する考え方?', options: ['証拠やデータに基づく政策立案', '前例や慣例だけに基づく政策立案', '世論の盛り上がりだけで決める政策立案', '予算を使い切ることを最優先する政策立案'], answer: 0, explanation: 'Evidence-Based Policy Making。限られた予算で効果的な政策を行うため、データと検証が重視される。' },
+          { level: 'intermediate', category: '業界基礎', question: '官公庁でステークホルダー調整が難しい理由は?', options: ['住民、企業、議会、他省庁など利害関係者が多いから', '政策の影響範囲が狭く、関係者が限られるから', '法律や予算に制約されず自由に実行できるから', '行政サービスは利用者満足を考えなくてもよいから'], answer: 0, explanation: '政策は多くの人に影響するため、合意形成、説明、調整に時間と論理が必要になる。' },
+          { level: 'intermediate', category: '選考手法', question: '官公庁の志望動機で弱くなりやすいものは?', options: ['安定していそうだけで、取り組みたい政策がない', '具体的な政策課題がある', '現場経験と問題意識がある', '公共性への関心がある'], answer: 0, explanation: '安定性だけでは志望理由として弱い。どんな社会課題に、なぜ公的立場で取り組みたいかを語る必要がある。' },
+          { level: 'intermediate', category: '業界基礎', question: 'PPP/PFIの説明として正しいのは?', options: ['公共サービスや施設整備に民間の資金・ノウハウを活用する仕組み', '公共性をなくし、行政責任を全て民間に移す仕組み', '民間企業の広告予算を行政が一括管理する仕組み', '自治体が全ての公共施設を直営に戻す仕組み'], answer: 0, explanation: 'PPP/PFIは官民連携。公共性を保ちながら、民間の効率性や創意工夫を活かす手法。' },
+          { level: 'advanced', category: '戦略', question: 'デジタル政府で重要な観点は?', options: ['利用者目線、業務改革、データ連携、セキュリティ', '既存手続きを変えずに申請画面だけを作ること', '紙の手続きを残したまま入力作業を二重化すること', '各自治体や省庁が独立したシステムを個別最適で作ること'], answer: 0, explanation: '単なるIT導入ではなく、行政手続きそのものを利用者目線で見直し、データ連携と安全性を両立することが重要。' },
+          { level: 'advanced', category: '業界基礎', question: '規制影響分析で見るべきことは?', options: ['規制の目的、効果、コスト、副作用、代替手段', '規制名の分かりやすさと広報効果だけ', '担当省庁の過去事例と前例の有無だけ', '事業者の負担を見ずに目的だけを優先すること'], answer: 0, explanation: '規制は社会に広く影響するため、必要性と費用対効果、事業者や住民への影響を検討する必要がある。' },
+          { level: 'advanced', category: '戦略', question: '危機管理で官公庁に求められる力は?', options: ['迅速な情報収集、意思決定、発信、関係機関連携', '情報が完全にそろうまで一切発信しない判断', '担当部署だけで対応し、民間や自治体との連携を避けること', '平時の訓練よりも危機発生後の個人対応に頼ること'], answer: 0, explanation: '災害、感染症、事故などでは、正確な情報と迅速な判断、住民への説明、国・自治体・民間の連携が重要。' },
+          { level: 'advanced', category: 'キャリア', question: '官公庁で身につきやすい経験は?', options: ['制度設計、予算、利害調整、公共課題への長期的関与', '広告運用とクリエイティブ改善の短期PDCA', '店舗販売と在庫発注の現場オペレーション', '製品開発と量産工程の技術改善'], answer: 0, explanation: '民間企業とは異なり、制度や予算を通じて社会全体を動かす経験が得られる。' },
+          { level: 'advanced', category: '戦略', question: '官公庁と民間企業が連携する意義は?', options: ['公共性と民間の技術・実行力を組み合わせて課題解決を進められる', '行政責任を民間に移し、説明責任を軽くできる', '民間の収益性だけを優先し、公共性を考えなくてよい', '官公庁が予算管理や効果検証を行わずに済む'], answer: 0, explanation: '複雑な社会課題は行政だけでも民間だけでも解きにくい。役割分担と透明性を持った連携が重要。' },
+        ]
+      }
+    });
+
+    quizBank.trading.name = '商社';
+    quizBank.trading.nameEn = 'TRADING';
+    quizBank.trading.description = '総合商社、専門商社、事業投資、貿易';
+    quizBank.tech.name = 'IT';
+    quizBank.tech.nameEn = 'IT';
+    quizBank.tech.description = 'SIer、Web、SaaS、メガベンチャー、クラウド';
+
+    const answerPositionPattern = [0, 2, 1, 3, 1, 0, 3, 2, 2, 3, 0, 1];
+
+    Object.entries(quizBank).forEach(([industryKey, data], industryIndex) => {
+      data.questions.forEach((question, questionIndex) => {
+        if (!Array.isArray(question.options) || question.options.length < 2) return;
+
+        const targetAnswer = answerPositionPattern[(industryIndex + questionIndex) % answerPositionPattern.length] % question.options.length;
+        if (question.answer === targetAnswer) return;
+
+        const correctOption = question.options[question.answer];
+        const distractors = question.options.filter((_, optionIndex) => optionIndex !== question.answer);
+        distractors.splice(targetAnswer, 0, correctOption);
+
+        question.options = distractors;
+        question.answer = targetAnswer;
+      });
+    });
+
+    const shuffle = (arr) => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+
+    const industryList = [
+      { key: 'maker', num: '01' },
+      { key: 'trading', num: '02' },
+      { key: 'retail', num: '03' },
+      { key: 'serviceInfra', num: '04' },
+      { key: 'tech', num: '05' },
+      { key: 'advertising', num: '06' },
+      { key: 'media', num: '07' },
+      { key: 'publicSector', num: '08' }
+    ];
+
+    const levelList = [
+      { key: 'basic', label: '初級', labelEn: 'BASIC', description: '用語・基礎構造・タイミング' },
+      { key: 'intermediate', label: '中級', labelEn: 'INTERMEDIATE', description: '選考手法・対策・戦略' },
+      { key: 'advanced', label: '上級', labelEn: 'ADVANCED', description: '実務・キャリア・深掘り' }
+    ];
+
+    function SummerSelectionQuiz() {
+      const [screen, setScreen] = useState('setup');
+      const [industry, setIndustry] = useState('maker');
+      const [level, setLevel] = useState('basic');
+      const [count, setCount] = useState(5);
+      const [currentQ, setCurrentQ] = useState(0);
+      const [selected, setSelected] = useState(null);
+      const [answers, setAnswers] = useState([]);
+      const [questions, setQuestions] = useState([]);
+      const [fadeIn, setFadeIn] = useState(false);
+
+      useEffect(() => {
+        setFadeIn(false);
+        const t = setTimeout(() => setFadeIn(true), 50);
+        return () => clearTimeout(t);
+      }, [screen, currentQ]);
+
+      const availablePool = useMemo(() => {
+        return quizBank[industry].questions.filter(q => q.level === level);
+      }, [industry, level]);
+
+      const countOptions = useMemo(() => {
+        const max = availablePool.length;
+        const options = [3, 5, max].filter(n => n <= max);
+        return [...new Set(options)].sort((a, b) => a - b);
+      }, [availablePool]);
+
+      useEffect(() => {
+        if (!countOptions.includes(count)) {
+          setCount(countOptions[countOptions.length - 1] || 3);
+        }
+      }, [countOptions]); 
+
+      const startQuiz = () => {
+        const pool = quizBank[industry].questions.filter(q => q.level === level);
+        const picked = shuffle(pool).slice(0, count);
+        setQuestions(picked);
+        setCurrentQ(0);
+        setSelected(null);
+        setAnswers([]);
+        setScreen('quiz');
+      };
+
+      const chooseAnswer = (idx) => {
+        if (selected !== null) return;
+        setSelected(idx);
+        const isCorrect = idx === questions[currentQ].answer;
+        setAnswers([...answers, { qIndex: currentQ, selected: idx, correct: isCorrect }]);
+      };
+
+      const nextQuestion = () => {
+        if (currentQ < questions.length - 1) {
+          setCurrentQ(currentQ + 1);
+          setSelected(null);
+        } else {
+          setScreen('final');
+        }
+      };
+
+      const restart = () => {
+        setScreen('setup');
+        setCurrentQ(0);
+        setSelected(null);
+        setAnswers([]);
+        setQuestions([]);
+      };
+
+      const correctCount = answers.filter(a => a.correct).length;
+      const scorePercent = questions.length > 0 ? Math.round((correctCount / questions.length) * 100) : 0;
+
+      // ============================================================
+      // SETUP SCREEN
+      // ============================================================
+      if (screen === 'setup') {
+        const currentIndustry = quizBank[industry];
+        return (
+          <div className="flex items-center justify-center p-4 md:p-8 min-h-screen">
+            <div className="w-full max-w-3xl">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-px flex-1 bg-dark" />
+                <span className="tracking-[0.3em] text-xs font-medium text-dark">FOR CLASS OF 2028</span>
+                <div className="h-px flex-1 bg-dark" />
+              </div>
+
+              <div className={`border-2 border-dark bg-surface shadow-brutal-dark-lg p-6 md:p-10 transition-all duration-700 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className="flex items-baseline gap-4 mb-2">
+                  <span className="text-sm font-bold tracking-widest text-accent">NO.01</span>
+                  <span className="text-xs tracking-widest text-sub">2026 SUMMER EDITION</span>
+                </div>
+                <h1 className="font-serif leading-[1.05] mb-3 text-[clamp(1.9rem,5vw,3.2rem)] font-extrabold text-dark">
+                  サマー選考<br /><span className="text-accent">基礎体力</span>チェック
+                </h1>
+                <p className="text-sm md:text-base mb-8 leading-relaxed text-sub">
+                  28卒のための、業界別サマー選考クイズ。業界・レベル・問題数を選んでスタート。
+                </p>
+
+                {/* STEP 01 */}
+                <div className="mb-7">
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-[10px] tracking-[0.3em] text-sub">STEP 01</span>
+                    <span className="text-sm font-bold text-dark">業界を選ぶ</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {industryList.map(ind => {
+                      const isActive = industry === ind.key;
+                      const data = quizBank[ind.key];
+                      return (
+                        <button
+                          key={ind.key}
+                          onClick={() => setIndustry(ind.key)}
+                          className={`text-left p-3 md:p-4 border-2 border-dark transition-all duration-150 ${isActive ? 'bg-dark text-surface shadow-brutal-accent' : 'bg-surface text-dark hover:-translate-y-[2px] hover:shadow-brutal-dark'} active:translate-y-0 active:shadow-none`}
+                        >
+                          <div className={`text-[10px] tracking-widest mb-1 ${isActive ? 'text-muted' : 'text-sub'}`}>
+                            {ind.num} / {data.nameEn}
+                          </div>
+                          <div className="text-sm md:text-base font-bold mb-0.5">{data.name}</div>
+                          <div className="text-[10px] md:text-xs leading-tight opacity-80">{data.description}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* STEP 02 */}
+                <div className="mb-7">
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-[10px] tracking-[0.3em] text-sub">STEP 02</span>
+                    <span className="text-sm font-bold text-dark">レベルを選ぶ</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {levelList.map((lv, i) => {
+                      const isActive = level === lv.key;
+                      return (
+                        <button
+                          key={lv.key}
+                          onClick={() => setLevel(lv.key)}
+                          className={`text-center p-3 md:p-4 border-2 border-dark transition-all duration-150 ${isActive ? 'bg-dark text-surface shadow-brutal-accent' : 'bg-surface text-dark hover:-translate-y-[2px] hover:shadow-brutal-dark'} active:translate-y-0 active:shadow-none`}
+                        >
+                          <div className={`text-[10px] tracking-widest mb-1 ${isActive ? 'text-muted' : 'text-sub'}`}>LV.{i + 1}</div>
+                          <div className={`font-serif font-bold text-base md:text-lg ${isActive ? 'text-surface' : 'text-dark'}`}>{lv.label}</div>
+                          <div className="text-[10px] mt-1 leading-tight opacity-80">{lv.description}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* STEP 03 */}
+                <div className="mb-8">
+                  <div className="flex items-baseline gap-2 mb-3 flex-wrap">
+                    <span className="text-[10px] tracking-[0.3em] text-sub">STEP 03</span>
+                    <span className="text-sm font-bold text-dark">問題数を選ぶ</span>
+                    <span className="text-[10px] ml-auto text-sub">最大{availablePool.length}問</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {countOptions.map(n => {
+                      const isActive = count === n;
+                      return (
+                        <button
+                          key={n}
+                          onClick={() => setCount(n)}
+                          className={`text-center p-3 md:p-4 border-2 border-dark transition-all duration-150 ${isActive ? 'bg-dark text-surface shadow-brutal-accent' : 'bg-surface text-dark hover:-translate-y-[2px] hover:shadow-brutal-dark'} active:translate-y-0 active:shadow-none`}
+                        >
+                          <div className="font-display text-[1.5rem] font-black">
+                            {n}<span className="text-xs ml-1 font-normal">問</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <button
+                  onClick={startQuiz}
+                  className="w-full py-5 text-lg font-bold tracking-wider border-2 border-dark bg-dark text-surface shadow-brutal-accent transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-accent-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
+                >
+                  START →
+                </button>
+              </div>
+
+              <div className="text-center mt-5 text-[10px] tracking-widest text-sub">
+                ISSUED APRIL 2026 · SUMMER SELECTION STUDY DECK
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // ============================================================
+      // QUIZ SCREEN
+      // ============================================================
+      if (screen === 'quiz') {
+        const q = questions[currentQ];
+        const progress = ((currentQ + (selected !== null ? 1 : 0)) / questions.length) * 100;
+        const isCorrect = selected === q.answer;
+        const currentIndustry = quizBank[industry];
+        const currentLevel = levelList.find(l => l.key === level);
+
+        return (
+          <div className="flex items-center justify-center p-4 md:p-8 min-h-screen">
+            <div className="w-full max-w-3xl">
+              <div className="mb-6">
+                <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-[10px] tracking-[0.3em] text-sub">QUESTION</span>
+                    <span className="font-display text-[1.5rem] font-black text-dark">{String(currentQ + 1).padStart(2, '0')}</span>
+                    <span className="text-sm text-sub">/ {questions.length}</span>
+                  </div>
+                  <div className="flex gap-2 flex-wrap">
+                    <span className="text-[10px] tracking-widest px-2 py-1 border border-dark text-dark bg-surface">{currentIndustry.name}</span>
+                    <span className="text-[10px] tracking-widest px-2 py-1 bg-dark text-surface">{currentLevel.label}</span>
+                    <span className="text-[10px] tracking-widest px-2 py-1 border border-dark text-dark bg-surface">{q.category}</span>
+                  </div>
+                </div>
+                <div className="h-1.5 w-full border border-dark bg-surface">
+                  <div className="h-full transition-all duration-500 bg-accent" style={{ width: `${progress}%` }} />
+                </div>
+              </div>
+
+              <div className={`border-2 border-dark bg-surface shadow-brutal-dark-lg p-6 md:p-10 mb-5 transition-all duration-500 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <h2 className="font-serif leading-snug mb-8 text-[clamp(1.2rem,3vw,1.7rem)] font-bold text-dark">
+                  {q.question}
+                </h2>
+
+                <div className="space-y-4">
+                  {q.options.map((opt, idx) => {
+                    const isSelected = selected === idx;
+                    const isRight = idx === q.answer;
+                    const showResult = selected !== null;
+
+                    let btnClass = "w-full text-left p-4 md:p-5 border-2 flex items-center gap-4 transition-all duration-200 ";
+                    let badgeClass = "shrink-0 w-9 h-9 flex items-center justify-center font-bold text-sm border-2 border-dark ";
+
+                    if (showResult) {
+                      if (isRight) {
+                        btnClass += "bg-correctbg border-success text-dark";
+                        badgeClass += "bg-success text-surface border-success";
+                      } else if (isSelected) {
+                        btnClass += "bg-error border-accent text-dark";
+                        badgeClass += "bg-accent text-surface border-accent";
+                      } else {
+                        btnClass += "bg-surface border-dark text-dark opacity-50";
+                        badgeClass += "bg-surface text-dark";
+                      }
+                    } else {
+                      btnClass += "bg-surface border-dark text-dark hover:-translate-y-[2px] hover:shadow-brutal-dark cursor-pointer active:translate-y-0 active:shadow-none";
+                      badgeClass += "bg-surface text-dark";
+                    }
+
+                    return (
+                      <button key={idx} onClick={() => chooseAnswer(idx)} disabled={showResult} className={btnClass}>
+                        <span className={badgeClass}>{String.fromCharCode(65 + idx)}</span>
+                        <span className="flex-1 text-sm md:text-base font-medium">{opt}</span>
+                        {showResult && isRight && <span className="shrink-0 text-xl font-bold text-success">○</span>}
+                        {showResult && isSelected && !isRight && <span className="shrink-0 text-xl font-bold text-accent">×</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {selected !== null && (
+                <div className={`border-2 p-5 md:p-7 mb-5 animate-slide-up ${isCorrect ? 'bg-correctbg border-success shadow-brutal-success' : 'bg-surface border-accent shadow-brutal-error'}`}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className={`px-3 py-1 text-[10px] tracking-widest font-bold text-surface ${isCorrect ? 'bg-success' : 'bg-accent'}`}>
+                      {isCorrect ? 'CORRECT' : 'INCORRECT'}
+                    </span>
+                    <span className="text-[10px] tracking-widest text-sub">EXPLANATION</span>
+                  </div>
+                  <p className="text-sm md:text-base leading-relaxed text-dark">{q.explanation}</p>
+                </div>
+              )}
+
+              {selected !== null && (
+                <button
+                  onClick={nextQuestion}
+                  className="w-full py-5 text-base font-bold tracking-wider border-2 border-dark bg-dark text-surface shadow-brutal-accent transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-accent-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none animate-slide-up"
+                >
+                  {currentQ < questions.length - 1 ? '次の問題へ →' : '結果を見る →'}
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      // ============================================================
+      // FINAL / REVIEW SCREEN (結果と解説)
+      // ============================================================
+      if (screen === 'final') {
+        const msg = scorePercent >= 90 ? { title: '完璧です', sub: 'エントリー準備に進んでOK', color: 'text-success', bar: 'bg-success' }
+                  : scorePercent >= 70 ? { title: '十分な基礎力', sub: '細部を詰めつつ実戦へ', color: 'text-warning', bar: 'bg-warning' }
+                  : { title: 'ここから', sub: '今すぐ業界研究スタート', color: 'text-accent', bar: 'bg-accent' };
+        
+        return (
+          <div className="flex items-center justify-center p-4 md:p-8 min-h-screen">
+            <div className="w-full max-w-3xl">
+              <div className={`border-2 border-dark bg-surface shadow-brutal-dark-lg p-6 md:p-12 transition-all duration-700 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+                  <div className="text-xs tracking-[0.3em] text-sub">RESULT</div>
+                  <div className="text-[10px] tracking-widest text-sub">{quizBank[industry].nameEn}</div>
+                </div>
+
+                <h2 className="font-serif mb-8 text-[clamp(1.8rem,5vw,3.2rem)] font-extrabold text-dark leading-tight">
+                  {msg.title}<span className={msg.color}>.</span>
+                </h2>
+
+                <div className="flex items-end gap-6 mb-8 pb-8 border-b-2 border-dark">
+                  <div>
+                    <div className="text-[10px] tracking-widest mb-1 text-sub">SCORE</div>
+                    <div className="font-display text-[clamp(3.5rem,11vw,6rem)] font-black text-dark leading-none">
+                      {correctCount}<span className="text-sub text-[0.4em] ml-2">/ {questions.length}</span>
+                    </div>
+                  </div>
+                  <div className="flex-1 pb-3">
+                    <div className="text-[10px] tracking-widest mb-1 text-sub">ACCURACY</div>
+                    <div className={`font-display text-[clamp(1.4rem,4vw,2.25rem)] font-bold ${msg.color}`}>
+                      {scorePercent}<span className="text-base">%</span>
+                    </div>
+                    <div className="mt-2 h-1.5 w-full bg-muted border border-dark">
+                      <div className={`h-full transition-all duration-1000 ${msg.bar}`} style={{ width: `${scorePercent}%` }} />
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-sm md:text-base mb-8 leading-relaxed text-dark font-medium">{msg.sub}</p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                  <button onClick={restart} className="py-4 text-sm font-bold tracking-wider border-2 border-dark bg-dark text-surface shadow-brutal-accent transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-accent-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                    別の条件で挑戦 →
+                  </button>
+                  <button onClick={() => setScreen('review')} className="py-4 text-sm font-bold tracking-wider border-2 border-dark bg-surface text-dark shadow-brutal-dark transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#1C1C1E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                    全問解説を見る
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (screen === 'review') {
+        return (
+          <div className="p-4 md:p-8 min-h-screen">
+            <div className="w-full max-w-3xl mx-auto">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-px flex-1 bg-dark" />
+                <span className="tracking-[0.3em] text-xs font-bold text-dark">ALL EXPLANATIONS</span>
+                <div className="h-px flex-1 bg-dark" />
+              </div>
+              <div className="space-y-6">
+                {questions.map((q, i) => {
+                  const wasCorrect = answers[i]?.correct;
+                  return (
+                    <div key={i} className="border-2 border-dark bg-surface shadow-brutal-dark p-5 md:p-6">
+                      <div className="flex items-start gap-4 mb-4">
+                        <span className={`shrink-0 w-10 h-10 flex items-center justify-center font-bold border-2 border-dark ${wasCorrect ? 'bg-success text-surface' : 'bg-accent text-surface'}`}>
+                          {wasCorrect ? '○' : '×'}
+                        </span>
+                        <div className="flex-1 pt-1">
+                          <div className="text-[10px] tracking-widest mb-1 text-sub">Q.{String(i + 1).padStart(2, '0')} / {q.category}</div>
+                          <div className="font-bold text-base leading-snug text-dark">{q.question}</div>
+                        </div>
+                      </div>
+                      <div className="bg-muted border border-dark p-3 md:p-4 mb-3">
+                        <span className="text-[10px] font-bold tracking-widest block mb-1 text-sub">正解</span>
+                        <div className="font-bold text-sm md:text-base text-dark">{q.options[q.answer]}</div>
+                      </div>
+                      <p className="text-sm leading-relaxed text-dark font-medium">{q.explanation}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <button onClick={restart} className="w-full mt-8 py-5 text-sm font-bold tracking-wider border-2 border-dark bg-dark text-surface shadow-brutal-accent transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-accent-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                最初に戻る →
+              </button>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<SummerSelectionQuiz />);
+  </script>
+</body>
+</html>
