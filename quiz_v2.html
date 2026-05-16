@@ -466,7 +466,7 @@
                             {ind.num} / {data.nameEn}
                           </div>
                           <div className={`text-sm md:text-base font-bold mb-0.5 ${isActive ? 'text-surface' : 'text-dark'}`}>{data.name}</div>
-                          <div className={`text-[11px] md:text-xs leading-snug font-medium ${isActive ? 'text-muted' : 'text-sub'}`}>{data.description}</div>
+                          <div className={`text-[11px] md:text-xs leading-snug font-medium ${isActive ? 'text-muted' : 'text-dark'}`}>{data.description}</div>
                         </button>
                       );
                     })}
@@ -490,7 +490,7 @@
                         >
                           <div className={`text-[10px] tracking-widest mb-1 ${isActive ? 'text-muted' : 'text-sub'}`}>LV.{i + 1}</div>
                           <div className={`font-serif font-bold text-base md:text-lg ${isActive ? 'text-surface' : 'text-dark'}`}>{lv.label}</div>
-                          <div className={`text-[11px] mt-1 leading-snug font-medium ${isActive ? 'text-muted' : 'text-sub'}`}>{lv.description}</div>
+                          <div className={`text-[11px] mt-1 leading-snug font-medium ${isActive ? 'text-muted' : 'text-dark'}`}>{lv.description}</div>
                         </button>
                       );
                     })}
@@ -602,7 +602,7 @@
                     return (
                       <button key={idx} onClick={() => chooseAnswer(idx)} disabled={showResult} className={btnClass}>
                         <span className={badgeClass}>{String.fromCharCode(65 + idx)}</span>
-                        <span className="flex-1 text-sm md:text-base font-semibold">{opt}</span>
+                        <span className="flex-1 text-sm md:text-base font-semibold text-dark">{opt}</span>
                         {showResult && isRight && <span className="shrink-0 text-xl font-bold text-success">○</span>}
                         {showResult && isSelected && !isRight && <span className="shrink-0 text-xl font-bold text-accent">×</span>}
                       </button>
