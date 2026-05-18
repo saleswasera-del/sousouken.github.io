@@ -442,7 +442,7 @@
                 <h1 className="font-serif leading-[1.05] mb-3 text-[clamp(1.9rem,5vw,3.2rem)] font-extrabold text-dark">
                   サマー選考<br /><span className="text-accent">基礎体力</span>チェック
                 </h1>
-                <p className="text-sm md:text-base mb-8 leading-relaxed text-sub">
+                <p className="text-sm md:text-base mb-8 leading-relaxed" style={{ color: '#1C1C1E' }}>
                   28卒のための、業界別サマー選考クイズ。業界・レベル・問題数を選んでスタート。
                 </p>
 
@@ -619,7 +619,7 @@
                     </span>
                     <span className="text-[10px] tracking-widest text-sub">EXPLANATION</span>
                   </div>
-                  <p className="text-sm md:text-base leading-relaxed text-dark">{q.explanation}</p>
+                  <p className="text-sm md:text-base leading-relaxed" style={{ color: '#1C1C1E' }}>{q.explanation}</p>
                 </div>
               )}
 
@@ -711,14 +711,14 @@
                         </span>
                         <div className="flex-1 pt-1">
                           <div className="text-[10px] tracking-widest mb-1 text-sub">Q.{String(i + 1).padStart(2, '0')} / {q.category}</div>
-                          <div className="font-bold text-base leading-snug text-dark">{q.question}</div>
+                          <div className="font-bold text-base leading-snug" style={{ color: '#1C1C1E' }}>{q.question}</div>
                         </div>
                       </div>
                       <div className="bg-muted border border-dark p-3 md:p-4 mb-3">
                         <span className="text-[10px] font-bold tracking-widest block mb-1 text-sub">正解</span>
-                        <div className="font-bold text-sm md:text-base text-dark">{q.options[q.answer]}</div>
+                        <div className="font-bold text-sm md:text-base" style={{ color: '#1C1C1E' }}>{q.options[q.answer]}</div>
                       </div>
-                      <p className="text-sm leading-relaxed text-dark font-medium">{q.explanation}</p>
+                      <p className="text-sm leading-relaxed font-medium" style={{ color: '#1C1C1E' }}>{q.explanation}</p>
                     </div>
                   );
                 })}
