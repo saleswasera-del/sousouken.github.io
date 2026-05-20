@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サマー選考 基礎体力チェック | 体験版</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: '#F3EDE1',
+            surface: '#FBF7EE',
+            dark: '#1C1C1E',
+            accent: '#C73E3A',
+            success: '#4A7C59',
+            warning: '#C98A1F',
+            sub: '#3B3833',
+            muted: '#EDE4D2',
+            error: '#F8E3E2',
+            correctbg: '#E8F0E7'
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            serif: ['"Shippori Mincho B1"', 'serif'],
+            display: ['"Zen Kaku Gothic New"', 'sans-serif'],
+          },
+          boxShadow: {
+            'brutal-dark': '4px 4px 0px #1C1C1E',
+            'brutal-dark-lg': '8px 8px 0px #1C1C1E',
+            'brutal-accent': '4px 4px 0px #C73E3A',
+            'brutal-accent-sm': '3px 3px 0px #C73E3A',
+            'brutal-success': '6px 6px 0px #4A7C59',
+            'brutal-error': '6px 6px 0px #C73E3A',
+          }
+        }
+      }
+    }
+  </script>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    /* 背景のドットパターン */
+    body {
+      background-color: #F3EDE1;
+      background-image: radial-gradient(#d5cebc 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+    }
+    /* スムーズな出現アニメーション */
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-slide-up {
+      animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="font-sans text-dark antialiased min-h-screen">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    // ============================================================
+    // 問題バンク
+    // ============================================================
+    const quizBank = {
+      consulting: {
+        name: 'コンサル', nameEn: 'CONSULTING', description: '戦略・総合・IT系コンサルティングファーム',
+        questions: [
+          { level: 'basic', category: '業界構造', question: 'コンサル業界の主な分類として最も一般的なのは?', options: ['戦略系・総合系・シンクタンク系・IT系の4区分', '国内/海外の地域分類', '上場/非上場の財務分類', '創業年数による新興/老舗の分類'], answer: 0, explanation: 'クライアント課題の範囲と提供価値で分けるのが一般的。MBB等の戦略系、アクセンチュア・Big4等の総合系、シンクタンク系(野村総研等)、IT系が代表区分。' },
+          { level: 'basic', category: '業界基礎', question: '戦略コンサル「MBB」と呼ばれる3社は?', options: ['McKinsey, BCG, Bain', 'Mitsubishi, Mizuho, MUFG', 'McKinsey, Bain, Boston Scientific', 'Meta, Microsoft, Mandiant'], answer: 0, explanation: 'McKinsey & Company / Boston Consulting Group / Bain & Companyの頭文字。経営トップ層の戦略課題を扱う少数精鋭ファームの代表格。' },
+          { level: 'basic', category: '業界基礎', question: 'BIG4(Deloitte / PwC / EY / KPMG)コンサル部門の出自として共通する点は?', options: ['世界4大会計事務所を母体に持ち、財務・リスク・監査の知見が強い', '元々IT専業企業で、システム開発を出発点としている', 'シンクタンクから派生したリサーチ機関', '広告代理店の戦略部門から独立したファーム'], answer: 0, explanation: '世界4大会計事務所(Deloitte/PwC/EY/KPMG)を母体に持つ総合系コンサル。財務・税務・リスク・M&A・サステナ等が強み領域。' },
+          { level: 'basic', category: '業界内比較', question: '戦略系コンサル(MBB等)と総合系コンサル(アクセンチュア・Big4等)の最大の違いは?', options: ['戦略系は経営判断に絞った短期・小規模案件、総合系は実行支援(IT導入・業務改革)まで含む大規模・長期案件', '戦略系は新卒中心、総合系は中途中心という採用の違い', '戦略系は外資のみ、総合系は日系のみ', '戦略系は単年契約、総合系は3年以上の長期契約が必須'], answer: 0, explanation: 'カバー範囲(戦略立案だけ vs 実行まで)、案件規模(数億 vs 数十〜数百億)、関与人数(数名 vs 数十名)が最大の違い。' },
+          { level: 'basic', category: 'ビジネスモデル', question: 'コンサルファームのビジネスモデルが「人月商売」と呼ばれる理由は?', options: ['コンサルタント1人を一定期間派遣し、フィーが「人数×期間」で計算されるため', '毎月給料が変動する仕組みのため', '月単位で社員を別ファームに移籍させるため', '在庫を月次で評価する仕組みがあるため'], answer: 0, explanation: 'コンサルは「人材」自体がコアプロダクト。クライアントにコンサルタントを派遣し、人数×期間でフィーを得る労働集約型ビジネス。' },
+          { level: 'basic', category: '選社軸', question: '「なぜコンサルか」を語る際、最も筋が悪い答えは?', options: ['多様な業界・経営課題に若いうちから触れたい', '事業を客観的に分析する思考法を身につけたい', '高年収で成長企業のイメージがあるから', '将来経営に関わる仕事をしたいので、最短で経営目線の経験を積みたい'], answer: 2, explanation: '年収・成長イメージは結果論で業務本質と接続しない。「経営課題への関わり方」「思考法の獲得」など本業との具体接続が必須。' },
+          { level: 'intermediate', category: '各社比較', question: 'アクセンチュアの強みとして最も語られやすいのは?', options: ['IT領域での開発力・導入スピードと世界最大規模(75万人超・49カ国)', '会計監査の長い歴史と監査品質', 'PEファンド支援に特化した独自モデル', '官公庁向け政策研究に特化した小規模ファーム'], answer: 0, explanation: 'Strategy & Consulting / Technology / Operations / Industry X / Songの5領域を保有。SAP導入実績・規模感が圧倒的で、ITに強い世界最大の総合ファーム。' },
+          { level: 'intermediate', category: '各社比較', question: 'デロイト(Deloitte)の特徴として正しいのは?', options: ['BIG4の中で日系色が強く、新卒研修約3ヶ月、セキュリティ分野で世界一のシェア', 'アメリカ本社の純外資企業で日本拠点は出張ベース', '事業領域はシンクタンク機能のみ', 'IT領域は完全に他社に外注している'], answer: 0, explanation: '「100年先に続くバリューを、日本から」を掲げる日系色の強いグローバルメンバーファーム。3ヶ月の手厚い新卒研修、セキュリティ12年連続1位等が特徴。' },
+          { level: 'intermediate', category: '各社比較', question: 'PwCコンサルティングの特徴として代表的なのは?', options: ['部門横断型プロジェクトが多く、グループ企業との連携が強み(戦略部隊は別法人Strategy&)', '部門間連携を一切行わず各部門が独立採算で動く', '日本国内のみで事業展開', '監査業務は一切扱わない'], answer: 0, explanation: '151カ国36万人のネットワークを活かし部門横断型に強い。戦略部隊はStrategy&として分離している点もデロイトとの違い。' },
+          { level: 'intermediate', category: '各社比較', question: 'EYストラテジー・アンド・コンサルティングの特徴は?', options: ['「Project Dragon」等で急成長中、若手裁量が大きく、デジタルテクノロジー領域に注力', '創業100年の老舗で保守的な社風', '採用人数が極めて少なく中途中心', '官公庁案件に完全特化'], answer: 0, explanation: '2019年に売上744億円・コンサル3,224人体制を目指す「Project Dragon」を打ち出し急成長。社員数が少なかった背景で若手にも大きな裁量が回ってくる。' },
+          { level: 'intermediate', category: '各社比較', question: 'KPMGコンサルティングの特徴として正しいのは?', options: ['2014年設立の比較的新しいファームで少数精鋭(約2,370人)、社員提案型の働き方改革「LEAP」が特徴', '日本最古のコンサルファームで全社員1万人超', 'IT専業ファームでシステム導入のみ扱う', '官公庁案件のみ受託'], answer: 0, explanation: '2014年誕生の新生ファーム。Deloitte約11,000人/PwC約13,500人に対しKPMGは約2,370人と少数精鋭。「KPMGらしさ」を作る側に回りたい人向け。' },
+          { level: 'intermediate', category: '各社比較', question: 'アビーム(ABeam)コンサルティングの特徴は?', options: ['日系総合ファームで「Real Partner®」を掲げ、年間約750名が海外渡航するSAP/IT領域に強い', '純外資で英語のみで業務が完結する', 'ファームとして独立せず親会社の1部門', 'プロジェクト期間が必ず1ヶ月以内に限定される'], answer: 0, explanation: 'アジア中心28拠点・約9,000名の日系ファーム。日系企業の海外進出支援が強み、SAPコンサル資格保有数が国内最多級。' },
+          { level: 'advanced', category: '業界動向', question: 'コンサル各社が「アドバイス」から「実行支援」へと役割を広げている主な理由は?', options: ['経営環境が複雑化しDX/IT活用が必須となり、企業が自社だけで戦略実行するのが難しくなったため', '戦略立案の単価が下がりすぎたため逃避的に実行支援に進出', '監査業務の代替として実行支援を必要とするため', 'AIで戦略立案が完全自動化されたため'], answer: 0, explanation: 'DX需要の高まりで戦略実行の難度が上昇。総合コンサルへの「実行まで一緒にやってほしい」という日常依頼が増え、業界全体の売上拡大要因に。' },
+          { level: 'advanced', category: '業界動向', question: '2024年以降コンサル各社が「生成AI」を成長エンジンに位置づけている理由として正しいのは?', options: ['クライアントへの導入支援案件の急増と、自社のコンサルタント業務(資料作成・分析等)の効率化を両立する戦略のため', 'コンサル業務がAIに完全代替されるため事業転換が必要だから', '会計監査の法令で生成AI導入が義務化されたため', '広告効果がAIテーマで突出して高いため'], answer: 0, explanation: 'クライアント支援とインハウス効率化の両輪。一部グローバルファームではAI効率化を背景にバックオフィス再編も進む。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: 'コンサルファームのP&L構造を支える本質的な指標は?', options: ['コンサルタント1人あたりの稼働率×単価(Utilization × Billing Rate)', '本社オフィスの広さ', '資本金の額', '年間広告費の額'], answer: 0, explanation: '人=売上の労働集約モデルなので、稼働率と単価が利益構造の中核。これがUp or Outや高単価採用の構造的理由。' },
+          { level: 'advanced', category: '社風・文化', question: 'アクセンチュアで広く浸透するスタンス「Think straight, talk straight」が示すのは?', options: ['率直に考え率直に話す。多様な背景を持つ社員がフラットにコミュニケーションする文化', '直線的な階層に基づく上意下達の文化', '社外への発信を必ず本社経由で行う広報方針', '英語のみで業務を行うグローバル方針'], answer: 0, explanation: '率直なコミュニケーションを推奨する代表バリュー。実際の現場では伝え方や人間関係の配慮も両立する文化として機能している。' },
+          { level: 'advanced', category: '選社軸', question: '「なぜ他のコンサルではなく弊社か」への回答として最も本質的な切り口は?', options: ['対象業界の強み・案件規模・カルチャー・Postキャリアの方向性が、自身の志向とどう重なるかの具体接続', '初任給や福利厚生の差', '社員食堂のメニューや勤務地のオフィス設備', '採用倍率や入社難易度の比較'], answer: 0, explanation: '各ファームには得意領域・案件性質・カルチャー・退職後キャリアの「色」がある。自身の志向と重なる「なぜそこでないとダメか」を具体で語る必要がある。' },
+        ]
+      },
+      ib: {
+        name: '外資投資銀行', nameEn: 'INVESTMENT BANKING', description: 'Goldman Sachs, Morgan Stanley等',
+        questions: [
+          { level: 'basic', category: '業界構造', question: '外資投資銀行(IB)の主要な部門区分として正しいのは?', options: ['フロントオフィス(IBD/S&T/Research)・ミドル・バックの3層構造', '営業部と総務部の2部門のみ', '研究開発部と販売部の2部門', '広告部と人事部の2部門'], answer: 0, explanation: 'フロントは収益直結部門(IBD/S&T/Research)、ミドルはリスク管理、バックはオペレーション。新卒応募はフロント中心。' },
+          { level: 'basic', category: '業界基礎', question: '「Bulge Bracket」と呼ばれるグローバル大手IB群の代表は?', options: ['Goldman Sachs / Morgan Stanley / JP Morgan等', 'Deloitte / PwC / EY / KPMG', 'McKinsey / BCG / Bain', 'Sony / Toyota / Honda'], answer: 0, explanation: 'GS/MS/JPMを筆頭にBofA、Citi等のグローバル超大手。世界最上位ティアの投資銀行群を指す。' },
+          { level: 'basic', category: '業界基礎', question: '「IBD」と「S&T」の違いは?', options: ['IBDはM&A・資金調達アドバイザリー、S&Tは市場での売買仲介', '両者とも全く同じ業務', 'IBDは個人向け、S&Tは法人向けの違い', 'IBDは日系のみ、S&Tは外資のみ'], answer: 0, explanation: 'IBD(Investment Banking Division)は企業のディール助言。S&T(Sales & Trading)は機関投資家向けに株/債/為替を売買する市場部門。' },
+          { level: 'basic', category: 'ビジネスモデル', question: 'IBDの収益源として代表的なのは?', options: ['M&Aアドバイザリーフィー、IPO・債券引受手数料', '個人預金の利息差益', '広告掲載料', '小売店舗の販売手数料'], answer: 0, explanation: 'ディール成約時のサクセスフィーが主収入。1案件あたり数億〜数十億円規模で動くため、人件費が高くても採算が成立する構造。' },
+          { level: 'basic', category: '業界内比較', question: '外銀と日系証券(野村・大和等)の主な違いは?', options: ['外銀はグローバル案件・英語比重が高い、日系は日系企業との関係性が強い', '外銀は無料、日系は有料', '外銀は新卒採用しないが日系はする', '外銀は店舗販売、日系はデジタル販売'], answer: 0, explanation: '外銀はクロスボーダーM&Aや海外IPO等のグローバル案件比重が高い。日系は伝統的な日本企業ネットワーク・国内ディール力に強み。' },
+          { level: 'basic', category: '選社軸', question: '「なぜ外銀IBか」を語る際、最も筋が悪い動機は?', options: ['若手から大型M&Aや資金調達Dealに関与し企業ファイナンスを学べる', '優秀な同僚との切磋琢磨環境', '高年収だから', 'バリュエーション・モデリング等の汎用スキルを早期に獲得できる'], answer: 2, explanation: '高年収は結果論。Dealへの関与・スキル獲得・成長環境など業務本質との接続が必須。' },
+          { level: 'intermediate', category: '各社比較', question: 'Goldman Sachs(ゴールドマン・サックス)の特徴として最も語られやすいのは?', options: ['IB・S&T両軸で世界最高峰のフィーランキング常連、エリートカルチャー', '個人向け店舗網が国内最大', '広告事業がメイン', 'CVS事業で売上最大'], answer: 0, explanation: 'グローバルで最も権威ある投資銀行の一つ。M&A/IPO/Trading各分野でトップシェア争いを続けるエリートファーム。' },
+          { level: 'intermediate', category: '各社比較', question: 'Morgan Stanley(モルガン・スタンレー)の強みとして代表的なのは?', options: ['IBに加え、ウェルスマネジメント(個人富裕層資産運用)が世界最大級', '小売店舗の運営', '自動車製造', '住宅建設'], answer: 0, explanation: 'IBDは最上位、加えてWealth Managementが世界最大規模で安定収益源として機能している点が特徴。' },
+          { level: 'intermediate', category: '各社比較', question: 'JP Morgan(JPモルガン)の特徴は?', options: ['IB+商業銀行+ウェルスを抱える総合金融、世界最大級のバランスシート', '日本国内のCVS事業のみ', '広告代理事業のみ', 'メーカー事業のみ'], answer: 0, explanation: 'IB部門に加えてリテール/コマーシャル銀行、ウェルスマネジメントを擁する米最大級の総合金融。資産規模は世界トップクラス。' },
+          { level: 'intermediate', category: '各社比較', question: 'ブティック系IB(Lazard / Evercore / Centerview等)の特徴は?', options: ['M&Aアドバイザリーに特化し、利益相反が少なく独立した助言を提供', '巨大なS&T部門で市場リスクを大量に取る', '個人向け預金商品を販売', '広告事業を中心に展開'], answer: 0, explanation: 'Bulge Bracketと違いS&Tや融資業務を持たないため、利益相反なく純粋にM&A助言ができる点が独立系ブティックの売り。' },
+          { level: 'intermediate', category: '各社比較', question: '日系投資銀行(野村ホールディングス・大和証券等)の特徴は?', options: ['日系大企業との長年の関係性に基づくIBDシェアと、リテール基盤を併せ持つ', '海外案件のみで日本国内では事業しない', 'M&A業務を一切行わない', '個人客を持たず法人向けトレーディングのみ'], answer: 0, explanation: '野村・大和等は国内IBDシェアが高く、日系企業の海外進出/クロスボーダー案件にも強い。リテール・運用部門も持つ総合証券モデル。' },
+          { level: 'intermediate', category: '社風・文化', question: '外銀IBに共通する働き方の特徴として正しいのは?', options: ['100時間/週超の長時間労働も珍しくない高負荷ワークスタイル(近年は是正の動き)', '完全週休3日制が業界標準', '残業が一切ない短時間労働', '在宅勤務のみで対面業務がない'], answer: 0, explanation: 'Dealのデッドライン主導で長時間労働が常態化していたが、若手のメンタルヘルス問題を受け各社が労働環境改善策を導入中。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: 'IBの「Sell-side」と「Buy-side」の違いは?', options: ['Sell-sideは助言・仲介で稼ぐIB側、Buy-sideは自己資金で投資するPE/ヘッジファンド側', '販売価格と購入価格の違いだけ', 'IT系職種と非IT系職種の違い', '部署の階層構造の違い'], answer: 0, explanation: 'Sell-side=投資銀行(助言フィーで稼ぐ)、Buy-side=投資ファンド(自己資金運用で稼ぐ)。IB出身者のキャリアパスとして頻出。' },
+          { level: 'advanced', category: '業界動向', question: '近年の外銀IB業界で特に注目されるトレンドは?', options: ['プライベートクレジット拡大、PE取引の多様化、AIによるリサーチ自動化', '紙の証券取引への回帰', 'M&A業務の完全停止', '個人向け店舗網の急拡大'], answer: 0, explanation: 'PEファンドのドライパウダー増加・プライベートクレジット市場の急成長・AIによるリサーチ/モデル業務の自動化が業界の大きな流れ。' },
+          { level: 'advanced', category: 'キャリア', question: '外銀IBアナリストの典型的なポストキャリアは?', options: ['PE / ヘッジファンド / 事業会社CFO・経営企画 / 起業 / VC', '永遠に同じファームに勤務', 'アカデミア(大学教員)以外は不可', '官公庁勤務に固定される'], answer: 0, explanation: 'バリュエーション・モデリング・Deal実務はバイサイド(PE・HF)や事業会社ファイナンスで再現性が高い。3〜5年で転身する人が多い。' },
+          { level: 'advanced', category: '社風・文化', question: '「Up or Out」が外銀IBで強く働く理由は?', options: ['Dealベース報酬と階層的キャリア構造により、各役職の昇進タイミングが明確化されているため', '法律で昇進が義務化されているため', '社内制度が緩く誰でも昇進できるため', '退職者を全員再雇用する制度があるため'], answer: 0, explanation: 'Analyst→Associate→VP→Director→MDの階層と滞在年数の目安が明確で、上に進めなければ自然と外で活躍する流れになる。' },
+          { level: 'advanced', category: '選社軸', question: '「なぜ他のIBではなく弊社か」への回答として最も本質的な切り口は?', options: ['Deal性質(規模/領域/地域)・カルチャー・ポストキャリアが、自身の志向とどう重なるかの具体接続', '初任給や福利厚生の差', '社員食堂のメニュー', '採用倍率の比較'], answer: 0, explanation: 'GS/MS/JPM/BofA/Citi等は表面的に似ているが、得意領域・案件性質・カルチャー・退職後キャリアに違いがある。自分の志向と重なる「なぜそこか」を具体で語る必要がある。' },
+        ]
+      },
+      trading: {
+        name: '総合商社', nameEn: 'TRADING COMPANY', description: '三菱商事、伊藤忠等の事業投資・貿易企業',
+        questions: [
+          { level: 'basic', category: '業界基礎', question: '日本の「5大商社」に含まれるのは?', options: ['三菱商事 / 三井物産 / 伊藤忠商事 / 住友商事 / 丸紅', '楽天 / メルカリ / DeNA / Yahoo / LINE', 'トヨタ / ホンダ / 日産 / マツダ / スズキ', '電通 / 博報堂 / ADK / サイバー / Septeni'], answer: 0, explanation: '三菱・三井・伊藤忠・住友・丸紅が5大商社。豊田通商と双日を加えると「7大商社」となる。' },
+          { level: 'basic', category: '業界構造', question: '「総合商社」と「専門商社」の違いは?', options: ['総合商社は全産業領域を扱う、専門商社は特定領域(食品・鉄鋼等)に特化', '総合商社は無料、専門商社は有料', '総合商社は国内のみ、専門商社は海外のみ', '総合商社は新卒採用しない、専門商社はする'], answer: 0, explanation: '総合商社はあらゆる産業領域を扱う。専門商社は鉄鋼(伊藤忠丸紅鉄鋼)、食品(三菱食品)等の特定セグメントに集中する。' },
+          { level: 'basic', category: 'ビジネスモデル', question: '総合商社の現代における主要収益源は?', options: ['事業投資の持分損益・配当 + 従来型のトレーディング口銭の両輪', '伝統的な物品売買の口銭収入のみ', '個人向け預金の利息収入のみ', '広告掲載料収入のみ'], answer: 0, explanation: '従来の貿易仲介(トレーディング)に加え、世界中の事業会社への投資・経営関与(事業投資)からの持分損益・配当が大きな収益源に。' },
+          { level: 'basic', category: '業界基礎', question: '総合商社の「営業部門」の一般的な区分は?', options: ['金属/エネルギー/機械/化学品/食料/生活産業等の本部制', '国内営業と海外営業だけの2部門', '個人営業と法人営業だけの2部門', '昼勤と夜勤の2部門'], answer: 0, explanation: '商材×産業の切り口で本部を分ける。配属される本部はキャリア形成を大きく左右する重要な要素。' },
+          { level: 'basic', category: 'ビジネスモデル', question: '総合商社の業績に大きな影響を与える外部要因は?', options: ['コモディティ価格(原油・金属・穀物等)、為替、地政学リスク', '国内CMの視聴率', '夏祭りの来場者数', 'アプリ課金市場の規模'], answer: 0, explanation: '資源・エネルギー・食料等のコモディティ価格と為替が業績を大きく左右。非資源ビジネス強化が各社の重要戦略。' },
+          { level: 'basic', category: '選社軸', question: '「なぜ商社か」を語る際、最も筋が悪い動機は?', options: ['幅広い産業・地域に若いうちから関与できる', '事業投資を通じて経営に踏み込める', '高年収・安定で人気だから', '海外駐在を通じてグローバル経験を積める'], answer: 2, explanation: '年収・人気度は結果論で業務本質と接続しない。事業投資・海外関与・経営体験など業務との具体接続が必須。' },
+          { level: 'intermediate', category: '各社比較', question: '三菱商事の特徴として代表的なのは?', options: ['業界最大手、エネルギー・金属資源で強く総合力No.1ポジション', '広告代理店として国内最大', 'CVS事業に特化', '航空会社として営業'], answer: 0, explanation: '5大商社で最大規模の純利益を継続。エネルギー・金属資源を中心に幅広い領域でトップポジションを維持。' },
+          { level: 'intermediate', category: '各社比較', question: '三井物産の強み領域として代表的なのは?', options: ['鉄鉱石・LNG・原油等の資源分野で世界トップクラスのアセット', '国内文具販売', '化粧品メーカー事業', '出版業'], answer: 0, explanation: '鉄鉱石(ヴァーレ等)、LNG(豪州・中東)等の資源権益が業績の柱。資源価格動向に業績が左右されやすい構造。' },
+          { level: 'intermediate', category: '各社比較', question: '伊藤忠商事の特徴として正しいのは?', options: ['非資源比率が高く、繊維・食料・生活消費分野(ファミマ等)に強い', '純資源型ビジネスのみ展開', 'ITプラットフォーム事業のみ', '不動産デベロッパーとして専業'], answer: 0, explanation: '5大商社で唯一、繊維商社にルーツを持つ非資源強化型。ファミリーマート、Doleなど消費分野のディールも豊富。' },
+          { level: 'intermediate', category: '各社比較', question: '住友商事の特徴は?', options: ['メディア(ジュピターテレコム等)・不動産・建機リースに強み', '広告事業のみ展開', '航空機製造のみ', '保険事業のみ'], answer: 0, explanation: 'CATV/メディア事業、不動産・建設機械リース、自動車販売(欧米)などで存在感。資源より生活基盤側の事業構成。' },
+          { level: 'intermediate', category: '各社比較', question: '丸紅の強みとして語られやすいのは?', options: ['アグリビジネス(穀物)・電力IPP事業に世界トップクラスの実績', 'CVS事業のみ', '通信キャリアとして営業', '半導体メーカー'], answer: 0, explanation: 'アグリ事業(Gavilon等の穀物商社買収)、IPP(独立系発電事業者)で世界有数のポジションを持つ。' },
+          { level: 'intermediate', category: '各社比較', question: '豊田通商の特徴は?', options: ['トヨタグループの商社として自動車関連事業＋アフリカ事業に強み', 'IT系メガベンチャー', '広告代理店', '銀行業'], answer: 0, explanation: 'トヨタの完成車・部品物流支援に加え、CFAO買収(2012年)以降アフリカ大陸での事業展開で7大商社内で独自ポジションを確立。' },
+          { level: 'advanced', category: '業界動向', question: '総合商社が近年特に注力する成長領域は?', options: ['脱炭素・再エネ・水素・DX・ヘルスケア等の新領域投資', '紙書籍販売の拡大', 'CD/DVD製造', '電報事業'], answer: 0, explanation: '資源価格依存からの脱却を目指し、再エネ・水素・蓄電・サーキュラーエコノミー・ヘルスケア・DX等への投資を加速中。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: '総合商社の「事業投資」モデルで重要なKPIは?', options: ['投資先からの持分損益・配当 + ROIC・ROE等の資本効率指標', '広告効果のみ', 'CMの視聴率のみ', '社員数の多さのみ'], answer: 0, explanation: '事業投資が収益の中核となった現在、ROICやROE等の資本効率指標で経営判断する流れ。三菱商事も2022年以降ROIC経営を強化。' },
+          { level: 'advanced', category: 'キャリア', question: '商社で若手が「事業会社へ出向」する主な目的は?', options: ['投資先の経営関与・事業運営経験を積み、次のDealや経営人材育成につなげる', '人手不足の単純な穴埋め', '本社業務から一時的に離れるための研修', '海外経験を履歴書に書くため'], answer: 0, explanation: '投資先での経営参画は商社のキャリア核。CFO/CEO候補としての実務経験を経て本社のディール提案力を高める循環。' },
+          { level: 'advanced', category: '社風・文化', question: '商社が選考で重視する「タフネス」の本質は?', options: ['不確実性下で意思決定・交渉・長期関与を続けられる精神的・知的持久力', '長時間労働に耐える体力', '体育会出身か否か', '海外勤務希望の強さ'], answer: 0, explanation: '不確実性が高いDealに長期間コミットし、ステークホルダーと交渉し続ける力。体力ではなく「やり抜く知的タフネス」が本質。' },
+          { level: 'advanced', category: '選社軸', question: '「なぜ他の商社ではなく弊社か」への回答として最も本質的な切り口は?', options: ['得意領域(資源/非資源)・地域・カルチャー・経営方針が、自身の志向とどう重なるかの具体接続', '初任給や福利厚生の差', '社員食堂のメニュー', '採用倍率の比較'], answer: 0, explanation: '5大商社は表面的には似て見えるが、資源比率・地域戦略・カルチャー・現社長の方針に違いがある。具体接続が説得力を生む。' },
+        ]
+      },
+      tech: {
+        name: 'IT / メガベンチャー', nameEn: 'TECH / MEGA VENTURE', description: 'サイバーエージェント、メルカリ、リクルート等',
+        questions: [
+          { level: 'basic', category: '業界基礎', question: 'IT/メガベンチャー業界の代表企業群として適切な組み合わせは?', options: ['サイバーエージェント / リクルート / DeNA / メルカリ / 楽天 / LINEヤフー等', '三菱商事 / 三井物産 / 伊藤忠商事', '電通 / 博報堂 / ADK', 'McKinsey / BCG / Bain'], answer: 0, explanation: '創業から急成長し数百〜数千億規模に達したIT系上場企業群。新卒採用人気も高い。' },
+          { level: 'basic', category: '業界構造', question: 'IT業界を分類する代表的な切り口は?', options: ['SIer / Web系(SaaS・プラットフォーム) / メガベン / コンサル系の機能分類', '国内/海外の地域分類のみ', '上場/非上場の財務分類のみ', '会社の建物の高さによる分類'], answer: 0, explanation: 'SIerは大企業の業務システム構築、Web系はBtoCサービス・SaaS、メガベンは成長IT企業群、ITコンサルは戦略+実装。求められる能力が大きく異なる。' },
+          { level: 'basic', category: 'ビジネスモデル', question: 'SaaSビジネスモデルの典型的な特徴は?', options: ['月額/年額のサブスクリプション課金で継続収益(ARR)を積み上げる', '初期ライセンスを一括販売する売切り型', '広告表示回数のみで収益化する', '受託開発費だけで継続課金しない'], answer: 0, explanation: '継続課金でLTV最大化を図るモデル。チャーン率(解約率)、ARR、ユニットエコノミクスが重要KPI。' },
+          { level: 'basic', category: '業界基礎', question: 'PdM(プロダクトマネージャー)の主な役割は?', options: ['ユーザー課題・事業戦略・技術制約を踏まえてプロダクトの方向性を決める', '会議室の予約管理', '社員食堂のメニュー設計', 'オフィス清掃の管理'], answer: 0, explanation: 'What(何を作るか)を定義し、エンジニア・デザイナー・ビジネス側を巻き込みプロダクトを前進させる職種。' },
+          { level: 'basic', category: 'ビジネスモデル', question: 'プラットフォームビジネスの本質的な特徴は?', options: ['複数の参加者(売り手と買い手等)をマッチングしネットワーク効果で価値が拡大', '在庫を大量に保有し値下げで売り切る', '工場で大量生産する', '一度作ったプロダクトを変更しない'], answer: 0, explanation: '楽天市場、メルカリ、Airbnb等。利用者が増えるほど価値が高まる「ネットワーク効果」と、両側市場の設計が競争優位の源泉。' },
+          { level: 'basic', category: '選社軸', question: '「なぜIT/メガベンか」を語る際、最も筋が悪い動機は?', options: ['事業変化の速さの中で意思決定/仮説検証スキルが早期に鍛えられる', 'プロダクトを通じて社会課題解決に関われる', '服装が自由でカジュアルな雰囲気だから', 'ストックオプション等で事業成長と個人報酬が連動する'], answer: 2, explanation: '服装や雰囲気は本質ではない。事業成長への貢献・スキル獲得・経営感覚など業務本質との接続が必要。' },
+          { level: 'intermediate', category: '各社比較', question: 'サイバーエージェントの主要事業構成は?', options: ['インターネット広告 + ABEMA(動画配信) + ゲーム(Cygames等) + 投資育成', '自動車製造のみ', '商社事業のみ', '銀行業のみ'], answer: 0, explanation: '広告(国内No.1)・ABEMA(無料動画配信)・ゲーム・スタートアップ投資が4本柱。新卒社長や子会社化制度等の若手抜擢文化も特徴。' },
+          { level: 'intermediate', category: '各社比較', question: 'リクルートグループの強みとして代表的なのは?', options: ['HR(Indeed) + 結婚/旅行/美容/住宅等のマッチング事業を多領域展開する事業ポートフォリオ', '半導体製造専業', '航空会社として営業', '銀行業として展開'], answer: 0, explanation: 'IndeedはグローバルNo.1求人検索で中核収益。SUUMO/ホットペッパー/ゼクシィ等の国内マッチング事業群と相互補完。' },
+          { level: 'intermediate', category: '各社比較', question: 'メルカリの主要事業は?', options: ['日米でのC2Cマーケットプレイス + メルカリペイ等のFintech事業', '建設業のみ', '航空会社', '電力会社'], answer: 0, explanation: 'フリマアプリでC2Cマーケットを作り、Fintech(Pay/与信/暗号資産)に拡張。米国Mercari事業も持つ。' },
+          { level: 'intermediate', category: '各社比較', question: 'DeNAの事業特性として代表的なのは?', options: ['ゲーム+ヘルスケア+スポーツ(横浜DeNAベイスターズ)+モビリティ等の複数事業ピボット', '商社専業', '銀行専業', 'メーカー専業'], answer: 0, explanation: 'モバイルゲームから多角化。横浜ベイスターズ買収、ヘルスケア、自動運転(MOV)等で事業ポートフォリオを継続再編。' },
+          { level: 'intermediate', category: '各社比較', question: 'LINEヤフー(LY)の特徴は?', options: ['LINE(国内最大級メッセージ)+Yahoo!(検索/EC/広告)+PayPay(決済)を統合した「スーパーアプリ」戦略', 'IT事業を持たない商社', '伝統的なメーカー', '官公庁'], answer: 0, explanation: '2023年LINE+ヤフー合併で誕生。コミュニケーション・検索・EC・決済を統合した日本最大級のインターネットサービス連合。' },
+          { level: 'intermediate', category: '各社比較', question: '楽天グループの事業構造は?', options: ['EC(楽天市場)・Fintech(銀行/カード/証券)・モバイル(楽天モバイル)等の3事業セグメント', '広告のみ', 'ゲーム専業', '航空会社'], answer: 0, explanation: 'インターネットサービス・Fintech・モバイルの3本柱。「経済圏(楽天ポイント)」での顧客囲い込みが戦略の中核。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: 'ストックオプション(SO)の本質的な意義は?', options: ['将来の株価上昇に応じた報酬で、事業成長と個人報酬を強く連動させる', '入社時に必ず現金で支払われる一時金', '毎月の固定手当', '退職金の名前違い'], answer: 0, explanation: '定められた価格で自社株を買える権利。上場やM&A等のイベントで価値が顕在化し、創業期メンバーや幹部の報酬として機能する。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: 'PMF(Product Market Fit)の定義として正しいのは?', options: ['プロダクトが市場に強く受け入れられ、自然に成長する状態', '広告を大量投下している状態', 'IPOした状態', '新機能をリリースしただけの状態'], answer: 0, explanation: 'ユーザーが熱狂的に求め、獲得・継続・紹介が自発的に回る状態。スタートアップ最重要マイルストーン。' },
+          { level: 'advanced', category: '業界動向', question: '近年のIT業界で特に重要なトレンドは?', options: ['生成AI活用、SaaS市場拡大、Web3、リテールメディア、垂直SaaS', '紙の手書き帳簿への回帰', 'CDの再普及', '電報事業の拡大'], answer: 0, explanation: '生成AI(LLM)による業務革命、SaaS継続成長、業界特化型SaaS、リテールメディア、Web3等が成長領域。' },
+          { level: 'advanced', category: 'キャリア', question: 'メガベン出身者の典型的な次キャリアは?', options: ['スタートアップ経営/参画、VC、別メガベンへの転身、起業', '大企業のバックオフィス職に固定', '海外MBA経由のみで転職可能', '同じ企業に定年まで勤続が標準'], answer: 0, explanation: '事業立ち上げ・PMM・グロース経験は汎用性が高く、起業・VC・他メガベン・スタートアップCxO等への移動が活発。' },
+          { level: 'advanced', category: '選社軸', question: '「なぜ他のメガベンではなく弊社か」への本質的な切り口は?', options: ['プロダクト/事業領域・カルチャー・成長フェーズ・経営方針が、自身の志向とどう重なるかの具体接続', '初任給の差', '社員食堂のメニュー', 'オフィスの立地'], answer: 0, explanation: 'メガベン各社は事業領域・成長フェーズ・カルチャー・経営者の方針が大きく異なる。プロダクト理解と自身の志向接続が必要。' },
+        ]
+      }
+    };
+
+    // 表示対象を8業界に拡張
+    Object.assign(quizBank, {
+      maker: {
+        name: 'メーカー', nameEn: 'MANUFACTURER', description: '自動車、電機、食品、素材などのものづくり企業',
+        questions: [
+          { level: 'basic', category: '業界構造', question: 'メーカー業界の主な分類として正しいのは?', options: ['完成品(自動車・家電) / 部品 / 素材 / 食品・日用品 / 医薬品 等の機能分類', '国内/海外の地域分類のみ', '上場/非上場の財務分類のみ', '創業年数による新興/老舗のみ'], answer: 0, explanation: '完成品メーカー(BtoC色強い)と部品・素材メーカー(BtoB中心)で求められる強みが大きく異なる。志望時の理解必須。' },
+          { level: 'basic', category: '業界基礎', question: 'BtoBメーカーとBtoCメーカーの主な違いは?', options: ['BtoBは法人・産業向け、BtoCは個人消費者向けで競争軸(技術 vs ブランド)が異なる', '所在地の違いだけ', '社員数の違いだけ', '採用区分の違いだけ'], answer: 0, explanation: 'BtoB(信越化学・キーエンス・村田等)は技術・性能・カスタマー深耕で勝負。BtoC(花王・資生堂・味の素等)はブランド・流通・消費者理解。' },
+          { level: 'basic', category: 'ビジネスモデル', question: 'メーカーの基本的なバリューチェーンは?', options: ['R&D → 調達 → 生産 → 品質保証 → 販売 → アフターサービス', '広告のみ', '販売のみ', '研究のみ'], answer: 0, explanation: '製品が顧客に届くまでの一連の付加価値工程。各工程に専門職種(研究/設計/生産技術/品証/営業/SCM)が存在する。' },
+          { level: 'basic', category: '業界基礎', question: 'メーカーで頻出の「QCD」が指すのは?', options: ['Quality(品質) / Cost(コスト) / Delivery(納期)', '数量・顧客・需要', '広告・チャネル・流通', '営業・経理・人事'], answer: 0, explanation: '製品競争力と現場改善の基本観点。トヨタ式のカイゼン文化もこのQCD最適化が根底にある。' },
+          { level: 'basic', category: 'ビジネスモデル', question: 'メーカーの収益構造で重要な特徴は?', options: ['設備投資・固定費が大きく、稼働率や数量が利益率に直結する装置産業的構造', '広告費だけで利益が決まる', '在庫を持たない軽資産モデル', '人件費だけが原価の大半を占める'], answer: 0, explanation: '工場・設備への大規模投資が必要なため、固定費比率が高い。需要変動への耐性と稼働率管理が経営の核。' },
+          { level: 'basic', category: '選社軸', question: '「なぜメーカーか」を語る際、最も筋が悪い動機は?', options: ['実物のプロダクトを通じて社会に価値を届けたい', '技術力で長期にわたって競争優位を作る経営に関わりたい', '安定して長く働けそうだから', 'グローバルに事業展開する経営課題に関わりたい'], answer: 2, explanation: '安定性は結果論であり業務本質と接続しない。プロダクト・技術・経営課題への関心など業務との具体接続が必須。' },
+          { level: 'intermediate', category: '各社比較', question: 'トヨタ自動車の特徴として代表的なのは?', options: ['世界最大級の自動車メーカーで、トヨタ生産方式(TPS) + CASE/MaaS事業を推進', '広告代理店', '銀行業', '小売店舗運営'], answer: 0, explanation: '販売台数世界トップクラス。TPS(JIT・カイゼン)による生産効率と、CASE(Connected/Autonomous/Shared/Electric)対応が成長戦略の中核。' },
+          { level: 'intermediate', category: '各社比較', question: 'ソニーグループの主要事業構成は?', options: ['ゲーム(PlayStation) + 音楽 + 映画 + イメージセンサー + 金融 等の多角事業', '自動車製造のみ', '医薬品メーカー', '商社'], answer: 0, explanation: 'エンタメ(ゲーム/音楽/映画)が収益柱に。CMOSイメージセンサーは世界シェアNo.1。Sony Financial Holdingsで保険・銀行も保有。' },
+          { level: 'intermediate', category: '各社比較', question: 'キーエンスの事業特性として代表的なのは?', options: ['ファブレス(工場を持たない) + コンサルティングセールス + 圧倒的な高利益率(営業利益率50%超)', '大量の工場を保有し低価格で勝負', '広告予算で売上を作る', '商社事業のみ'], answer: 0, explanation: '工場を外部委託し開発・営業に資源集中。新製品の70%が世界初/業界初を目指す研究開発と、課題解決型のソリューション営業が独自モデル。' },
+          { level: 'intermediate', category: '各社比較', question: '信越化学工業の強み領域は?', options: ['半導体ウェハー(シリコンウェハー)世界シェアNo.1 + 塩化ビニル', '自動車組立', 'CVS事業', '広告事業'], answer: 0, explanation: '半導体製造に必須のシリコンウェハーで世界トップシェア。塩ビ事業もシンテック(米子会社)が世界最大級。BtoB素材の代表企業。' },
+          { level: 'intermediate', category: '各社比較', question: '花王の特徴として正しいのは?', options: ['ホームケア・ヘルスケア・ビューティケアの日用品大手で、研究開発投資・データ活用に強み', '自動車メーカー', '航空会社', '商社'], answer: 0, explanation: 'アタック(洗剤)、ビオレ、メリーズ、エッセンシャル等の日用品ブランドを多数保有。研究開発と消費者理解(データ駆動)が競争優位の源泉。' },
+          { level: 'intermediate', category: '各社比較', question: '味の素の事業特性は?', options: ['アミノ酸技術を核に調味料 + 加工食品 + アミノ酸医薬・電子材料(半導体絶縁材ABF)等に展開', '広告代理店', 'CVS事業', '航空会社'], answer: 0, explanation: '創業のうま味調味料から、アミノ酸技術を電子材料(半導体パッケージ用ABFは世界シェアトップ)・医薬・健康食品に水平展開する独自戦略。' },
+          { level: 'advanced', category: '業界動向', question: 'メーカー業界の現在の主要トレンドは?', options: ['脱炭素(GX)、CASE/EV化、半導体・サプライチェーン再編、生成AI活用', '紙の手書き図面への回帰', 'メーカー業界全般の縮小', '広告事業への完全転換'], answer: 0, explanation: 'カーボンニュートラル対応、EV/モビリティ転換、地政学リスクに伴う供給網見直し、AI/IoT活用による生産・開発革新が大きな潮流。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: 'キーエンスの利益率(営業利益率50%超)の構造的理由は?', options: ['ファブレス + 高付加価値新製品 + コンサル型営業 + 在庫最小化のオペレーション', '低価格大量販売モデル', '広告投下による売上拡大', '人海戦術による営業'], answer: 0, explanation: '工場を持たず固定費を抑え、世界初/業界初の新製品で価格決定力を持ち、顧客課題解決型営業で深く入り込むビジネスモデルの組み合わせ。' },
+          { level: 'advanced', category: '業界基礎', question: '自動車業界で「CASE」が指す変革は?', options: ['Connected / Autonomous / Shared / Electric', 'Cost / Assembly / Safety / Export', 'Customer / Aftermarket / Sales / Engineering', 'Carbon / Automation / Supply / Efficiency'], answer: 0, explanation: '繋がる/自動運転/シェア/電動化の4軸。自動車業界が「ハードを作る」から「モビリティサービス」へ転換する潮流を象徴。' },
+          { level: 'advanced', category: 'キャリア', question: 'メーカーの文系総合職が経験しやすい職種は?', options: ['営業 / 調達 / 商品企画 / 海外事業 / 経営企画 / マーケティング', '研究開発のみ', '工場ライン作業のみ', '店舗接客のみ'], answer: 0, explanation: 'バリューチェーン全体に文系職が関わる。海外駐在や事業企画を通じて経営に近い経験も積みやすい。' },
+          { level: 'advanced', category: '選社軸', question: '「なぜ他のメーカーではなく弊社か」への本質的な切り口は?', options: ['事業領域・技術強み・カルチャー・グローバル展開・経営方針が、自身の志向とどう重なるかの具体接続', '初任給の差', '社員食堂のメニュー', '工場見学の有無'], answer: 0, explanation: 'メーカーは技術・市場・カルチャーが大きく異なる。プロダクト理解と自分の志向を重ね、なぜそのメーカーかを具体で語る必要がある。' },
+        ]
+      },
+      retail: {
+        name: '流通・小売', nameEn: 'RETAIL', description: '百貨店、スーパー、コンビニ、EC、専門店',
+        questions: [
+          { level: 'basic', category: '業界構造', question: '小売業の主な業態として代表的なのは?', options: ['百貨店 / GMS / SM / CVS / ドラッグストア / 専門店 / EC', '個人事業主のみ', '製造業のみ', '広告代理店のみ'], answer: 0, explanation: '取扱商品・価格帯・店舗形態で業態が分かれる。各業態で競争軸(品揃え/価格/利便性)が大きく異なる。' },
+          { level: 'basic', category: '業界基礎', question: 'SPA(製造小売)モデルの特徴は?', options: ['企画から製造・販売まで自社で一貫して行う', '仕入れた商品を百貨店に卸すだけ', 'ECの配送業務のみ請け負う', '広告枠の販売のみ行う'], answer: 0, explanation: 'ファーストリテイリング(ユニクロ)、ニトリ等が代表例。需要に素早く対応でき、品質・価格・利益率を自社で設計できる。' },
+          { level: 'basic', category: 'ビジネスモデル', question: '小売業の収益構造で重要なKPIは?', options: ['粗利率・在庫回転率・客単価・坪効率', 'CMの視聴率', 'プレスリリース数', 'SNSフォロワー数のみ'], answer: 0, explanation: '粗利と在庫効率の両立が利益の源泉。坪効率(売場m²あたり売上)・客単価で店舗パフォーマンスを評価。' },
+          { level: 'basic', category: '業界基礎', question: 'POS(Point of Sale)データから主に分かることは?', options: ['いつ、どの店舗で、どの商品が、いくつ、いくらで売れたか', '客の年収', '客の購入動機の全て', '競合店の仕入れ原価'], answer: 0, explanation: 'リアルタイムの販売データから発注・売場改善・需要予測の意思決定に活用。会員IDで紐づくとさらに価値が上がる。' },
+          { level: 'basic', category: 'ビジネスモデル', question: 'PB(プライベートブランド)商品のメリットは?', options: ['利益率向上 + ブランド差別化 + 品質コントロール', '仕入交渉が不要になる', '販売しなくても売れる', '在庫管理がいらない'], answer: 0, explanation: '小売自身が企画する商品。「セブンプレミアム」「トップバリュ」等。NB(ナショナルブランド)より利益率高く、独自性の源泉。' },
+          { level: 'basic', category: '選社軸', question: '「なぜ流通・小売か」を語る際、最も筋が悪い動機は?', options: ['生活者接点を持ちながら事業改善のPDCAを回せる', 'データを使って消費者行動を分析・改善できる', 'よく利用するから親しみがあるから', 'バリューチェーン全体に関与する経営経験を積める'], answer: 2, explanation: '親しみは結果論。生活者理解・データ活用・事業改善経験など業務本質との接続が必要。' },
+          { level: 'intermediate', category: '各社比較', question: 'セブン&アイ・ホールディングスの特徴は?', options: ['国内CVS最大手(セブン-イレブン) + イトーヨーカ堂 + 米セブン-イレブンを擁するグローバルCVS最大手', '自動車メーカー', '広告代理店', '商社'], answer: 0, explanation: '国内2.1万店超のセブン-イレブン、PB「セブンプレミアム」、米セブン-イレブン買収によるグローバルCVS事業がコア。' },
+          { level: 'intermediate', category: '各社比較', question: 'イオングループの特徴として正しいのは?', options: ['GMS(イオンモール) + SM + CVS(ミニストップ) + 金融(イオンカード/銀行) + 不動産の総合流通グループ', 'CVS専業', 'ECのみ', '銀行専業'], answer: 0, explanation: '小売・金融・不動産・サービスを統合した日本最大級の流通グループ。PB「トップバリュ」、イオンモール展開で生活全般をカバー。' },
+          { level: 'intermediate', category: '各社比較', question: 'ファーストリテイリングの強みは?', options: ['SPA(製造小売)モデル + ユニクロ・GU の世界展開 + サプライチェーン革新', '百貨店事業のみ', '広告代理店', '銀行業'], answer: 0, explanation: 'ユニクロ・GUを軸に世界2,500店超を展開。「LifeWear」コンセプト、データ活用、有明物流革命でアパレル業界の構造を変革。' },
+          { level: 'intermediate', category: '各社比較', question: 'ニトリホールディングスの事業特性は?', options: ['SPA + 製造物流小売(自社工場 + 物流網) + 海外調達で「お、ねだん以上。」を実現', '広告事業', 'CVS事業', '航空業'], answer: 0, explanation: 'ベトナム・インドネシア等の自社工場、海外物流ネットワーク、店舗・EC連携でコストと品質を両立。長期連続増収増益の成長企業。' },
+          { level: 'intermediate', category: '各社比較', question: '楽天市場の事業モデルは?', options: ['出店者(店舗)を集めるECモール型プラットフォーム + 楽天経済圏(ポイント)による囲い込み', '自社が全商品を仕入れて販売', '実店舗運営のみ', '広告代理店'], answer: 0, explanation: 'モール型(出店者数約5万)で商品多様性を確保。楽天ポイント・カード・モバイル等の経済圏戦略で顧客LTVを最大化する設計。' },
+          { level: 'intermediate', category: '各社比較', question: 'Amazon(アマゾンジャパン)の特徴は?', options: ['直販(Amazon Retail) + マーケットプレイス(出品者) + AWS + Prime会員制度の組合せ', 'モール型のみ', '実店舗運営のみ', '広告代理店専業'], answer: 0, explanation: '自社直販と出品者の二重構造、配送インフラ、Prime会員制度、AWSによるテック基盤が独自の競争優位を構成。' },
+          { level: 'advanced', category: '業界動向', question: '小売業界の現在の主要トレンドは?', options: ['EC化加速、リテールメディア(店舗・EC内広告)、AI需要予測、サステナビリティ対応', '紙チラシのみへの回帰', '実店舗の完全廃止', '在庫管理を行わない経営'], answer: 0, explanation: 'EC比率上昇、店舗・EC内の広告枠ビジネス化、AI/データ活用、廃棄削減や責任ある調達等のESG対応が業界全体の流れ。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: 'オムニチャネル戦略の本質は?', options: ['店舗・EC・アプリ等の複数接点を統合し、シームレスな顧客体験と在庫効率を両立', 'EC一本化で店舗を全廃', '店舗とECを完全に分離運営', '紙チラシだけに統一'], answer: 0, explanation: '店舗受取・在庫一元化・会員ID統合・購買データ活用で「どこで買っても同じ顧客体験」を実現。在庫効率と顧客LTVが同時に向上。' },
+          { level: 'advanced', category: '業界基礎', question: 'リテールメディアが注目される理由は?', options: ['小売の購買データを活用した広告配信は精度が高く、メーカーの広告予算を直接取り込める新収益源', '広告効果が悪いため', '違法だから', '誰もやっていないから'], answer: 0, explanation: 'Amazon広告事業がGoogleに次ぐ規模に成長。日本でも楽天・セブン&アイ等が広告事業を強化中。1stパーティーデータの戦略的価値が高い。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: '小売の「ユニットエコノミクス」で重要な指標は?', options: ['客単価 × 来店頻度 × 粗利率 - 顧客獲得コスト - 物流費', '広告予算のみ', '社員数のみ', '店舗数のみ'], answer: 0, explanation: '1顧客あたりLTV=客単価×頻度×粗利。CACと物流費を引いて利益が残るかで事業の健全性を評価。EC事業で特に重要な視点。' },
+          { level: 'advanced', category: '選社軸', question: '「なぜ他の小売ではなく弊社か」への本質的な切り口は?', options: ['業態・商品領域・カルチャー・成長戦略・ECとリアルのバランスが、自身の志向とどう重なるかの具体接続', '初任給の差', '社員食堂のメニュー', '店舗の数だけ'], answer: 0, explanation: '小売は業態・商品・顧客像・成長フェーズが大きく異なる。実際の店舗・サービスを観察し、自分の関心と接続できる切り口が重要。' },
+        ]
+      },
+      serviceInfra: {
+        name: 'サービス・インフラ', nameEn: 'SERVICE / INFRA', description: '鉄道、航空、通信、電力、物流、不動産など',
+        questions: [
+          { level: 'basic', category: '業界構造', question: 'インフラ業界の主要セクターとして適切なのは?', options: ['鉄道 / 航空 / 通信 / 電力・ガス / 物流 / 不動産 等の社会基盤産業', '自動車製造のみ', '広告代理店のみ', 'IT専業のみ'], answer: 0, explanation: '社会・経済活動の基盤となる産業群。公共性が高く規制が強い、設備投資が大きい等の共通特徴を持つ。' },
+          { level: 'basic', category: '業界基礎', question: 'インフラ業界の特徴として正しいのは?', options: ['公共性 + 規制 + 大規模設備投資 + 安定需要(需給予測しやすい)', '需要が極めて不安定', '広告投下次第で需要が大きく変動', '在庫を大量に抱えるビジネス'], answer: 0, explanation: '社会基盤としての安定性が求められ、料金や安全基準に規制がある。設備寿命が長く、設備投資判断が経営の核。' },
+          { level: 'basic', category: '業界基礎', question: '日本の通信業界の主要3社は?', options: ['NTTドコモ / KDDI(au) / ソフトバンク', '楽天 / メルカリ / DeNA', 'JR東日本 / ANA / JAL', '東京電力 / 関西電力 / 中部電力'], answer: 0, explanation: '通信大手3キャリア。楽天モバイルが第4極として参入。MVNO(格安SIM)を含めると競争はさらに多層的。' },
+          { level: 'basic', category: 'ビジネスモデル', question: '鉄道会社の収益構造で重要な特徴は?', options: ['運輸収入(本業)+ 駅ナカ・不動産・流通等の非運輸収入の多角化', '広告収入のみ', 'CMの視聴率収入のみ', '商品販売のみ'], answer: 0, explanation: '少子化で運輸需要が頭打ちのため、駅ビル・ホテル・不動産・流通等の非運輸事業を強化。JR東日本では非運輸が3〜4割を占める。' },
+          { level: 'basic', category: '業界動向', question: '物流業界の「2024年問題」とは?', options: ['ドライバーの時間外労働規制強化により輸送能力不足が懸念される問題', '2024年に物流が完全停止する問題', '配送料が無料になる制度', 'EC事業者が全廃される問題'], answer: 0, explanation: '2024年4月施行の働き方改革関連法でドライバーの時間外労働が制限。輸送能力低下を補うため共同配送・モーダルシフト等が進展。' },
+          { level: 'basic', category: '選社軸', question: '「なぜサービス・インフラか」を語る際、最も筋が悪い動機は?', options: ['社会基盤を支える事業に長期で関与したい', '公共性と収益性の両立に問題意識がある', '安定して長く働けそうだから', '地域や日常生活に直接インパクトを与えたい'], answer: 2, explanation: '安定性は結果論で業務本質と接続しない。社会課題・公共性・事業内容への関心など業務との具体接続が必要。' },
+          { level: 'intermediate', category: '各社比較', question: 'JR東日本の事業特性として代表的なのは?', options: ['首都圏鉄道網 + 駅ナカ(エキュート) + 不動産(JR東日本ビルディング) + 流通(NewDays等)の沿線開発', '航空会社', '通信キャリア', '電力会社'], answer: 0, explanation: '日本最大の鉄道会社。Suicaを軸とした駅ナカ事業、不動産開発(高輪ゲートウェイ周辺等)、流通事業で運輸依存からの脱却を進める。' },
+          { level: 'intermediate', category: '各社比較', question: 'ANA・JALの違いとして語られやすいのは?', options: ['ANAは経営再建を経ない発展、JALは2010年破綻後の再建で稲盛和夫流アメーバ経営を導入', '両社とも全く同じ経営', 'ANAはLCC、JALはフルサービスのみ', '採用区分が全く違う'], answer: 0, explanation: 'JALは2010年経営破綻→2012年再上場の経緯で、稲盛イズム(部門別採算管理)が浸透。ANAは独自路線で国内シェア最大を維持。' },
+          { level: 'intermediate', category: '各社比較', question: 'NTT(日本電信電話)グループの事業構造は?', options: ['NTTドコモ(モバイル) + NTT東西(固定) + NTTデータ(SI) + グローバル事業の連邦経営', '航空事業のみ', '広告事業のみ', 'ゲーム事業のみ'], answer: 0, explanation: 'グループ売上13兆円超の総合通信。データセンター・グローバルNW(NTT Data)、IOWN等の次世代通信、半導体事業等にも展開。' },
+          { level: 'intermediate', category: '各社比較', question: 'KDDI(au)の特徴は?', options: ['通信(au) + 金融(auじぶん銀行/au PAY) + DX(法人向け)の統合グループ戦略', '航空会社', 'CVS事業', '商社'], answer: 0, explanation: 'モバイル契約数3,200万超。「ライフデザイン企業」を掲げ、決済・金融・電力・エンタメ等のサービス連携で収益基盤を多角化。' },
+          { level: 'intermediate', category: '各社比較', question: '三井不動産・三菱地所の特徴として共通するのは?', options: ['オフィス賃貸(丸の内・日本橋) + 商業施設 + 住宅 + ホテル等の総合デベロッパー', 'IT専業', '広告事業のみ', '製造業'], answer: 0, explanation: '日本のデベ二強。三菱地所は丸の内エリア、三井不動産は日本橋・湾岸エリアが地盤。再開発・スマートシティ・ESG対応で競争。' },
+          { level: 'intermediate', category: '各社比較', question: '東京電力ホールディングスの事業構造は?', options: ['発電(燃料・燃料電池等) + 送配電(東電パワーグリッド) + 小売の3事業に分社化', '航空会社', '商社', '小売事業のみ'], answer: 0, explanation: '2016年電力自由化を受けHD体制に。福島原発事故後の経営再建+エネルギー転換+海外事業展開が同時進行する複雑な経営課題。' },
+          { level: 'advanced', category: '業界動向', question: 'インフラ業界の現在の主要トレンドは?', options: ['脱炭素(GX)、デジタル化、人口減少対応、レジリエンス強化、海外事業拡大', '国内事業の完全縮小', '紙ベースへの回帰', '広告事業への完全転換'], answer: 0, explanation: 'カーボンニュートラル対応、AI/IoTによる業務革新、人口減少下の事業モデル再構築、災害・サイバーへの強靭化が業界共通課題。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: '航空・ホテル業界で使われる「イールドマネジメント」とは?', options: ['需要予測に応じて価格・在庫を動的に調整し収益を最大化する手法', '繁忙期も閑散期も同一価格を維持', '原価に固定率を乗せて価格決定', '空席があれば全て最安値で売る'], answer: 0, explanation: '座席や客室は売れ残ると価値ゼロのため、予約状況・残席・需要予測を組み合わせた動的プライシングが業界標準。AI/MLの活用も進む。' },
+          { level: 'advanced', category: '業界基礎', question: '通信キャリアの収益モデルで重要な転換点は?', options: ['通信料単価下落の中、決済・金融・コンテンツ等の周辺サービスでLTVを伸ばす方向への転換', '通信のみ提供する原点回帰', '広告事業への完全転換', '実店舗の全廃'], answer: 0, explanation: '通信料金は政府方針で下落傾向のため、決済(d払い/au PAY/PayPay)、保険、エンタメ等で「経済圏」を作りARPUを補う戦略。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: '不動産デベロッパーの収益構造で重要な要素は?', options: ['開発利益(分譲) + 賃貸収入(オフィス・商業) + アセットマネジメント収益のバランス', '広告収入のみ', '物販収入のみ', 'CMの視聴率のみ'], answer: 0, explanation: '分譲(売却益)と賃貸(継続収入)の組合せ。J-REITやファンド組成で得る運用収益も重要な収益柱に。' },
+          { level: 'advanced', category: '選社軸', question: '「なぜ他のインフラではなく弊社か」への本質的な切り口は?', options: ['事業領域・社会的役割・経営戦略・カルチャーが、自身の志向とどう重なるかの具体接続', '初任給の差', '社員食堂のメニュー', '駅から会社までの距離'], answer: 0, explanation: 'インフラ各社は事業領域・社会への関わり方・経営課題・カルチャーが大きく異なる。具体的な事業内容と自身の志向の接続が必要。' },
+        ]
+      },
+      advertising: {
+        name: '広告', nameEn: 'ADVERTISING', description: '広告代理店、デジタル広告、PR、マーケティング支援',
+        questions: [
+          { level: 'basic', category: '業界構造', question: '広告業界の主要プレイヤー区分として代表的なのは?', options: ['総合代理店(電通・博報堂等) / デジタル特化(サイバー等) / PR / 制作プロダクション', '銀行のみ', '商社のみ', 'メーカーのみ'], answer: 0, explanation: '総合代理店はマス＋デジタル統合、デジタル特化はWeb広告運用、PRは情報発信支援、制作は表現実装と役割分担。' },
+          { level: 'basic', category: '業界基礎', question: '広告代理店の主な役割は?', options: ['企業のコミュニケーション課題を分析し、戦略・媒体・クリエイティブ・効果測定を統合提供', '広告枠の販売だけで戦略には関わらない', '商品の製造のみを担当', 'システム保守だけを担当'], answer: 0, explanation: '単なる枠売りではなく、課題設定 → 戦略 → 媒体プランニング → クリエイティブ → 効果測定の一気通貫を担うのが現代の広告会社。' },
+          { level: 'basic', category: 'ビジネスモデル', question: 'デジタル広告で頻出のKPI「CPA」とは?', options: ['Cost Per Acquisition(1件のCV獲得にかかった広告費)', 'Cost Per Adultの略', 'Click Per Articleの略', 'Customer Per Areaの略'], answer: 0, explanation: '資料請求・購入等の1コンバージョン獲得にかかる広告費。広告の費用対効果評価の代表指標。' },
+          { level: 'basic', category: '業界基礎', question: '広告会社で頻出の「媒体」とは?', options: ['広告メッセージを届けるメディア・掲載場所(TV/新聞/Web/SNS/OOH等)', '広告主の社内承認フロー', '商品の販路設計', 'クリエイティブの素材'], answer: 0, explanation: 'マス4媒体(TV/新聞/雑誌/ラジオ)、デジタル(検索/SNS/動画/ディスプレイ)、OOH(屋外広告)等の総称。' },
+          { level: 'basic', category: 'ビジネスモデル', question: '広告会社の主な収益モデルは?', options: ['媒体仕入(マス)+ 制作フィー + 運用フィー(デジタル) + コンサルフィー', '広告枠を全額無料で提供', '商品販売の手数料のみ', '不動産賃貸料のみ'], answer: 0, explanation: 'マス広告は媒体マージン、デジタルは運用フィー(媒体費の数%)、戦略・PR・制作は時間/プロジェクト単位のフィーが基本。' },
+          { level: 'basic', category: '選社軸', question: '「なぜ広告か」を語る際、最も筋が悪い動機は?', options: ['企業のブランド・コミュニケーション課題に戦略から関わりたい', 'クリエイティブと数字の両軸で考える仕事に関心がある', '華やかでクリエイティブな業界イメージが好きだから', '生活者インサイトを深く理解する力をつけたい'], answer: 2, explanation: 'イメージで語ると業務本質を理解していないと判定される。課題解決・データ・クリエイティブ等の業務との具体接続が必要。' },
+          { level: 'intermediate', category: '各社比較', question: '電通の特徴として代表的なのは?', options: ['国内広告業界最大手、総合代理店として戦略+クリエイティブ+メディア+IPビジネス(スポーツ等)を統合', 'CVS事業', '航空会社', '商社'], answer: 0, explanation: '国内シェア最大。マス・デジタル・スポーツ・エンタメ・PR等を統合提供。海外事業(電通インターナショナル)も持つグローバル代理店。' },
+          { level: 'intermediate', category: '各社比較', question: '博報堂DYホールディングスの特徴は?', options: ['「生活者発想」を掲げ、生活者インサイトを起点にしたクリエイティブと統合プランニングが強み', 'IT専業', '商社事業', '航空会社'], answer: 0, explanation: '電通に次ぐ国内2位。「生活者」研究を競争優位の核に置き、クリエイティブ品質と独自プランニングで差別化を図る。' },
+          { level: 'intermediate', category: '各社比較', question: 'ADKホールディングスの特徴は?', options: ['国内3位の総合代理店、ベインキャピタル傘下で経営改革を推進、IP/コンテンツに強み', '銀行業', '製造業', '航空会社'], answer: 0, explanation: '2017年にPEファンド傘下入りし非上場化、その後再上場(2024年)。「クレヨンしんちゃん」「ドラえもん」等のIPライツ事業も収益柱。' },
+          { level: 'intermediate', category: '各社比較', question: 'サイバーエージェント(広告事業)の特徴は?', options: ['国内最大級のデジタル広告代理店、AI活用と運用力で成長、子会社CyberZ等の事業群', 'マス広告専業', 'CVS事業', '航空会社'], answer: 0, explanation: 'インターネット広告事業はサイバーエージェント全体の主要セグメント。「極AI」等の独自AI開発、運用ノウハウで急成長。' },
+          { level: 'intermediate', category: '各社比較', question: 'Septeni(セプテーニ)グループの特徴は?', options: ['SNS広告運用に強み、人材データ活用、電通グループ傘下で連携強化', '商社事業', '銀行業', '航空会社'], answer: 0, explanation: 'デジタル広告運用専業から成長。SNS/インフルエンサー領域に強み、人材アセスメント技術も保有。2022年電通グループ完全子会社化。' },
+          { level: 'intermediate', category: '各社比較', question: 'PR会社(共同PR・サニーサイドアップ等)の役割は?', options: ['第三者(メディア・SNS・KOL等)を通じた情報発信戦略を担う(広告とは異なるアプローチ)', '広告枠の販売のみ', '商品の製造', 'システム保守'], answer: 0, explanation: '「企業が直接言う(広告)」のではなく「メディア・第三者に語ってもらう」アプローチ。リリース・記者発表・KOL起用・危機対応等が業務領域。' },
+          { level: 'advanced', category: '業界動向', question: '広告業界の現在の主要トレンドは?', options: ['Cookie廃止対応(プライバシー)、リテールメディア成長、生成AI活用、CTV(コネクテッドTV)広告', '紙チラシのみへの回帰', 'マス広告のみへの回帰', '広告事業の完全停止'], answer: 0, explanation: 'プライバシー規制強化、Amazon広告のような小売の広告事業化、AIクリエイティブ自動生成、TVerやNetflix等のCTV広告が業界の流れ。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: 'IMC(統合マーケティングコミュニケーション)の本質は?', options: ['複数接点(マス/デジタル/店頭/PR/イベント)で一貫したブランド体験を設計', 'マス広告だけに集中', 'デジタル広告だけに集中', '接点ごとに別メッセージで分断'], answer: 0, explanation: '顧客はチャネルを横断して情報接触するため、メッセージとブランド体験の一貫性が重要。広告会社の戦略提案の中核概念。' },
+          { level: 'advanced', category: '業界基礎', question: '「リテールメディア」が注目される理由は?', options: ['小売の購買データを活用した広告は精度が高く、メーカーの広告予算を取り込める新収益源', '小売は広告を扱えないため', '違法だから', '誰もやっていないから'], answer: 0, explanation: 'Amazon広告事業はGoogleに次ぐ規模に。日本でも楽天・セブン&アイ等が広告事業を強化。1stパーティーデータが広告精度の鍵。' },
+          { level: 'advanced', category: 'ビジネスモデル', question: '広告会社が「データ + クリエイティブ」両軸を強化する理由は?', options: ['データだけでは差別化できず、クリエイティブだけでは効果検証ができないため両者の融合が競争優位', 'データだけで全て解決するため', 'クリエイティブは不要なため', '両者は無関係なため'], answer: 0, explanation: 'デジタル化でデータ運用力が必須化、同時にクリエイティブの差で広告効果が大きく変わる現実があり、両軸を高度に融合できる人材・組織が求められている。' },
+          { level: 'advanced', category: '選社軸', question: '「なぜ他の広告会社ではなく弊社か」への本質的な切り口は?', options: ['得意領域(マス/デジタル/PR/IP)・カルチャー・クライアント・キャリア観が、自身の志向とどう重なるかの具体接続', '初任給の差', '社員食堂のメニュー', 'オフィスの立地'], answer: 0, explanation: '広告会社は得意領域・クライアント・カルチャー・キャリアパスが大きく異なる。実際の制作物・クライアント実績を見て自分との接続を語る必要がある。' },
+        ]
+      },
+      media: {
+        name: 'マスコミ', nameEn: 'MASS MEDIA', description: 'テレビ、新聞、出版、Webメディア、コンテンツ',
+        questions: [
+          { level: 'basic', category: '業界基礎', question: 'マスコミ業界に含まれる代表的な領域は?', options: ['テレビ、新聞、出版、ラジオ、Webメディア', '広告代理店、PR会社、リサーチ会社のみ', '通信キャリア、クラウド、SIerのみ', '百貨店、スーパー、専門店のみ'], answer: 0, explanation: 'マスコミは情報やコンテンツを広く社会に届ける産業。近年はデジタル配信やSNS対応も重要。' },
+          { level: 'basic', category: '職種理解', question: '記者職の基本的な役割は?', options: ['取材し、事実を確認して社会に伝える', '広告主の課題を聞き、媒体出稿計画を作る', '商品の仕入れ条件を交渉し、売場を作る', '通信ネットワークの保守計画を作る'], answer: 0, explanation: '記者は取材、裏取り、執筆を通じてニュースを伝える。正確性、公正性、スピードのバランスが問われる。' },
+          { level: 'basic', category: '業界基礎', question: 'テレビ局の収益源として代表的なのは?', options: ['広告収入、番組販売、配信、イベントなど', '放送免許料だけによる固定収入', '視聴者からの受信料だけに完全依存する収入', '番組制作費を全て出演者が負担する収入'], answer: 0, explanation: '従来の広告収入に加え、配信、IP展開、イベント、海外販売など収益源の多角化が進んでいる。' },
+          { level: 'basic', category: '業界基礎', question: '編集者の役割として近いものは?', options: ['企画、著者・制作陣との調整、原稿やコンテンツの品質管理', '広告配信の入札単価だけを調整する', '工場の生産ラインを設計し品質保証する', '店舗の発注数と棚割りだけを決める'], answer: 0, explanation: '出版やWebメディアの編集者は、企画立案から制作進行、品質管理、読者への届け方まで担う。' },
+          { level: 'basic', category: 'タイミング', question: 'マスコミ業界の選考で特徴的な対策は?', options: ['時事問題、作文、企画力、発信物の研究', 'ケース面接とフェルミ推定だけを重点対策する', '技術職でなくてもコーディングテストが必須になる', '店舗観察と棚割り改善案だけを準備する'], answer: 0, explanation: 'ニュース感度や文章力、企画力が見られやすい。志望媒体の論調やコンテンツ研究も重要。' },
+          { level: 'intermediate', category: '業界基礎', question: 'メディアのデジタル化で重要になった指標は?', options: ['PV、滞在時間、会員登録、継続率など', '工場稼働率、歩留まり、設備更新年数', '在庫回転率、棚効率、客単価だけ', '運行本数、乗車率、遅延時間だけ'], answer: 0, explanation: '紙面や放送だけでなく、Webやアプリでどれだけ読まれ、継続利用されるかが重要になっている。' },
+          { level: 'intermediate', category: '業界基礎', question: 'IPビジネスの説明として正しいのは?', options: ['作品やキャラクターなどの知的財産を多方面に展開する', 'ニュース記事を無料公開し、権利管理を行わないモデル', '広告枠を仕入れて販売するメディアバイイング', '読者データを使わず紙面販売だけに集中するモデル'], answer: 0, explanation: 'アニメ、漫画、番組、キャラクターを配信、グッズ、イベント、海外展開などに広げることで収益化する。' },
+          { level: 'intermediate', category: '選考手法', question: 'マスコミの面接で評価されやすい姿勢は?', options: ['自分の関心領域と社会的意義を具体的に語れる', '好きな番組や媒体名だけを多く挙げて終える', 'ニュースへの関心よりも安定性を中心に話す', '発信経験や企画経験に触れずに志望度だけを強調する'], answer: 0, explanation: 'どんなテーマを追いたいか、なぜその媒体で伝えたいか、実際にどう取材・企画したいかが問われる。' },
+          { level: 'intermediate', category: '業界基礎', question: 'ファクトチェックが重要な理由は?', options: ['誤情報が社会的影響や信頼低下につながるため', '記事の公開本数を増やすほど正確性が自動的に高まるため', '取材源が一つでも速報性があれば十分とされるため', 'SNSで拡散されれば内容の正確性は後から確認すればよいため'], answer: 0, explanation: 'メディアの信頼は正確性に支えられる。情報源確認、複数証言、データ検証が欠かせない。' },
+          { level: 'intermediate', category: '戦略', question: '新聞社や出版社が有料会員モデルを強化する背景は?', options: ['広告依存を下げ、継続収益を作るため', '無料記事を増やせば取材費を必ず回収できるため', '紙媒体の販売だけで長期的な成長が保証されるため', '会員化すると編集品質や読者理解が不要になるため'], answer: 0, explanation: 'デジタル広告単価の課題もあり、質の高いコンテンツに対して直接課金するモデルが重要になっている。' },
+          { level: 'advanced', category: '戦略', question: 'プラットフォーム依存のリスクとして正しいのは?', options: ['検索やSNSのアルゴリズム変更で流入が大きく変わる', '外部流入が増えるほど自社会員基盤が必ず強くなる', 'SNSで読まれる記事は著作権管理が不要になる', 'プラットフォーム配信では編集方針を考えなくてよい'], answer: 0, explanation: '外部プラットフォームからの流入に依存しすぎると、ルール変更で収益や読者接点が揺らぐ。自社会員基盤が重要。' },
+          { level: 'advanced', category: '業界基礎', question: '報道倫理で重要な観点は?', options: ['正確性、公平性、プライバシー、人権への配慮', '速報性とクリック数を常に最優先すること', '広告主の意向を記事内容より優先すること', '読者の反応が良ければ取材過程は問わないこと'], answer: 0, explanation: '報道は社会的影響が大きいため、知る権利と個人の権利、公共性、取材方法の妥当性を考える必要がある。' },
+          { level: 'advanced', category: '戦略', question: 'ローカルメディアの価値として正しいのは?', options: ['地域課題や生活情報を継続的に伝え、住民の意思決定を支える', '全国ニュースを転載し、地域取材を減らすほど価値が高まる', '地域広告に依存しないため、読者との関係性は重要でない', '規模が小さいため、防災や行政監視には関わりにくい'], answer: 0, explanation: '地域行政、災害、教育、産業、生活情報など、地域に密着した取材は民主主義や暮らしの基盤になる。' },
+          { level: 'advanced', category: '業界基礎', question: 'コンテンツビジネスで二次利用が重要な理由は?', options: ['一つの作品を配信、商品化、イベント、海外展開などに広げられるため', '初回放送や初版販売だけで収益化が完了するため', '権利処理を行わないほど展開スピードが上がるため', 'ファンコミュニティを作らず単発販売に集中できるため'], answer: 0, explanation: '良いIPは複数の収益機会を生む。権利管理と展開戦略が収益性を左右する。' },
+          { level: 'advanced', category: 'キャリア', question: 'マスコミ志望者が準備すべきポートフォリオとして有効なのは?', options: ['記事、動画、企画書、取材経験など自分の発信実績', '媒体名や番組名を多く暗記したリスト', '志望理由を抽象的にまとめた自己PRだけ', '発信物は作らず、読者としての感想だけを集めたもの'], answer: 0, explanation: '実際に書く、撮る、編集する、企画する経験があると、関心と行動力を具体的に示せる。' },
+        ]
+      },
+      publicSector: {
+        name: '官公庁', nameEn: 'PUBLIC SECTOR', description: '国家公務員、地方自治体、独立行政法人など',
+        questions: [
+          { level: 'basic', category: '業界基礎', question: '官公庁の基本的な役割は?', options: ['公共の利益のために政策や行政サービスを担う', '民間企業と同じく株主利益の最大化を最優先する', '広告収入を主な財源として事業を運営する', '特定の商品販売を通じて市場シェアを競う'], answer: 0, explanation: '官公庁は法律や予算に基づき、教育、福祉、防災、産業、外交など社会全体に関わる業務を担う。' },
+          { level: 'basic', category: '業界基礎', question: '国家公務員と地方公務員の違いとして正しいのは?', options: ['国家は国全体の政策、地方は地域住民に近い行政を主に担う', '国家公務員は制度設計だけで、現場や地域とは一切関わらない', '地方公務員は国の法律や制度に影響を受けず独自に全て決める', '国家と地方は採用区分が違うだけで業務範囲は同じ'], answer: 0, explanation: '国家は省庁で制度設計や全国政策を担い、地方自治体は住民に近い行政サービスや地域政策を担う。' },
+          { level: 'basic', category: '選考フロー', question: '官公庁志望で一般的に必要になる準備は?', options: ['公務員試験、官庁訪問、政策研究、面接対策', 'ケース面接、フェルミ推定、M&Aモデリング', '店舗観察、棚割り改善、PB商品企画', '広告企画、コピー制作、メディアプランニングだけ'], answer: 0, explanation: '職種や自治体により異なるが、筆記試験、人物試験、官庁訪問、政策理解の準備が重要。' },
+          { level: 'basic', category: '業界基礎', question: '官公庁の仕事で重視される観点は?', options: ['公平性、公共性、法令遵守、説明責任', '短期売上、粗利率、広告効果', 'ブランド好感度、SNS拡散、話題性', '市場シェア、競合優位、株主還元'], answer: 0, explanation: '税金を使って社会全体に影響する意思決定を行うため、公平性と透明性が強く求められる。' },
+          { level: 'basic', category: 'タイミング', question: '官公庁のインターンや説明会で確認したいことは?', options: ['政策分野、働き方、試験区分、官庁訪問の流れ', '商品カテゴリー別の粗利率と棚割り', '広告出稿額と媒体別CPA', '工場の歩留まりと設備更新計画'], answer: 0, explanation: '民間企業と選考形式が異なるため、志望先の試験区分、採用スケジュール、業務内容を早めに確認したい。' },
+          { level: 'intermediate', category: '業界基礎', question: '政策立案で重要なプロセスとして正しいのは?', options: ['課題把握、データ分析、制度設計、関係者調整、実行評価', '人気のある施策を先に決め、根拠は後から探す', '短期的な話題化を優先し、効果検証は行わない', '担当部署だけで完結させ、現場や住民の意見は見ない'], answer: 0, explanation: '政策は社会課題を定義し、根拠を集め、制度や予算に落とし込み、実行後に効果を検証する。' },
+          { level: 'intermediate', category: '戦略', question: 'EBPMとは何を重視する考え方?', options: ['証拠やデータに基づく政策立案', '前例や慣例だけに基づく政策立案', '世論の盛り上がりだけで決める政策立案', '予算を使い切ることを最優先する政策立案'], answer: 0, explanation: 'Evidence-Based Policy Making。限られた予算で効果的な政策を行うため、データと検証が重視される。' },
+          { level: 'intermediate', category: '業界基礎', question: '官公庁でステークホルダー調整が難しい理由は?', options: ['住民、企業、議会、他省庁など利害関係者が多いから', '政策の影響範囲が狭く、関係者が限られるから', '法律や予算に制約されず自由に実行できるから', '行政サービスは利用者満足を考えなくてもよいから'], answer: 0, explanation: '政策は多くの人に影響するため、合意形成、説明、調整に時間と論理が必要になる。' },
+          { level: 'intermediate', category: '選考手法', question: '官公庁の志望動機で弱くなりやすいものは?', options: ['安定していそうだけで、取り組みたい政策がない', '具体的な政策課題がある', '現場経験と問題意識がある', '公共性への関心がある'], answer: 0, explanation: '安定性だけでは志望理由として弱い。どんな社会課題に、なぜ公的立場で取り組みたいかを語る必要がある。' },
+          { level: 'intermediate', category: '業界基礎', question: 'PPP/PFIの説明として正しいのは?', options: ['公共サービスや施設整備に民間の資金・ノウハウを活用する仕組み', '公共性をなくし、行政責任を全て民間に移す仕組み', '民間企業の広告予算を行政が一括管理する仕組み', '自治体が全ての公共施設を直営に戻す仕組み'], answer: 0, explanation: 'PPP/PFIは官民連携。公共性を保ちながら、民間の効率性や創意工夫を活かす手法。' },
+          { level: 'advanced', category: '戦略', question: 'デジタル政府で重要な観点は?', options: ['利用者目線、業務改革、データ連携、セキュリティ', '既存手続きを変えずに申請画面だけを作ること', '紙の手続きを残したまま入力作業を二重化すること', '各自治体や省庁が独立したシステムを個別最適で作ること'], answer: 0, explanation: '単なるIT導入ではなく、行政手続きそのものを利用者目線で見直し、データ連携と安全性を両立することが重要。' },
+          { level: 'advanced', category: '業界基礎', question: '規制影響分析で見るべきことは?', options: ['規制の目的、効果、コスト、副作用、代替手段', '規制名の分かりやすさと広報効果だけ', '担当省庁の過去事例と前例の有無だけ', '事業者の負担を見ずに目的だけを優先すること'], answer: 0, explanation: '規制は社会に広く影響するため、必要性と費用対効果、事業者や住民への影響を検討する必要がある。' },
+          { level: 'advanced', category: '戦略', question: '危機管理で官公庁に求められる力は?', options: ['迅速な情報収集、意思決定、発信、関係機関連携', '情報が完全にそろうまで一切発信しない判断', '担当部署だけで対応し、民間や自治体との連携を避けること', '平時の訓練よりも危機発生後の個人対応に頼ること'], answer: 0, explanation: '災害、感染症、事故などでは、正確な情報と迅速な判断、住民への説明、国・自治体・民間の連携が重要。' },
+          { level: 'advanced', category: 'キャリア', question: '官公庁で身につきやすい経験は?', options: ['制度設計、予算、利害調整、公共課題への長期的関与', '広告運用とクリエイティブ改善の短期PDCA', '店舗販売と在庫発注の現場オペレーション', '製品開発と量産工程の技術改善'], answer: 0, explanation: '民間企業とは異なり、制度や予算を通じて社会全体を動かす経験が得られる。' },
+          { level: 'advanced', category: '戦略', question: '官公庁と民間企業が連携する意義は?', options: ['公共性と民間の技術・実行力を組み合わせて課題解決を進められる', '行政責任を民間に移し、説明責任を軽くできる', '民間の収益性だけを優先し、公共性を考えなくてよい', '官公庁が予算管理や効果検証を行わずに済む'], answer: 0, explanation: '複雑な社会課題は行政だけでも民間だけでも解きにくい。役割分担と透明性を持った連携が重要。' },
+        ]
+      }
+    });
+
+    quizBank.trading.name = '商社';
+    quizBank.trading.nameEn = 'TRADING';
+    quizBank.trading.description = '総合商社、専門商社、事業投資、貿易';
+    quizBank.tech.name = 'IT';
+    quizBank.tech.nameEn = 'IT';
+    quizBank.tech.description = 'SIer、Web、SaaS、メガベンチャー、クラウド';
+
+    const answerPositionPattern = [0, 2, 1, 3, 1, 0, 3, 2, 2, 3, 0, 1];
+
+    Object.entries(quizBank).forEach(([industryKey, data], industryIndex) => {
+      data.questions.forEach((question, questionIndex) => {
+        if (!Array.isArray(question.options) || question.options.length < 2) return;
+
+        const targetAnswer = answerPositionPattern[(industryIndex + questionIndex) % answerPositionPattern.length] % question.options.length;
+        if (question.answer === targetAnswer) return;
+
+        const correctOption = question.options[question.answer];
+        const distractors = question.options.filter((_, optionIndex) => optionIndex !== question.answer);
+        distractors.splice(targetAnswer, 0, correctOption);
+
+        question.options = distractors;
+        question.answer = targetAnswer;
+      });
+    });
+
+    const shuffle = (arr) => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+
+    const industryList = [
+      { key: 'consulting', num: '01' },
+      { key: 'ib', num: '02' },
+      { key: 'trading', num: '03' },
+      { key: 'tech', num: '04' },
+      { key: 'maker', num: '05' },
+      { key: 'retail', num: '06' },
+      { key: 'serviceInfra', num: '07' },
+      { key: 'advertising', num: '08' },
+      { key: 'media', num: '09' },
+      { key: 'publicSector', num: '10' }
+    ];
+
+    // ============================================================
+    // Lite版設定 (体験版)
+    // - 4業界(コンサル/IB/商社/IT) × 初級レベル のみ挑戦可能
+    // - それ以外はグレーアウトして「Rookies Expo参加者限定」を表示
+    // ============================================================
+    const LITE_MODE = true;
+    const LITE_ALLOWED_INDUSTRIES = ['consulting', 'ib', 'trading', 'tech'];
+    const LITE_ALLOWED_LEVELS = ['basic'];
+
+    const levelList = [
+      { key: 'basic', label: '初級', labelEn: 'BASIC', description: '用語・基礎構造・タイミング' },
+      { key: 'intermediate', label: '中級', labelEn: 'INTERMEDIATE', description: '選考手法・対策・戦略' },
+      { key: 'advanced', label: '上級', labelEn: 'ADVANCED', description: '実務・キャリア・深掘り' }
+    ];
+
+    function SummerSelectionQuiz() {
+      const [screen, setScreen] = useState('setup');
+      const [industry, setIndustry] = useState('consulting');
+      const [level, setLevel] = useState('basic');
+      const [count, setCount] = useState(5);
+      const [currentQ, setCurrentQ] = useState(0);
+      const [selected, setSelected] = useState(null);
+      const [answers, setAnswers] = useState([]);
+      const [questions, setQuestions] = useState([]);
+      const [fadeIn, setFadeIn] = useState(false);
+
+      useEffect(() => {
+        setFadeIn(false);
+        const t = setTimeout(() => setFadeIn(true), 50);
+        return () => clearTimeout(t);
+      }, [screen, currentQ]);
+
+      const availablePool = useMemo(() => {
+        return quizBank[industry].questions.filter(q => q.level === level);
+      }, [industry, level]);
+
+      const countOptions = useMemo(() => {
+        const max = availablePool.length;
+        const options = [3, 5, max].filter(n => n <= max);
+        return [...new Set(options)].sort((a, b) => a - b);
+      }, [availablePool]);
+
+      useEffect(() => {
+        if (!countOptions.includes(count)) {
+          setCount(countOptions[countOptions.length - 1] || 3);
+        }
+      }, [countOptions]); 
+
+      const startQuiz = () => {
+        const pool = quizBank[industry].questions.filter(q => q.level === level);
+        const picked = shuffle(pool).slice(0, count);
+        setQuestions(picked);
+        setCurrentQ(0);
+        setSelected(null);
+        setAnswers([]);
+        setScreen('quiz');
+      };
+
+      const chooseAnswer = (idx) => {
+        if (selected !== null) return;
+        setSelected(idx);
+        const isCorrect = idx === questions[currentQ].answer;
+        setAnswers([...answers, { qIndex: currentQ, selected: idx, correct: isCorrect }]);
+      };
+
+      const nextQuestion = () => {
+        if (currentQ < questions.length - 1) {
+          setCurrentQ(currentQ + 1);
+          setSelected(null);
+        } else {
+          setScreen('final');
+        }
+      };
+
+      const restart = () => {
+        setScreen('setup');
+        setCurrentQ(0);
+        setSelected(null);
+        setAnswers([]);
+        setQuestions([]);
+      };
+
+      const correctCount = answers.filter(a => a.correct).length;
+      const scorePercent = questions.length > 0 ? Math.round((correctCount / questions.length) * 100) : 0;
+
+      // ============================================================
+      // SETUP SCREEN
+      // ============================================================
+      if (screen === 'setup') {
+        const currentIndustry = quizBank[industry];
+        return (
+          <div className="flex items-center justify-center p-4 md:p-8 min-h-screen">
+            <div className="w-full max-w-3xl">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-px flex-1 bg-dark" />
+                <span className="tracking-[0.3em] text-xs font-medium text-dark">FOR CLASS OF 2028 ・ 体験版</span>
+                <div className="h-px flex-1 bg-dark" />
+              </div>
+
+              <div className={`border-2 border-dark bg-surface shadow-brutal-dark-lg p-6 md:p-10 transition-all duration-700 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className="flex items-baseline gap-4 mb-2">
+                  <span className="text-sm font-bold tracking-widest text-accent">NO.01</span>
+                  <span className="text-xs tracking-widest text-sub">2026 SUMMER EDITION</span>
+                </div>
+                <h1 className="font-serif leading-[1.05] mb-3 text-[clamp(1.9rem,5vw,3.2rem)] font-extrabold text-dark">
+                  サマー選考<br /><span className="text-accent">基礎体力</span>チェック
+                </h1>
+                <p className="text-sm md:text-base mb-3 leading-relaxed" style={{ color: '#1C1C1E' }}>
+                  28卒のための、業界別サマー選考クイズ。業界・レベル・問題数を選んでスタート。
+                </p>
+                <div className="mb-8 p-3 border-2 border-accent" style={{ backgroundColor: '#FDF2F2' }}>
+                  <p className="text-xs md:text-sm font-bold mb-1" style={{ color: '#C73E3A' }}>🔒 こちらは体験版です</p>
+                  <p className="text-[11px] md:text-xs leading-relaxed" style={{ color: '#1C1C1E' }}>
+                    挑戦できるのは <strong>4業界（コンサル/IB/商社/IT）× 初級レベル</strong> のみ。<br />
+                    全10業界・全3レベルへの挑戦は <strong>Rookies Expo 参加登録者限定</strong> です。
+                  </p>
+                </div>
+
+                {/* STEP 01 */}
+                <div className="mb-7">
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-[10px] tracking-[0.3em] text-sub">STEP 01</span>
+                    <span className="text-sm font-bold text-dark">業界を選ぶ</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {industryList.map(ind => {
+                      const isActive = industry === ind.key;
+                      const data = quizBank[ind.key];
+                      const isLocked = LITE_MODE && !LITE_ALLOWED_INDUSTRIES.includes(ind.key);
+                      return (
+                        <button
+                          key={ind.key}
+                          onClick={() => { if (!isLocked) setIndustry(ind.key); }}
+                          disabled={isLocked}
+                          aria-disabled={isLocked}
+                          className={`text-left p-3 md:p-4 border-2 border-dark transition-all duration-150 ${isLocked ? 'bg-muted cursor-not-allowed opacity-60' : (isActive ? 'bg-dark text-surface shadow-brutal-accent' : 'bg-surface text-dark hover:-translate-y-[2px] hover:shadow-brutal-dark active:translate-y-0 active:shadow-none')}`}
+                        >
+                          <div className={`text-[10px] tracking-widest mb-1 ${isActive && !isLocked ? 'text-muted' : 'text-sub'}`}>
+                            {ind.num} / {data.nameEn}
+                          </div>
+                          <div className="text-sm md:text-base font-bold mb-0.5" style={{ color: isLocked ? '#58544E' : (isActive ? '#FBF7EE' : '#1C1C1E') }}>{data.name}</div>
+                          {isLocked ? (
+                            <div className="text-[10px] mt-1 font-bold tracking-wide" style={{ color: '#C73E3A' }}>🔒 Rookies Expo参加者限定</div>
+                          ) : (
+                            <div className="text-[11px] md:text-xs leading-snug font-medium" style={{ color: isActive ? '#EDE4D2' : '#1C1C1E' }}>{data.description}</div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* STEP 02 */}
+                <div className="mb-7">
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-[10px] tracking-[0.3em] text-sub">STEP 02</span>
+                    <span className="text-sm font-bold text-dark">レベルを選ぶ</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {levelList.map((lv, i) => {
+                      const isActive = level === lv.key;
+                      const isLocked = LITE_MODE && !LITE_ALLOWED_LEVELS.includes(lv.key);
+                      return (
+                        <button
+                          key={lv.key}
+                          onClick={() => { if (!isLocked) setLevel(lv.key); }}
+                          disabled={isLocked}
+                          aria-disabled={isLocked}
+                          className={`text-center p-3 md:p-4 border-2 border-dark transition-all duration-150 ${isLocked ? 'bg-muted cursor-not-allowed opacity-60' : (isActive ? 'bg-dark text-surface shadow-brutal-accent' : 'bg-surface text-dark hover:-translate-y-[2px] hover:shadow-brutal-dark active:translate-y-0 active:shadow-none')}`}
+                        >
+                          <div className={`text-[10px] tracking-widest mb-1 ${isActive && !isLocked ? 'text-muted' : 'text-sub'}`}>LV.{i + 1}</div>
+                          <div className="font-serif font-bold text-base md:text-lg" style={{ color: isLocked ? '#58544E' : (isActive ? '#FBF7EE' : '#1C1C1E') }}>{lv.label}</div>
+                          {isLocked ? (
+                            <div className="text-[10px] mt-1 font-bold tracking-wide" style={{ color: '#C73E3A' }}>🔒 参加者限定</div>
+                          ) : (
+                            <div className="text-[11px] mt-1 leading-snug font-medium" style={{ color: isActive ? '#EDE4D2' : '#1C1C1E' }}>{lv.description}</div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* STEP 03 */}
+                <div className="mb-8">
+                  <div className="flex items-baseline gap-2 mb-3 flex-wrap">
+                    <span className="text-[10px] tracking-[0.3em] text-sub">STEP 03</span>
+                    <span className="text-sm font-bold text-dark">問題数を選ぶ</span>
+                    <span className="text-[10px] ml-auto text-sub">最大{availablePool.length}問</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {countOptions.map(n => {
+                      const isActive = count === n;
+                      return (
+                        <button
+                          key={n}
+                          onClick={() => setCount(n)}
+                          className={`text-center p-3 md:p-4 border-2 border-dark transition-all duration-150 ${isActive ? 'bg-dark text-surface shadow-brutal-accent' : 'bg-surface text-dark hover:-translate-y-[2px] hover:shadow-brutal-dark'} active:translate-y-0 active:shadow-none`}
+                        >
+                          <div className="font-display text-[1.5rem] font-black" style={{ color: isActive ? '#FBF7EE' : '#1C1C1E' }}>
+                            {n}<span className="text-xs ml-1 font-normal">問</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <button
+                  onClick={startQuiz}
+                  className="w-full py-5 text-lg font-bold tracking-wider border-2 border-dark bg-dark text-surface shadow-brutal-accent transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-accent-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
+                >
+                  START →
+                </button>
+              </div>
+
+              <div className="text-center mt-5 text-[10px] tracking-widest text-sub">
+                ISSUED APRIL 2026 · SUMMER SELECTION STUDY DECK
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // ============================================================
+      // QUIZ SCREEN
+      // ============================================================
+      if (screen === 'quiz') {
+        const q = questions[currentQ];
+        const progress = ((currentQ + (selected !== null ? 1 : 0)) / questions.length) * 100;
+        const isCorrect = selected === q.answer;
+        const currentIndustry = quizBank[industry];
+        const currentLevel = levelList.find(l => l.key === level);
+
+        return (
+          <div className="flex items-center justify-center p-4 md:p-8 min-h-screen">
+            <div className="w-full max-w-3xl">
+              <div className="mb-6">
+                <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-[10px] tracking-[0.3em] text-sub">QUESTION</span>
+                    <span className="font-display text-[1.5rem] font-black text-dark">{String(currentQ + 1).padStart(2, '0')}</span>
+                    <span className="text-sm text-sub">/ {questions.length}</span>
+                  </div>
+                  <div className="flex gap-2 flex-wrap">
+                    <span className="text-[10px] tracking-widest px-2 py-1 border border-dark text-dark bg-surface">{currentIndustry.name}</span>
+                    <span className="text-[10px] tracking-widest px-2 py-1 bg-dark text-surface">{currentLevel.label}</span>
+                    <span className="text-[10px] tracking-widest px-2 py-1 border border-dark text-dark bg-surface">{q.category}</span>
+                  </div>
+                </div>
+                <div className="h-1.5 w-full border border-dark bg-surface">
+                  <div className="h-full transition-all duration-500 bg-accent" style={{ width: `${progress}%` }} />
+                </div>
+              </div>
+
+              <div className={`border-2 border-dark bg-surface shadow-brutal-dark-lg p-6 md:p-10 mb-5 transition-all duration-500 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <h2 className="font-serif leading-snug mb-8 text-[clamp(1.2rem,3vw,1.7rem)] font-bold text-dark">
+                  {q.question}
+                </h2>
+
+                <div className="space-y-4">
+                  {q.options.map((opt, idx) => {
+                    const isSelected = selected === idx;
+                    const isRight = idx === q.answer;
+                    const showResult = selected !== null;
+
+                    let btnClass = "w-full text-left p-4 md:p-5 border-2 flex items-center gap-4 transition-all duration-200 ";
+                    let badgeClass = "shrink-0 w-9 h-9 flex items-center justify-center font-bold text-sm border-2 border-dark ";
+
+                    if (showResult) {
+                      if (isRight) {
+                        btnClass += "bg-correctbg border-success text-dark";
+                        badgeClass += "bg-success text-surface border-success";
+                      } else if (isSelected) {
+                        btnClass += "bg-error border-accent text-dark";
+                        badgeClass += "bg-accent text-surface border-accent";
+                      } else {
+                        btnClass += "bg-surface border-dark text-dark opacity-70";
+                        badgeClass += "bg-surface text-dark";
+                      }
+                    } else {
+                      btnClass += "bg-surface border-dark text-dark hover:-translate-y-[2px] hover:shadow-brutal-dark cursor-pointer active:translate-y-0 active:shadow-none";
+                      badgeClass += "bg-surface text-dark";
+                    }
+
+                    return (
+                      <button key={idx} onClick={() => chooseAnswer(idx)} disabled={showResult} className={btnClass}>
+                        <span className={badgeClass}>{String.fromCharCode(65 + idx)}</span>
+                        <span className="flex-1 text-sm md:text-base font-semibold" style={{ color: '#1C1C1E' }}>{opt}</span>
+                        {showResult && isRight && <span className="shrink-0 text-xl font-bold text-success">○</span>}
+                        {showResult && isSelected && !isRight && <span className="shrink-0 text-xl font-bold text-accent">×</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {selected !== null && (
+                <div className={`border-2 p-5 md:p-7 mb-5 animate-slide-up ${isCorrect ? 'bg-correctbg border-success shadow-brutal-success' : 'bg-surface border-accent shadow-brutal-error'}`}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className={`px-3 py-1 text-[10px] tracking-widest font-bold text-surface ${isCorrect ? 'bg-success' : 'bg-accent'}`}>
+                      {isCorrect ? 'CORRECT' : 'INCORRECT'}
+                    </span>
+                    <span className="text-[10px] tracking-widest text-sub">EXPLANATION</span>
+                  </div>
+                  <p className="text-sm md:text-base leading-relaxed" style={{ color: '#1C1C1E' }}>{q.explanation}</p>
+                </div>
+              )}
+
+              {selected !== null && (
+                <button
+                  onClick={nextQuestion}
+                  className="w-full py-5 text-base font-bold tracking-wider border-2 border-dark bg-dark text-surface shadow-brutal-accent transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-accent-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none animate-slide-up"
+                >
+                  {currentQ < questions.length - 1 ? '次の問題へ →' : '結果を見る →'}
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      // ============================================================
+      // FINAL / REVIEW SCREEN (結果と解説)
+      // ============================================================
+      if (screen === 'final') {
+        const msg = scorePercent >= 90 ? { title: '完璧です', sub: 'エントリー準備に進んでOK', color: 'text-success', bar: 'bg-success' }
+                  : scorePercent >= 70 ? { title: '十分な基礎力', sub: '細部を詰めつつ実戦へ', color: 'text-warning', bar: 'bg-warning' }
+                  : { title: 'ここから', sub: '今すぐ業界研究スタート', color: 'text-accent', bar: 'bg-accent' };
+        
+        return (
+          <div className="flex items-center justify-center p-4 md:p-8 min-h-screen">
+            <div className="w-full max-w-3xl">
+              <div className={`border-2 border-dark bg-surface shadow-brutal-dark-lg p-6 md:p-12 transition-all duration-700 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+                  <div className="text-xs tracking-[0.3em] text-sub">RESULT</div>
+                  <div className="text-[10px] tracking-widest text-sub">{quizBank[industry].nameEn}</div>
+                </div>
+
+                <h2 className="font-serif mb-8 text-[clamp(1.8rem,5vw,3.2rem)] font-extrabold text-dark leading-tight">
+                  {msg.title}<span className={msg.color}>.</span>
+                </h2>
+
+                <div className="flex items-end gap-6 mb-8 pb-8 border-b-2 border-dark">
+                  <div>
+                    <div className="text-[10px] tracking-widest mb-1 text-sub">SCORE</div>
+                    <div className="font-display text-[clamp(3.5rem,11vw,6rem)] font-black text-dark leading-none">
+                      {correctCount}<span className="text-sub text-[0.4em] ml-2">/ {questions.length}</span>
+                    </div>
+                  </div>
+                  <div className="flex-1 pb-3">
+                    <div className="text-[10px] tracking-widest mb-1 text-sub">ACCURACY</div>
+                    <div className={`font-display text-[clamp(1.4rem,4vw,2.25rem)] font-bold ${msg.color}`}>
+                      {scorePercent}<span className="text-base">%</span>
+                    </div>
+                    <div className="mt-2 h-1.5 w-full bg-muted border border-dark">
+                      <div className={`h-full transition-all duration-1000 ${msg.bar}`} style={{ width: `${scorePercent}%` }} />
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-sm md:text-base mb-8 leading-relaxed text-dark font-medium">{msg.sub}</p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                  <button onClick={restart} className="py-4 text-sm font-bold tracking-wider border-2 border-dark bg-dark text-surface shadow-brutal-accent transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-accent-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                    別の条件で挑戦 →
+                  </button>
+                  <button onClick={() => setScreen('review')} className="py-4 text-sm font-bold tracking-wider border-2 border-dark bg-surface text-dark shadow-brutal-dark transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#1C1C1E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                    全問解説を見る
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (screen === 'review') {
+        return (
+          <div className="p-4 md:p-8 min-h-screen">
+            <div className="w-full max-w-3xl mx-auto">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-px flex-1 bg-dark" />
+                <span className="tracking-[0.3em] text-xs font-bold text-dark">ALL EXPLANATIONS</span>
+                <div className="h-px flex-1 bg-dark" />
+              </div>
+              <div className="space-y-6">
+                {questions.map((q, i) => {
+                  const wasCorrect = answers[i]?.correct;
+                  return (
+                    <div key={i} className="border-2 border-dark bg-surface shadow-brutal-dark p-5 md:p-6">
+                      <div className="flex items-start gap-4 mb-4">
+                        <span className={`shrink-0 w-10 h-10 flex items-center justify-center font-bold border-2 border-dark ${wasCorrect ? 'bg-success text-surface' : 'bg-accent text-surface'}`}>
+                          {wasCorrect ? '○' : '×'}
+                        </span>
+                        <div className="flex-1 pt-1">
+                          <div className="text-[10px] tracking-widest mb-1 text-sub">Q.{String(i + 1).padStart(2, '0')} / {q.category}</div>
+                          <div className="font-bold text-base leading-snug" style={{ color: '#1C1C1E' }}>{q.question}</div>
+                        </div>
+                      </div>
+                      <div className="bg-muted border border-dark p-3 md:p-4 mb-3">
+                        <span className="text-[10px] font-bold tracking-widest block mb-1 text-sub">正解</span>
+                        <div className="font-bold text-sm md:text-base" style={{ color: '#1C1C1E' }}>{q.options[q.answer]}</div>
+                      </div>
+                      <p className="text-sm leading-relaxed font-medium" style={{ color: '#1C1C1E' }}>{q.explanation}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <button onClick={restart} className="w-full mt-8 py-5 text-sm font-bold tracking-wider border-2 border-dark bg-dark text-surface shadow-brutal-accent transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-accent-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                最初に戻る →
+              </button>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<SummerSelectionQuiz />);
+  </script>
+</body>
+</html>
