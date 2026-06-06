@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【RookiesExpo2026】参加企業ガイド｜4社をぱっと理解する</title>
+    <meta property="og:title" content="RookiesExpo2026 参加企業ガイド｜いえらぶ・パーソルキャリア・レバレジーズ・NEC">
+    <meta property="og:description" content="6/27(土)開催 RookiesExpo2026 に参加する4社の業界・事業・規模を、忙しい就活生が3分で把握できるガイド。">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="RookiesExpo2026 参加企業ガイド。いえらぶGROUP・パーソルキャリア・レバレジーズ・NECの4社を、業界・事業内容・規模・働く環境の観点でコンパクトに解説。">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1D4ED8;
+            --primary-light: #EFF6FF;
+            --accent: #06B6A0;
+            --gold: #F59E0B;
+            --gold-dark: #D97706;
+            --coral: #F472B6;
+            --text: #111827;
+            --text-sub: #6B7280;
+            --bg: #F8FAFC;
+            --white: #FFFFFF;
+            --line: #E5E7EB;
+            --r-md: 16px;
+            --r-lg: 24px;
+            --r-xl: 32px;
+
+            /* per-company accents */
+            --ielove: #00A6A0;
+            --persol: #E60012;
+            --leverages: #1A56DB;
+            --nec: #003F8E;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-padding-top: 84px; }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text); background: var(--bg);
+            -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.7;
+        }
+        a { color: inherit; }
+
+        /* Header */
+        .header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(255,255,255,.92); backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line); height: 68px;
+        }
+        .header-inner {
+            max-width: 1100px; margin: 0 auto; padding: 0 24px;
+            height: 100%; display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo {
+            font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.3rem;
+            color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 10px;
+            letter-spacing: -0.03em;
+        }
+        .logo-mark {
+            width: 36px; height: 36px; background: var(--primary); border-radius: 10px;
+            display: grid; place-items: center; box-shadow: 0 2px 10px rgba(37,99,235,.2);
+        }
+        .logo-mark i { color: #fff; font-size: 14px; }
+        .logo .acc { color: var(--accent); }
+        .hdr-cta {
+            background: var(--primary); color: #fff; padding: 9px 22px; border-radius: 100px;
+            font-weight: 700; font-size: 13px; text-decoration: none; transition: all .2s;
+            box-shadow: 0 2px 12px rgba(37,99,235,.2); white-space: nowrap;
+        }
+        .hdr-cta:hover { background: var(--primary-dark); }
+        @media (max-width: 600px) { .logo span.full { display:none; } .hdr-cta { padding: 8px 16px; font-size: 12px; } }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0A1B3D 0%, #1D4ED8 100%);
+            color: #fff; padding: 120px 24px 64px; text-align: center; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content:''; position:absolute; width:480px; height:480px; border-radius:50%;
+            background: rgba(255,255,255,.05); top:-160px; right:-120px;
+        }
+        .hero::after {
+            content:''; position:absolute; width:300px; height:300px; border-radius:50%;
+            background: rgba(6,182,160,.12); bottom:-140px; left:-80px;
+        }
+        .hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+        .hero-badge {
+            display:inline-flex; align-items:center; gap:8px; background: rgba(255,255,255,.12);
+            border:1px solid rgba(255,255,255,.2); padding:7px 16px; border-radius:100px;
+            font-size:12px; font-weight:700; letter-spacing:.05em; margin-bottom:22px;
+        }
+        .hero h1 { font-size: clamp(1.7rem, 5vw, 2.7rem); font-weight: 900; letter-spacing:-.02em; line-height:1.3; }
+        .hero h1 .hl { color: #7DD3FC; }
+        .hero p { margin-top:18px; font-size: clamp(.95rem,2.4vw,1.05rem); color: rgba(255,255,255,.85); }
+        .hero-meta {
+            margin-top:26px; display:inline-flex; flex-wrap:wrap; gap:10px 18px; justify-content:center;
+            font-size:13px; color: rgba(255,255,255,.9);
+        }
+        .hero-meta span { display:inline-flex; align-items:center; gap:7px; }
+        .hero-meta i { color:#7DD3FC; }
+
+        /* How to read */
+        .howto {
+            max-width: 1100px; margin: -36px auto 0; padding: 0 24px; position: relative; z-index: 5;
+        }
+        .howto-card {
+            background:#fff; border:1px solid var(--line); border-radius: var(--r-lg);
+            box-shadow: 0 12px 40px rgba(10,27,61,.10); padding: 22px 24px;
+            display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+        }
+        .howto-card .ico { width:46px; height:46px; border-radius:12px; background:var(--primary-light); color:var(--primary); display:grid; place-items:center; font-size:18px; flex-shrink:0; }
+        .howto-card p { font-size:13.5px; color:var(--text-sub); flex:1; min-width:240px; }
+        .howto-card strong { color:var(--text); }
+
+        /* Quick nav */
+        .qnav { max-width:1100px; margin: 28px auto 0; padding: 0 24px; }
+        .qnav-grid { display:grid; grid-template-columns: repeat(4,1fr); gap:12px; }
+        @media (max-width: 760px){ .qnav-grid{ grid-template-columns: repeat(2,1fr);} }
+        .qnav-item {
+            text-decoration:none; background:#fff; border:1px solid var(--line); border-radius:var(--r-md);
+            padding:16px 14px; text-align:center; transition:.2s; display:block;
+        }
+        .qnav-item:hover { transform: translateY(-3px); box-shadow:0 10px 24px rgba(0,0,0,.07); border-color:transparent; }
+        .qnav-item .qn-logo { font-family:'Outfit',sans-serif; font-weight:800; font-size:1.05rem; letter-spacing:-.02em; }
+        .qnav-item .qn-tag { display:block; font-size:11px; color:var(--text-sub); margin-top:4px; font-weight:500; }
+
+        /* Section wrap */
+        .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .section-head { text-align:center; margin: 64px 0 8px; }
+        .section-head .kicker { font-family:'Outfit',sans-serif; font-weight:800; font-size:12px; letter-spacing:.18em; color:var(--accent); text-transform:uppercase; }
+        .section-head h2 { font-size: clamp(1.4rem,4vw,2rem); font-weight:900; margin-top:6px; letter-spacing:-.02em; }
+
+        /* Company card */
+        .company { scroll-margin-top: 84px; margin-top: 40px; }
+        .c-card {
+            background:#fff; border:1px solid var(--line); border-radius: var(--r-xl);
+            overflow:hidden; box-shadow: 0 6px 28px rgba(10,27,61,.06);
+        }
+        .c-top {
+            padding: 28px 28px 24px; color:#fff; position:relative; overflow:hidden;
+        }
+        .c-top::after { content:''; position:absolute; width:260px; height:260px; border-radius:50%; background:rgba(255,255,255,.08); top:-120px; right:-80px; }
+        .c-ielove .c-top { background: linear-gradient(135deg,#00A6A0,#057f7a); }
+        .c-persol .c-top { background: linear-gradient(135deg,#E60012,#a8000d); }
+        .c-leverages .c-top { background: linear-gradient(135deg,#1A56DB,#103a96); }
+        .c-nec .c-top { background: linear-gradient(135deg,#003F8E,#002a5e); }
+        .c-top-row { position:relative; z-index:2; display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+        .c-name { font-size: clamp(1.4rem,4vw,1.9rem); font-weight:900; letter-spacing:-.02em; }
+        .c-name .en { display:block; font-family:'Outfit',sans-serif; font-weight:700; font-size:13px; opacity:.8; letter-spacing:.04em; margin-top:3px; text-transform:uppercase; }
+        .c-industry { display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.28); padding:7px 14px; border-radius:100px; font-size:12.5px; font-weight:700; white-space:nowrap; }
+        .c-oneline { position:relative; z-index:2; margin-top:16px; font-size: clamp(1rem,2.6vw,1.15rem); font-weight:700; line-height:1.55; }
+
+        .c-body { padding: 26px 28px 30px; }
+
+        /* facts grid */
+        .facts { display:grid; grid-template-columns: repeat(4,1fr); gap:12px; margin-bottom:26px; }
+        @media (max-width: 720px){ .facts{ grid-template-columns: repeat(2,1fr);} }
+        .fact { background:var(--bg); border:1px solid var(--line); border-radius: var(--r-md); padding:14px 14px; }
+        .fact .fl { font-size:11px; color:var(--text-sub); font-weight:700; letter-spacing:.02em; display:flex; align-items:center; gap:6px; }
+        .fact .fv { font-size:1.05rem; font-weight:900; margin-top:5px; letter-spacing:-.01em; line-height:1.3; }
+        .fact .fv small { font-size:11px; font-weight:600; color:var(--text-sub); display:block; margin-top:2px; }
+
+        /* blocks */
+        .blk { margin-bottom:22px; }
+        .blk-h { font-size:14px; font-weight:900; display:flex; align-items:center; gap:9px; margin-bottom:11px; }
+        .blk-h .bi { width:28px; height:28px; border-radius:8px; display:grid; place-items:center; font-size:13px; color:#fff; flex-shrink:0; }
+        .c-ielove .bi { background:var(--ielove);} .c-persol .bi{ background:var(--persol);} .c-leverages .bi{ background:var(--leverages);} .c-nec .bi{ background:var(--nec);}
+        .blk p { font-size:14px; color:#374151; }
+        .blk p + p { margin-top:9px; }
+
+        /* business list */
+        .biz { display:grid; grid-template-columns: repeat(2,1fr); gap:12px; }
+        @media (max-width: 720px){ .biz{ grid-template-columns: 1fr;} }
+        .biz-item { border:1px solid var(--line); border-radius: var(--r-md); padding:14px 16px; background:#fff; }
+        .biz-item .bt { font-weight:800; font-size:13.5px; display:flex; align-items:center; gap:8px; }
+        .biz-item .bt i { color:var(--text-sub); font-size:12px; }
+        .biz-item .bd { font-size:12.5px; color:var(--text-sub); margin-top:5px; line-height:1.6; }
+
+        /* student hook */
+        .hook {
+            border-radius: var(--r-md); padding:18px 20px; margin-top:6px;
+            border:1px dashed; background:#fff;
+        }
+        .c-ielove .hook{ border-color:var(--ielove); background:#effdfc;}
+        .c-persol .hook{ border-color:var(--persol); background:#fff1f2;}
+        .c-leverages .hook{ border-color:var(--leverages); background:#eff4fe;}
+        .c-nec .hook{ border-color:var(--nec); background:#eef3fb;}
+        .hook .hk-h { font-size:13px; font-weight:900; display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+        .c-ielove .hk-h{ color:var(--ielove);} .c-persol .hk-h{ color:var(--persol);} .c-leverages .hk-h{ color:var(--leverages);} .c-nec .hk-h{ color:var(--nec);}
+        .hook p { font-size:13.5px; color:#374151; }
+        .hook ul { margin:8px 0 0; padding-left:18px; }
+        .hook li { font-size:13.5px; color:#374151; margin-bottom:5px; }
+
+        /* keyword tags */
+        .kw { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+        .kw span { font-size:11.5px; font-weight:700; padding:5px 12px; border-radius:100px; background:var(--bg); border:1px solid var(--line); color:#374151; }
+
+        .c-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+        .c-link { display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:13px; text-decoration:none; padding:11px 20px; border-radius:100px; border:1px solid var(--line); transition:.2s; background:#fff; }
+        .c-link:hover { background:var(--bg); transform:translateY(-1px); }
+        .c-link .ext { font-size:10px; opacity:.7; }
+        .c-link-main { color:#fff; border-color:transparent; box-shadow:0 4px 14px rgba(0,0,0,.12); }
+        .c-ielove .c-link-main{ background:var(--ielove);} .c-persol .c-link-main{ background:var(--persol);} .c-leverages .c-link-main{ background:var(--leverages);} .c-nec .c-link-main{ background:var(--nec);}
+        .c-link-main:hover { filter:brightness(1.08); background-clip:padding-box; }
+
+        /* compare table */
+        .cmp-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line); border-radius:var(--r-lg); margin-top:24px; background:#fff; }
+        table.cmp { width:100%; border-collapse:collapse; min-width:640px; font-size:13px; }
+        table.cmp th, table.cmp td { padding:13px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+        table.cmp thead th { background:#0A1B3D; color:#fff; font-weight:700; font-size:12.5px; position:sticky; top:0; }
+        table.cmp thead th:first-child { border-top-left-radius:0; }
+        table.cmp tbody th { font-weight:800; color:var(--text); white-space:nowrap; background:var(--bg); }
+        table.cmp tbody tr:last-child td, table.cmp tbody tr:last-child th { border-bottom:none; }
+        table.cmp .dotrow td { font-weight:800; }
+
+        /* note */
+        .note { font-size:11.5px; color:var(--text-sub); margin-top:14px; line-height:1.7; }
+        .note a { color:var(--primary); }
+
+        /* CTA */
+        .cta { background: linear-gradient(135deg,#0A1B3D,#1D4ED8); color:#fff; border-radius:var(--r-xl); padding:44px 28px; text-align:center; margin-top:64px; position:relative; overflow:hidden; }
+        .cta::before{ content:''; position:absolute; width:320px; height:320px; border-radius:50%; background:rgba(255,255,255,.06); top:-140px; left:-80px; }
+        .cta h2 { position:relative; z-index:2; font-size:clamp(1.3rem,4vw,1.8rem); font-weight:900; letter-spacing:-.02em; }
+        .cta p { position:relative; z-index:2; margin-top:12px; color:rgba(255,255,255,.85); font-size:14px; }
+        .cta-btn { position:relative; z-index:2; display:inline-flex; align-items:center; gap:9px; margin-top:22px; background:#fff; color:var(--primary); padding:14px 32px; border-radius:100px; font-weight:800; text-decoration:none; transition:.2s; }
+        .cta-btn:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(0,0,0,.25); }
+
+        /* Footer */
+        .footer { background:#0A1B3D; color:#fff; padding:34px 24px 26px; margin-top:64px; }
+        .footer-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+        .footer-logo { font-family:'Outfit',sans-serif; font-weight:800; font-size:16px; color:rgba(255,255,255,.5); }
+        .footer-links { display:flex; gap:16px; list-style:none; flex-wrap:wrap; }
+        .footer-links a { color:rgba(255,255,255,.4); font-size:12px; text-decoration:none; transition:color .2s; }
+        .footer-links a:hover { color:#fff; }
+        .footer-copy { width:100%; text-align:center; font-size:11px; color:rgba(255,255,255,.35); margin-top:18px; padding-top:18px; border-top:1px solid rgba(255,255,255,.08); }
+
+        .topbtn { position:fixed; bottom:22px; right:22px; width:46px; height:46px; border-radius:50%; background:var(--primary); color:#fff; display:grid; place-items:center; text-decoration:none; box-shadow:0 6px 20px rgba(37,99,235,.4); z-index:90; opacity:0; pointer-events:none; transition:.25s; }
+        .topbtn.show { opacity:1; pointer-events:auto; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <a href="RookiesExpo2026.html" class="logo">
+            <span class="logo-mark"><i class="fa-solid fa-rocket"></i></span>
+            Rookies<span class="acc">Expo</span><span class="full">2026</span>
+        </a>
+        <a href="RookiesExpo2026.html#entry" class="hdr-cta">参加申し込み</a>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-badge"><i class="fa-solid fa-building"></i> 参加企業ガイド</div>
+        <h1>4社を、<span class="hl">3分</span>で理解する。</h1>
+        <p>RookiesExpo2026 に参加する4社が「どんな業界で、何をしている会社なのか」を、忙しい就活生向けにコンパクトにまとめました。当日の対話を、もっと深く。</p>
+        <div class="hero-meta">
+            <span><i class="fa-solid fa-calendar-day"></i> 6/27(土) 12:00–19:00</span>
+            <span><i class="fa-solid fa-location-dot"></i> 新宿・いえらぶGROUP本社</span>
+            <span><i class="fa-solid fa-user-group"></i> 28卒限定</span>
+        </div>
+    </div>
+</section>
+
+<!-- HOW TO READ -->
+<div class="howto">
+    <div class="howto-card">
+        <div class="ico"><i class="fa-solid fa-lightbulb"></i></div>
+        <p><strong>このページの使い方：</strong>各社カードは「業界 → 一言で言うと → 数字 → 事業の柱 → 就活生から見たポイント」の順。まず気になる会社の<strong>「就活生から見たポイント」</strong>と<strong>最後の比較表</strong>だけ読めば、当日の質問の軸が作れます。</p>
+    </div>
+</div>
+
+<!-- QUICK NAV -->
+<nav class="qnav">
+    <div class="qnav-grid">
+        <a href="#ielove" class="qnav-item">
+            <span class="qn-logo" style="color:var(--ielove)">いえらぶGROUP</span>
+            <span class="qn-tag">不動産 × IT / SaaS</span>
+        </a>
+        <a href="#persol" class="qnav-item">
+            <span class="qn-logo" style="color:var(--persol)">パーソルキャリア</span>
+            <span class="qn-tag">人材 / HR（doda）</span>
+        </a>
+        <a href="#leverages" class="qnav-item">
+            <span class="qn-logo" style="color:var(--leverages)">レバレジーズ</span>
+            <span class="qn-tag">人材・IT・メディア</span>
+        </a>
+        <a href="#nec" class="qnav-item">
+            <span class="qn-logo" style="color:var(--nec)">NEC</span>
+            <span class="qn-tag">大手 IT・社会インフラ</span>
+        </a>
+    </div>
+</nav>
+
+<div class="wrap">
+    <div class="section-head">
+        <div class="kicker">Participating Companies</div>
+        <h2>参加企業 4社</h2>
+    </div>
+</div>
+
+<!-- =========== いえらぶGROUP =========== -->
+<section class="company c-ielove" id="ielove">
+    <div class="wrap">
+        <div class="c-card">
+            <div class="c-top">
+                <div class="c-top-row">
+                    <div class="c-name">株式会社いえらぶGROUP<span class="en">ielove GROUP</span></div>
+                    <div class="c-industry"><i class="fa-solid fa-house-laptop"></i> 不動産テック / SaaS・IT</div>
+                </div>
+                <div class="c-oneline">「いい家、選ぶ。」 — 56兆円規模の不動産業界を、ITで丸ごとDXするSaaSベンチャー。</div>
+            </div>
+            <div class="c-body">
+                <div class="facts">
+                    <div class="fact"><div class="fl"><i class="fa-regular fa-flag"></i> 設立</div><div class="fv">2008年</div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-users"></i> 従業員</div><div class="fv">約805名<small>グループ全体 / 2025.12</small></div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-yen-sign"></i> 売上高</div><div class="fv">約100億円<small>17期連続 増収増益</small></div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-cake-candles"></i> 平均年齢</div><div class="fv">約27歳<small>本社：新宿住友ビル50F</small></div></div>
+                </div>
+
+                <div class="blk">
+                    <div class="blk-h"><span class="bi"><i class="fa-solid fa-circle-info"></i></span>どんな会社？</div>
+                    <p>「衣食住」の「住」を支える不動産業界向けに、業務支援クラウド <strong>「いえらぶCLOUD」</strong> を開発・提供する不動産テック企業。物件・顧客管理、ポータルサイトへの掲載、契約書作成、電子契約などをワンストップで効率化できる<strong>オールインワン型のSaaS</strong>で、導入は全国で数万社規模・業界トップクラスのシェアを誇ります。</p>
+                    <p>もともとは創業者がデベロッパーのIT部門出身で「不動産業務はもっと便利にできる」という原体験から創業。SaaSという言葉が一般的になる前から取り組んできた、業界特化のパイオニア的存在です。</p>
+                </div>
+
+                <div class="blk">
+                    <div class="blk-h"><span class="bi"><i class="fa-solid fa-layer-group"></i></span>事業の柱</div>
+                    <div class="biz">
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-cloud"></i> SaaS（いえらぶCLOUD）</div><div class="bd">不動産会社の業務を一元管理する基幹システム。週1回のアップデートで使いやすさを追求。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-headset"></i> コンサルティング</div><div class="bd">導入企業に対し、不動産×ITに精通したコンサルが業務効率化・集客を伴走支援。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-handshake-angle"></i> ライフライン事業</div><div class="bd">エンドユーザー向けに新生活商材を提案。不動産会社・ユーザー・自社のwin-win-winを設計。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-code"></i> 受託開発・メディア</div><div class="bd">大手不動産会社向けの特注システム開発や、空き家問題に取り組むメディア運営など。</div></div>
+                    </div>
+                </div>
+
+                <div class="hook">
+                    <div class="hk-h"><i class="fa-solid fa-graduation-cap"></i> 就活生から見たポイント</div>
+                    <ul>
+                        <li><strong>「業界特化 × SaaS」の手触り：</strong>巨大だがアナログが残る不動産業界を、プロダクトで変えていく実感を持ちやすい。</li>
+                        <li><strong>若手で裁量：</strong>平均年齢が若く、内定者・入社数年で新規事業立ち上げやグループ会社代表になった事例も。</li>
+                        <li><strong>営業・コンサル志望と相性◎：</strong>「課題解決型の提案」を早期に経験したい人向け。</li>
+                    </ul>
+                    <div class="kw" style="margin-top:12px;">
+                        <span>#不動産DX</span><span>#SaaS</span><span>#業界シェアNo.1級</span><span>#若手裁量</span><span>#新宿本社</span>
+                    </div>
+                </div>
+
+                <div class="c-links">
+                    <a href="https://www.ielove-group.jp/recruit/newgrad/" target="_blank" rel="noopener" class="c-link c-link-main"><i class="fa-solid fa-id-card"></i> 新卒採用サイト <i class="fa-solid fa-arrow-up-right-from-square ext"></i></a>
+                    <a href="https://www.ielove-group.jp/" target="_blank" rel="noopener" class="c-link">コーポレートサイト <i class="fa-solid fa-arrow-up-right-from-square ext"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========== パーソルキャリア =========== -->
+<section class="company c-persol" id="persol">
+    <div class="wrap">
+        <div class="c-card">
+            <div class="c-top">
+                <div class="c-top-row">
+                    <div class="c-name">パーソルキャリア株式会社<span class="en">PERSOL CAREER</span></div>
+                    <div class="c-industry"><i class="fa-solid fa-briefcase"></i> 人材 / HR・転職サービス</div>
+                </div>
+                <div class="c-oneline">「はたらいて、笑おう。」 — 転職サービス「doda」を運営する、国内最大級の総合人材サービス。</div>
+            </div>
+            <div class="c-body">
+                <div class="facts">
+                    <div class="fact"><div class="fl"><i class="fa-regular fa-flag"></i> 設立</div><div class="fv">前身は1989年<small>旧・インテリジェンス</small></div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-users"></i> 従業員</div><div class="fv">約6,700名<small>単体 / 2026.3</small></div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-sitemap"></i> 親会社</div><div class="fv">パーソルG<small>売上 約1.4兆円規模</small></div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-location-dot"></i> 本社</div><div class="fv">麻布台ヒルズ<small>森JPタワー 21F</small></div></div>
+                </div>
+
+                <div class="blk">
+                    <div class="blk-h"><span class="bi"><i class="fa-solid fa-circle-info"></i></span>どんな会社？</div>
+                    <p>東証プライム上場の<strong>パーソルホールディングス</strong>傘下で、人材紹介・求人メディア・転職/就職支援を手がける総合人材サービス会社。中核は国内最大級の転職サービス <strong>「doda（デューダ）」</strong>。求人広告・人材紹介・ダイレクトソーシング・転職イベントなどを組み合わせ、企業の「採用」と個人の「はたらく」をつなぎます。</p>
+                    <p>若手層からハイクラス・エグゼクティブ層、新卒、副業・フリーランス、外国人材まで、はたらくの全レイヤーをカバーしているのが特徴です。</p>
+                </div>
+
+                <div class="blk">
+                    <div class="blk-h"><span class="bi"><i class="fa-solid fa-layer-group"></i></span>事業の柱</div>
+                    <div class="biz">
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-magnifying-glass"></i> doda（転職メディア／エージェント）</div><div class="bd">求人広告と人材紹介を併せ持つ国内最大級の転職サービス。主力事業。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-crown"></i> doda X / エグゼクティブ</div><div class="bd">ハイクラス・管理職層向けのスカウト型転職、エグゼクティブ人材紹介。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-laptop-code"></i> HiPro（副業・フリーランス）</div><div class="bd">プロ人材の副業・兼業・フリーランス活用を支援するサービス群。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-bullhorn"></i> 採用・経営支援</div><div class="bd">企業の採用課題に対し、戦略立案から効果測定・改善まで伴走する法人向け支援。</div></div>
+                    </div>
+                </div>
+
+                <div class="hook">
+                    <div class="hk-h"><i class="fa-solid fa-graduation-cap"></i> 就活生から見たポイント</div>
+                    <ul>
+                        <li><strong>「人」と「キャリア」の最前線：</strong>就活生自身が当事者である"はたらく"を、ビジネスとして動かす側に回れる。</li>
+                        <li><strong>大手の基盤 × 事業の幅：</strong>1.4兆円規模のパーソルグループの安定基盤の上で、0→1〜10→100まで多様なフェーズの事業に関われる。</li>
+                        <li><strong>課題解決型の法人営業：</strong>「広告を売る」ではなく「採用戦略から入り込む」提案型営業を経験できる。</li>
+                    </ul>
+                    <div class="kw" style="margin-top:12px;">
+                        <span>#doda</span><span>#HR・人材</span><span>#東証プライムG</span><span>#提案型営業</span><span>#キャリアオーナーシップ</span>
+                    </div>
+                </div>
+
+                <div class="c-links">
+                    <a href="https://www.persol-career.co.jp/recruit/newgraduate/" target="_blank" rel="noopener" class="c-link c-link-main"><i class="fa-solid fa-id-card"></i> 新卒採用サイト <i class="fa-solid fa-arrow-up-right-from-square ext"></i></a>
+                    <a href="https://www.persol-career.co.jp/" target="_blank" rel="noopener" class="c-link">コーポレートサイト <i class="fa-solid fa-arrow-up-right-from-square ext"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========== レバレジーズ =========== -->
+<section class="company c-leverages" id="leverages">
+    <div class="wrap">
+        <div class="c-card">
+            <div class="c-top">
+                <div class="c-top-row">
+                    <div class="c-name">レバレジーズ株式会社<span class="en">Leverages</span></div>
+                    <div class="c-industry"><i class="fa-solid fa-cubes"></i> 人材・IT・メディア（多角化）</div>
+                </div>
+                <div class="c-oneline">「関係者全員の幸福の追求」 — 創業以来ずっと黒字。国・業界をまたいで40以上の事業を展開するメガベンチャー。</div>
+            </div>
+            <div class="c-body">
+                <div class="facts">
+                    <div class="fact"><div class="fl"><i class="fa-regular fa-flag"></i> 設立</div><div class="fv">2005年</div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-users"></i> 従業員</div><div class="fv">約3,300名<small>正社員 / 2025.4</small></div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-yen-sign"></i> 売上高</div><div class="fv">約1,760億円<small>2024年実績 / 連続増益</small></div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-location-dot"></i> 本社</div><div class="fv">渋谷<small>スクランブルスクエア</small></div></div>
+                </div>
+
+                <div class="blk">
+                    <div class="blk-h"><span class="bi"><i class="fa-solid fa-circle-info"></i></span>どんな会社？</div>
+                    <p>2005年創業、<strong>自己資本100％・未上場</strong>を貫きながら急成長を続けるメガベンチャー。IT・医療・介護・若年層を中心とした<strong>人材事業</strong>、Webメディア、<strong>システムエンジニアリング</strong>、M&Aアドバイザリー、SaaSなど、国や業界をまたいで40以上のサービスを展開しています。</p>
+                    <p>最大の特徴は <strong>「オールインハウス」</strong>。営業・エンジニア・デザイナー・マーケター・データサイエンティストまで事業に必要な職種を全て社内に揃え、企画から開発・集客まで内製でスピーディに回す組織体制を取っています。</p>
+                </div>
+
+                <div class="blk">
+                    <div class="blk-h"><span class="bi"><i class="fa-solid fa-layer-group"></i></span>事業の柱</div>
+                    <div class="biz">
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-laptop-code"></i> レバテック（IT人材）</div><div class="bd">ITエンジニア・クリエイター特化の転職／フリーランス／新卒支援。業界大手。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-user-nurse"></i> レバウェル（医療・介護）</div><div class="bd">看護・介護など医療福祉領域の人材サービス（旧「看護のお仕事」「きらケア」）。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-ticket-simple"></i> ハタラクティブ／キャリアチケット</div><div class="bd">既卒・第二新卒の就職支援、新卒就活エージェント。学生に身近な事業。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-chart-line"></i> M&A・メディア・SaaS</div><div class="bd">M&Aアドバイザリー、各種Webメディア、SaaSなど新規事業を毎年多数立ち上げ。</div></div>
+                    </div>
+                </div>
+
+                <div class="hook">
+                    <div class="hk-h"><i class="fa-solid fa-graduation-cap"></i> 就活生から見たポイント</div>
+                    <ul>
+                        <li><strong>就活生にいちばん"見えている"会社：</strong>キャリアチケット・レバテックルーキーなど、学生自身が使うサービスを運営。事業理解が早い。</li>
+                        <li><strong>裁量とスピード：</strong>年間多数の新規事業＝ポストが次々生まれる。平均リーダー昇格2.2年と早期抜擢の文化。</li>
+                        <li><strong>「人材だけの会社じゃない」：</strong>IT・メディア・M&Aまで幅広く、ポートフォリオ経営で挑戦と安定を両立。</li>
+                    </ul>
+                    <div class="kw" style="margin-top:12px;">
+                        <span>#メガベンチャー</span><span>#オールインハウス</span><span>#未上場・自己資本100%</span><span>#早期抜擢</span><span>#渋谷</span>
+                    </div>
+                </div>
+
+                <div class="c-links">
+                    <a href="https://recruit.leverages.jp/recruit/graduates/" target="_blank" rel="noopener" class="c-link c-link-main"><i class="fa-solid fa-id-card"></i> 新卒採用サイト <i class="fa-solid fa-arrow-up-right-from-square ext"></i></a>
+                    <a href="https://leverages.jp/" target="_blank" rel="noopener" class="c-link">コーポレートサイト <i class="fa-solid fa-arrow-up-right-from-square ext"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========== NEC =========== -->
+<section class="company c-nec" id="nec">
+    <div class="wrap">
+        <div class="c-card">
+            <div class="c-top">
+                <div class="c-top-row">
+                    <div class="c-name">日本電気株式会社（NEC）<span class="en">NEC Corporation</span></div>
+                    <div class="c-industry"><i class="fa-solid fa-network-wired"></i> 大手 IT・社会インフラ</div>
+                </div>
+                <div class="c-oneline">創業1899年。生体認証・AI・5Gなど世界トップ級の技術で、社会インフラを支える総合ITカンパニー。</div>
+            </div>
+            <div class="c-body">
+                <div class="facts">
+                    <div class="fact"><div class="fl"><i class="fa-regular fa-flag"></i> 設立</div><div class="fv">1899年</div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-users"></i> 従業員</div><div class="fv">約10.2万名<small>連結 / 2026.3</small></div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-yen-sign"></i> 売上収益</div><div class="fv">約3.6兆円<small>連結 / 2025年度</small></div></div>
+                    <div class="fact"><div class="fl"><i class="fa-solid fa-globe"></i> 展開</div><div class="fv">50以上の国<small>東証プライム上場</small></div></div>
+                </div>
+
+                <div class="blk">
+                    <div class="blk-h"><span class="bi"><i class="fa-solid fa-circle-info"></i></span>どんな会社？</div>
+                    <p>1899年創業、120年以上の歴史を持つ日本を代表する総合ITメーカー。官公庁・自治体・金融・通信事業者などに対し、ITシステムやネットワーク、社会インフラを提供しています。事業の中心は<strong>ITサービス事業</strong>と<strong>社会インフラ事業</strong>で、売上の大半をITサービスが占めるなど、近年は<strong>SI・DX・サービス型</strong>へと軸足を移しています。</p>
+                    <p>技術力が大きな強みで、<strong>顔・虹彩・指紋などの生体認証は世界トップレベル</strong>。世界トップクラスの日本語性能を持つ生成AI（LLM）や、各国でのセキュアな5Gネットワーク構築も推進。Clarivate社の「Top 100 グローバル・イノベーター」に長年連続で選出されています。</p>
+                </div>
+
+                <div class="blk">
+                    <div class="blk-h"><span class="bi"><i class="fa-solid fa-layer-group"></i></span>事業の柱</div>
+                    <div class="biz">
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-server"></i> ITサービス事業</div><div class="bd">官公庁・金融・企業向けのシステム構築（SI）、DX支援、クラウド・運用。売上の最大セグメント。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-tower-cell"></i> 社会インフラ事業</div><div class="bd">通信ネットワーク、5G、海底ケーブル、防災・宇宙・防衛など社会基盤を支える領域。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-fingerprint"></i> 生体認証・AI</div><div class="bd">世界トップ級の顔認証「Bio-IDiom」、生成AI・データ分析など先端技術。</div></div>
+                        <div class="biz-item"><div class="bt"><i class="fa-solid fa-globe-asia"></i> グローバル</div><div class="bd">50以上の国・地域で事業展開。海外通信インフラやデジタルガバメント案件も。</div></div>
+                    </div>
+                </div>
+
+                <div class="hook">
+                    <div class="hk-h"><i class="fa-solid fa-graduation-cap"></i> 就活生から見たポイント</div>
+                    <ul>
+                        <li><strong>スケールの大きさ：</strong>社会インフラ＝国レベル・数十万人規模に影響する仕事。"縁の下で社会を支える"志向の人向け。</li>
+                        <li><strong>技術ブランド：</strong>生体認証・AI・宇宙など、世界に誇れる尖った技術領域を持つ大手という稀有なポジション。</li>
+                        <li><strong>育成・制度：</strong>社内公募(NEC Growth Careers)や手厚い研修・福利厚生など、大手ならではのキャリア基盤。</li>
+                    </ul>
+                    <div class="kw" style="margin-top:12px;">
+                        <span>#大手SIer</span><span>#社会インフラ</span><span>#生体認証</span><span>#生成AI</span><span>#グローバル</span>
+                    </div>
+                </div>
+
+                <div class="c-links">
+                    <a href="https://jpn.nec.com/recruit/newgraduate/index.html" target="_blank" rel="noopener" class="c-link c-link-main"><i class="fa-solid fa-id-card"></i> 新卒採用サイト <i class="fa-solid fa-arrow-up-right-from-square ext"></i></a>
+                    <a href="https://jpn.nec.com/profile/corp/profile.html" target="_blank" rel="noopener" class="c-link">コーポレートサイト <i class="fa-solid fa-arrow-up-right-from-square ext"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========== COMPARE =========== -->
+<div class="wrap">
+    <div class="section-head">
+        <div class="kicker">At a glance</div>
+        <h2>4社をひと目で比較</h2>
+    </div>
+
+    <div class="cmp-scroll">
+        <table class="cmp">
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>いえらぶGROUP</th>
+                    <th>パーソルキャリア</th>
+                    <th>レバレジーズ</th>
+                    <th>NEC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>業界</th>
+                    <td>不動産テック / SaaS</td>
+                    <td>人材・HR</td>
+                    <td>人材・IT・メディア（多角化）</td>
+                    <td>大手IT・社会インフラ</td>
+                </tr>
+                <tr>
+                    <th>一言で</th>
+                    <td>不動産業界を丸ごとDXするSaaS</td>
+                    <td>「doda」を運営する総合人材大手</td>
+                    <td>40+事業を持つメガベンチャー</td>
+                    <td>技術で社会基盤を支える総合IT</td>
+                </tr>
+                <tr>
+                    <th>設立</th>
+                    <td>2008年</td>
+                    <td>1989年(前身)</td>
+                    <td>2005年</td>
+                    <td>1899年</td>
+                </tr>
+                <tr>
+                    <th>規模感<small style="font-weight:600;color:var(--text-sub)"> (売上/人員)</small></th>
+                    <td>約100億円 / 約805名</td>
+                    <td>パーソルG 約1.4兆円 / 単体 約6,700名</td>
+                    <td>約1,760億円 / 約3,300名</td>
+                    <td>連結 約3.6兆円 / 約10.2万名</td>
+                </tr>
+                <tr>
+                    <th>上場</th>
+                    <td>非上場（ベンチャー）</td>
+                    <td>親会社が東証プライム上場</td>
+                    <td>非上場（自己資本100%）</td>
+                    <td>東証プライム上場</td>
+                </tr>
+                <tr>
+                    <th>キャラクター</th>
+                    <td>業界特化・若手裁量</td>
+                    <td>大手基盤 × 事業の幅</td>
+                    <td>スピード・早期抜擢</td>
+                    <td>スケール・技術ブランド</td>
+                </tr>
+                <tr>
+                    <th>こんな人に</th>
+                    <td>プロダクトで業界を変えたい</td>
+                    <td>"はたらく"を動かしたい</td>
+                    <td>若くして挑戦・裁量が欲しい</td>
+                    <td>社会を根底から支えたい</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="note">
+        ※ 数値は各社公式サイト・採用情報および公開データ（2025〜2026年時点）に基づく概算です。決算期・集計時点により単体／連結の区分や最新値が異なる場合があります。最新かつ正確な情報は各社公式サイトをご確認ください。<br>
+        出典：いえらぶGROUP公式・採用サイト、パーソルキャリア公式（会社概要）、レバレジーズ公式（会社概要）、NEC公式（プロフィール／ひとめでわかるNEC）。
+    </p>
+
+    <!-- CTA -->
+    <div class="cta">
+        <h2>気になった会社は、当日"直接"聞こう。</h2>
+        <p>RookiesExpo2026 では、この4社の社員と少人数で対話できます。<br>ページで得た「軸」を持って、自分の言葉で確かめにきてください。</p>
+        <a href="RookiesExpo2026.html#entry" class="cta-btn">参加を申し込む <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-logo">RookiesExpo2026</div>
+        <ul class="footer-links">
+            <li><a href="RookiesExpo2026.html">イベントTOP</a></li>
+            <li><a href="RookiesExpo2026.html#entry">参加申し込み</a></li>
+            <li><a href="index.html">早稲田総合研究会</a></li>
+        </ul>
+        <p class="footer-copy">&copy; 2026 RookiesExpo / 早稲田総合研究会. All rights reserved.<br>本ページは参加企業の概要を就活生向けに紹介する非公式の情報まとめです。各社の商標・ロゴ等の権利は各社に帰属します。</p>
+    </div>
+</footer>
+
+<a href="#" class="topbtn" id="topbtn"><i class="fa-solid fa-arrow-up"></i></a>
+
+<script>
+    const topbtn = document.getElementById('topbtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 600) topbtn.classList.add('show');
+        else topbtn.classList.remove('show');
+    });
+</script>
+
+</body>
+</html>
