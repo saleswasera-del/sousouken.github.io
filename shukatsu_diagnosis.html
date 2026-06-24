@@ -10,31 +10,6 @@
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script>
-/* Error visibility — prevent the "blank white screen" failure mode.
-   If anything throws before/during render, this shows the error in #root. */
-window.addEventListener("error", function(e) {
-  var r = document.getElementById("root");
-  if (r && !r.children.length) {
-    r.innerHTML =
-      '<pre style="padding:24px;margin:24px;color:#8B2E2A;font-family:Menlo,Monaco,monospace;font-size:12px;white-space:pre-wrap;background:#FBF8F1;border:1px solid #8B2E2A;border-radius:8px;line-height:1.6;">' +
-      "⚠ Render failed\n\n" +
-      "Error: " + (e.message || e) + "\n" +
-      "File:  " + (e.filename || "?") + ":" + (e.lineno || "?") + "\n\n" +
-      "Open browser console (F12) for full stack trace." +
-      "</pre>";
-  }
-});
-window.addEventListener("unhandledrejection", function(e) {
-  var r = document.getElementById("root");
-  if (r && !r.children.length) {
-    r.innerHTML =
-      '<pre style="padding:24px;margin:24px;color:#8B2E2A;font-family:Menlo,Monaco,monospace;font-size:12px;white-space:pre-wrap;background:#FBF8F1;border:1px solid #8B2E2A;border-radius:8px;line-height:1.6;">' +
-      "⚠ Promise rejection\n\n" + (e.reason && e.reason.message || e.reason || "(unknown)") +
-      "</pre>";
-  }
-});
-</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
