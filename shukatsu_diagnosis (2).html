@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>就活の軸、診断 - Career Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho+B1:wght@400;500;600;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script>
+/* Error visibility — prevent the "blank white screen" failure mode.
+   If anything throws before/during render, this shows the error in #root. */
+window.addEventListener("error", function(e) {
+  var r = document.getElementById("root");
+  if (r && !r.children.length) {
+    r.innerHTML =
+      '<pre style="padding:24px;margin:24px;color:#8B2E2A;font-family:Menlo,Monaco,monospace;font-size:12px;white-space:pre-wrap;background:#FBF8F1;border:1px solid #8B2E2A;border-radius:8px;line-height:1.6;">' +
+      "⚠ Render failed\n\n" +
+      "Error: " + (e.message || e) + "\n" +
+      "File:  " + (e.filename || "?") + ":" + (e.lineno || "?") + "\n\n" +
+      "Open browser console (F12) for full stack trace." +
+      "</pre>";
+  }
+});
+window.addEventListener("unhandledrejection", function(e) {
+  var r = document.getElementById("root");
+  if (r && !r.children.length) {
+    r.innerHTML =
+      '<pre style="padding:24px;margin:24px;color:#8B2E2A;font-family:Menlo,Monaco,monospace;font-size:12px;white-space:pre-wrap;background:#FBF8F1;border:1px solid #8B2E2A;border-radius:8px;line-height:1.6;">' +
+      "⚠ Promise rejection\n\n" + (e.reason && e.reason.message || e.reason || "(unknown)") +
+      "</pre>";
+  }
+});
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #FBF8F1;
+    color: #2A2421;
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; padding: 0; color: inherit; }
+  img { max-width: 100%; display: block; }
+  h1, h2, h3, p { margin: 0; }
+
+  .serif-jp { font-family: 'Shippori Mincho B1', 'Noto Serif JP', serif; }
+  .serif-en { font-family: 'Fraunces', serif; font-optical-sizing: auto; font-style: italic; }
+  .num { font-family: 'Fraunces', serif; font-feature-settings: "lnum"; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUpQ { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scaleIn { from { opacity: 0; transform: scale(0.88); } to { opacity: 1; transform: scale(1); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeUpSmall { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .anim-fade-up { animation: fadeUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .anim-fade-up-q { animation: fadeUpQ 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .anim-scale-in { animation: scaleIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .anim-fade-in { animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .anim-fade-up-sm { animation: fadeUpSmall 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+  .d-1 { animation-delay: 0.1s; }
+  .d-2 { animation-delay: 0.2s; }
+  .d-4 { animation-delay: 0.45s; }
+  .d-5 { animation-delay: 0.55s; }
+  .d-6 { animation-delay: 0.65s; }
+  .d-7 { animation-delay: 0.75s; }
+  .d-8 { animation-delay: 0.85s; }
+  .d-9 { animation-delay: 1.0s; }
+
+  .cc-app {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background: radial-gradient(ellipse at top, #FBF8F1 0%, #F5F0E6 70%);
+  }
+  .cc-container { width: 100%; max-width: 672px; }
+
+  .cc-masthead { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; }
+  .cc-mast-eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #7A6F62; }
+  .cc-mast-title { font-size: 17px; margin-top: 4px; letter-spacing: 0.02em; }
+  .cc-mast-meta { font-size: 11px; letter-spacing: 0.16em; color: #7A6F62; text-align: right; }
+  .cc-mast-meta-sub { font-size: 10px; letter-spacing: 0.16em; color: #7A6F62; text-align: right; margin-top: 2px; }
+
+  .cc-rule { height: 1px; background: #2A2421; opacity: 0.85; }
+  .cc-hair { height: 1px; background: #2A2421; opacity: 0.13; }
+
+  .cc-mb-8 { margin-bottom: 32px; }
+  .cc-mb-10 { margin-bottom: 40px; }
+
+  .cc-intro-tag { font-size: 13px; letter-spacing: 0.25em; color: #8B2E2A; margin-bottom: 24px; }
+  .cc-intro-h1 { font-size: 30px; line-height: 1.4; letter-spacing: 0.01em; margin-bottom: 24px; }
+  .cc-intro-h1 .accent { color: #8B2E2A; }
+  .cc-intro-p { font-size: 13px; line-height: 2; color: #7A6F62; margin-bottom: 40px; }
+  .cc-intro-p .ink { color: #2A2421; }
+
+  .cc-cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 40px; }
+  .cc-cat-item { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .cc-cat-no { font-size: 10px; letter-spacing: 0.2em; color: #8B2E2A; }
+  .cc-cat-jp { font-size: 15px; }
+  .cc-cat-en { font-size: 10px; letter-spacing: 0.2em; color: #7A6F62; }
+
+  .cc-peek-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #7A6F62; font-family: 'Fraunces', serif; margin-bottom: 16px; }
+  .cc-peek-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+
+  .cc-begin-note { font-size: 11px; color: #7A6F62; }
+  .cc-btn-primary {
+    background: #2A2421;
+    color: #FBF8F1;
+    padding: 16px 32px;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: 'Fraunces', serif;
+    border-radius: 999px;
+    transition: background 0.2s, transform 0.2s;
+    align-self: flex-start;
+  }
+  .cc-btn-primary:hover { background: #8B2E2A; transform: translateY(-1px); }
+
+  .cc-q-progress-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .cc-q-counter { font-size: 11px; letter-spacing: 0.3em; color: #7A6F62; }
+  .cc-progress-dots { display: flex; gap: 6px; }
+  .cc-progress-dot { height: 2px; width: 16px; transition: background 0.3s; }
+  .cc-q-phase { font-size: 10px; letter-spacing: 0.3em; color: #C97B62; margin-bottom: 12px; }
+  .cc-q-prompt { font-size: 22px; line-height: 1.55; letter-spacing: 0.01em; margin-bottom: 12px; }
+  .cc-q-note { font-size: 11px; color: #8B2E2A; margin-bottom: 32px; }
+  .cc-q-spacer { margin-bottom: 32px; }
+
+  .cc-options { display: flex; flex-direction: column; gap: 12px; }
+  .cc-option {
+    text-align: left;
+    padding: 16px 20px;
+    border: 1px solid rgba(42, 36, 33, 0.18);
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: transform 0.25s cubic-bezier(.2,.8,.2,1), background 0.25s, border-color 0.25s;
+    width: 100%;
+  }
+  .cc-option:hover {
+    background: #fff;
+    border-color: #8B2E2A;
+    transform: translateX(4px);
+  }
+  .cc-option:hover .cc-option-arrow { transform: translateX(6px); opacity: 1; }
+  .cc-option-letter { font-size: 12px; letter-spacing: 0.16em; color: #8B2E2A; min-width: 24px; padding-top: 4px; }
+  .cc-option-label { flex: 1; font-size: 13.5px; line-height: 1.75; color: #2A2421; }
+  .cc-option-arrow { font-size: 14px; color: #8B2E2A; opacity: 0.35; padding-top: 4px; transition: all 0.25s; }
+  .cc-back { margin-top: 32px; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: #7A6F62; font-family: 'Fraunces', serif; }
+
+  .cc-result-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+  .cc-result-tag { font-size: 13px; letter-spacing: 0.25em; color: #8B2E2A; }
+  .cc-result-type-no { font-size: 11px; letter-spacing: 0.25em; color: #7A6F62; }
+
+  .cc-hero { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 40px; }
+  .cc-hero-en { font-size: 11px; letter-spacing: 0.4em; color: #8B2E2A; margin-top: 32px; margin-bottom: 8px; }
+  .cc-hero-name { font-size: 38px; line-height: 1.05; letter-spacing: 0.06em; }
+  .cc-hero-catch { font-size: 15px; color: #7A6F62; margin-top: 16px; }
+
+  .cc-breadcrumb { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+  .cc-breadcrumb-item { text-align: center; }
+  .cc-breadcrumb-label { font-size: 10px; letter-spacing: 0.3em; color: #7A6F62; }
+  .cc-breadcrumb-jp { font-size: 18px; margin-top: 8px; }
+  .cc-breadcrumb-en { font-size: 10px; letter-spacing: 0.2em; color: #7A6F62; margin-top: 4px; }
+  .cc-breadcrumb-sep { color: #7A6F62; font-size: 18px; }
+
+  .cc-detail-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+  .cc-detail-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #7A6F62; font-family: 'Fraunces', serif; margin-bottom: 12px; }
+  .cc-detail-body { font-size: 13.5px; line-height: 2; color: #2A2421; }
+  .cc-detail-body-jp { font-size: 14.5px; line-height: 1.95; color: #2A2421; }
+
+  .cc-map-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #7A6F62; font-family: 'Fraunces', serif; margin-bottom: 8px; }
+  .cc-map-desc { font-size: 11px; line-height: 1.9; color: #7A6F62; margin-bottom: 24px; }
+  .cc-map-group { margin-bottom: 28px; }
+  .cc-map-group-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .cc-map-group-no { font-size: 10px; letter-spacing: 0.16em; color: #8B2E2A; }
+  .cc-map-group-jp { font-size: 14px; }
+  .cc-map-group-en { font-size: 9px; letter-spacing: 0.2em; color: #7A6F62; }
+
+  .cc-type-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .cc-type-card {
+    border: 1px solid rgba(42, 36, 33, 0.18);
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.4);
+    transition: all 0.2s;
+  }
+  .cc-type-card:hover { background: #fff; border-color: #C97B62; }
+  .cc-type-card.active { background: #2A2421; border-color: #2A2421; }
+  .cc-type-card.active .cc-type-card-name { color: #FBF8F1; }
+  .cc-type-card.active .cc-type-card-catch { color: #C97B62; }
+  .cc-type-card.active .cc-type-card-no { color: #C97B62; }
+  .cc-type-card-body { flex: 1; min-width: 0; }
+  .cc-type-card-no { font-size: 9px; letter-spacing: 0.16em; color: #7A6F62; }
+  .cc-type-card-name { font-size: 12px; line-height: 1.2; color: #2A2421; }
+  .cc-type-card-catch { font-size: 9px; line-height: 1.2; color: #7A6F62; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .cc-footer { margin-top: 64px; }
+  .cc-footer-row { display: flex; align-items: center; justify-content: space-between; }
+  .cc-footer-left { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #7A6F62; font-family: 'Fraunces', serif; }
+  .cc-footer-right { font-size: 10px; letter-spacing: 0.16em; color: #7A6F62; }
+
+  .cc-final-note-row { display: flex; flex-direction: column; gap: 16px; }
+  .cc-final-note { font-size: 11px; line-height: 1.9; color: #7A6F62; }
+
+  .cc-animal-card {
+    background: #FBF8F1;
+    border: 1.5px solid rgba(42, 36, 33, 0.18);
+    box-shadow: 0 8px 32px rgba(139, 46, 42, 0.08);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .cc-animal-thumb {
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .cc-app { padding: 64px 20px; }
+    .cc-masthead { margin-bottom: 56px; }
+    .cc-mast-eyebrow { font-size: 12px; }
+    .cc-mast-title { font-size: 20px; }
+    .cc-mast-meta { font-size: 12px; }
+    .cc-mast-meta-sub { font-size: 12px; }
+    .cc-intro-h1 { font-size: 48px; line-height: 1.3; }
+    .cc-intro-p { font-size: 14px; }
+    .cc-cat-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .cc-progress-dot { width: 24px; }
+    .cc-q-prompt { font-size: 28px; }
+    .cc-option { padding: 20px 24px; }
+    .cc-option-label { font-size: 15px; }
+    .cc-hero-name { font-size: 54px; }
+    .cc-hero-catch { font-size: 17px; }
+    .cc-breadcrumb { gap: 40px; }
+    .cc-breadcrumb-jp { font-size: 22px; }
+    .cc-detail-grid { grid-template-columns: 4fr 8fr; gap: 40px; }
+    .cc-detail-body { font-size: 14.5px; }
+    .cc-detail-body-jp { font-size: 15.5px; }
+    .cc-type-grid { grid-template-columns: repeat(4, 1fr); }
+    .cc-type-card-name { font-size: 13px; }
+    .cc-footer { margin-top: 80px; }
+    .cc-final-note-row { flex-direction: row; align-items: center; justify-content: space-between; }
+    .cc-btn-primary { align-self: auto; white-space: nowrap; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+
+const PHASE1_CATS = {
+  what:   { label: "仕事の中身", en: "What you do" },
+  become: { label: "成長",       en: "What you become" },
+  how:    { label: "環境",       en: "How you work" },
+  get:    { label: "対価",       en: "What you get" }
+};
+
+const TYPES = {
+  "what-industry": {
+    no: 1, name: "物知りフクロウ", en: "The Knowledgeable Owl",
+    catch: "業界に詳しくなりたい", emoji: "🦉", file: "01_owl",
+    detail: "特定の業界や領域への深い愛着を持つタイプ。その分野の歴史、構造、トレンドに通じた「業界通」になることに喜びを感じる。情報感度が高く、新聞や業界紙を読むのが好き。「業界の人」として認識されることが誇り。",
+    fitIndustry: "メーカー、金融、IT・通信、商社、メディア、官公庁 ―― 興味の対象次第でどこでも輝ける",
+    fitRole: "業界アナリスト、業界紙記者、業界特化型コンサル、企画・マーケティング、業界団体・シンクタンク"
+  },
+  "what-role": {
+    no: 2, name: "職人ビーバー", en: "The Craftsman Beaver",
+    catch: "この仕事を極めたい", emoji: "🦫", file: "02_beaver",
+    detail: "業界よりも「何をする人か」が自分のアイデンティティ。特定の職種や専門性そのものに惚れ込み、長く磨き続けることに価値を感じる職人タイプ。",
+    fitIndustry: "職能を活かせる業界ならどこでも。専門性を尊重する企業を選ぶと長く活躍できる",
+    fitRole: "エンジニア、デザイナー、営業のスペシャリスト、士業(会計士・税理士・弁護士)、ライター・編集者、研究職"
+  },
+  "what-customer": {
+    no: 3, name: "寄り添いゴールデン", en: "The Caring Retriever",
+    catch: "誰かのために働きたい", emoji: "🦮", file: "03_retriever",
+    detail: "顧客や対象との関係性に最大の価値を見出すタイプ。「誰のために働くか」が職業選択の中心軸。困っている人や弱い立場の人へのまなざしが温かい。",
+    fitIndustry: "医療・介護、教育、福祉、対面サービス、BtoC全般、コンサルティング、NPO",
+    fitRole: "接客、看護師・医師、教師、ソーシャルワーカー、カスタマーサクセス、コンサルタント、相談員"
+  },
+  "what-style": {
+    no: 4, name: "気ままネコ", en: "The Independent Cat",
+    catch: "自分のペースで働きたい", emoji: "🐈", file: "04_cat",
+    detail: "業務の進め方や働き方そのものを大事にするタイプ。集団より個人、定型より創造、自分のリズムを保てる環境を求める。マイペースだが、ハマったときの集中力は誰にも負けない。",
+    fitIndustry: "クリエイティブ業界、IT・テック、研究機関、フリーランス可能な業界",
+    fitRole: "クリエイター、エンジニア(リモート可)、研究職、コンサルタント(裁量大)、ライター、デザイナー"
+  },
+  "become-speed": {
+    no: 5, name: "疾走チーター", en: "The Sprinting Cheetah",
+    catch: "速く駆け抜けたい", emoji: "🐆", file: "05_cheetah",
+    detail: "成長スピードと裁量の大きさを最重視するタイプ。「ぬるい環境」が最大の敵。挑戦的な仕事、早い意思決定、若手から大きな責任 ―― これらが揃う場所で最も輝く。",
+    fitIndustry: "戦略コンサル、スタートアップ、PE/VC、グローバルテック、急成長企業",
+    fitRole: "コンサルタント、事業企画、PM、スタートアップ初期メンバー、トレーダー、新規事業担当"
+  },
+  "become-skill": {
+    no: 6, name: "収集家リス", en: "The Collector Squirrel",
+    catch: "武器を増やしたい", emoji: "🐿️", file: "06_squirrel",
+    detail: "身につくスキルの希少性や深さを重視するタイプ。「自分の武器」を一つひとつ集めていくことに執着がある。転職市場での価値を意識して動く戦略派。",
+    fitIndustry: "プロフェッショナルファーム、専門特化型企業、技術力で勝負する企業、外資系",
+    fitRole: "コンサルタント、データサイエンティスト、エンジニア、士業、専門職、スペシャリスト"
+  },
+  "become-career": {
+    no: 7, name: "先見キツネ", en: "The Foresighted Fox",
+    catch: "先を読んで動きたい", emoji: "🦊", file: "07_fox",
+    detail: "キャリアの選択肢、将来の市場価値を重視するタイプ。常に「次」を見据えて今の場所を選ぶ戦略家。長期視点で意思決定する冷静さがある。",
+    fitIndustry: "戦略コンサル、外資系金融、総合商社、グローバルメーカー、PE/VC",
+    fitRole: "コンサル、IB、M&A、戦略企画、グローバルマーケティング、経営企画"
+  },
+  "become-learning": {
+    no: 8, name: "探求ザル", en: "The Curious Monkey",
+    catch: "学ぶことが楽しい", emoji: "🐒", file: "08_monkey",
+    detail: "教育制度、メンター、失敗を許す文化など、学習環境の質を最重視するタイプ。「教えてくれる場所」「成長できる仕組み」を選ぶ。素直さと吸収力が武器。",
+    fitIndustry: "大手日系企業(研修充実)、総合コンサル、トレーニー制度のあるメーカー、教育志向の強い企業",
+    fitRole: "新卒総合職、ローテーション制度のある大手の若手、教育・研修制度の充実した職場"
+  },
+  "how-culture": {
+    no: 9, name: "共鳴イルカ", en: "The Resonant Dolphin",
+    catch: "空気を読んで動く", emoji: "🐬", file: "09_dolphin",
+    detail: "組織全体のカルチャーや価値観への共鳴を重視するタイプ。「合う社風」がすべての判断基準。場の空気を読む力に長け、組織に馴染むのが早い。",
+    fitIndustry: "独自カルチャーが強い企業(リクルート系、CA系など)、ベンチャー、ミッション・バリュー重視の企業",
+    fitRole: "カルチャー重視の選社が向く。職種は柔軟に。組織開発・人事も適性あり"
+  },
+  "how-people": {
+    no: 10, name: "結束ペンギン", en: "The Bonded Penguin",
+    catch: "仲間と一緒なら", emoji: "🐧", file: "10_penguin",
+    detail: "一緒に働く具体的な人たちを最重視するタイプ。「誰と働くか」が「何をするか」よりも大事。チームで動くことに喜びを感じ、孤独な勝利には興味がない。",
+    fitIndustry: "少数精鋭ファーム、ファミリー的企業、結束の強いベンチャー、地域密着企業",
+    fitRole: "営業(チーム制)、PM、人事、組織開発、コーポレート、コミュニティマネージャー"
+  },
+  "how-freedom": {
+    no: 11, name: "軽やかウサギ", en: "The Light-footed Rabbit",
+    catch: "自由に飛び回りたい", emoji: "🐰", file: "11_rabbit",
+    detail: "働き方の柔軟性(時間・場所・副業)を重視するタイプ。縛られず、自分のリズムで生きたい思いが強い。仕事と生活を分けず、自然体で結果を出す。",
+    fitIndustry: "リモート中心企業、外資テック、フリーランス、スタートアップ、副業OK企業",
+    fitRole: "ITエンジニア、デザイナー、ライター、フリーランス可職、コンサルタント(リモート)"
+  },
+  "how-place": {
+    no: 12, name: "渡りツバメ", en: "The Migrating Swallow",
+    catch: "場所にとらわれない", emoji: "🐦", file: "12_swallow",
+    detail: "勤務地・移動・海外などへの強い興味を持つタイプ。一箇所に縛られず、世界中・全国を舞台に働きたい。土地ごとの違いを楽しめる感性がある。",
+    fitIndustry: "総合商社、外資メーカー、ホテル・観光、グローバル企業、地域開発、外交関係",
+    fitRole: "海外駐在のある総合職、出張多めの営業、地域コンサル、国際機関、外交官"
+  },
+  "get-money": {
+    no: 13, name: "富のカラス", en: "The Wealthy Crow",
+    catch: "対価で輝く", emoji: "🐦‍⬛", file: "13_crow",
+    detail: "金銭的リターンを最重視するタイプ。「努力と対価は連動すべき」という強い合理観を持つ。曖昧な「やりがい」ではなく、明確な数字で評価されることを好む。",
+    fitIndustry: "投資銀行、PE、ヘッジファンド、外資コンサル、高給テック企業、トレーディング",
+    fitRole: "トレーダー、IBアナリスト、PE/VCアソシエイト、外資コンサル、インセンティブの強いセールス"
+  },
+  "get-stable": {
+    no: 14, name: "守りのゾウ", en: "The Steadfast Elephant",
+    catch: "ゆるぎなく在りたい", emoji: "🐘", file: "14_elephant",
+    detail: "雇用の安定性、長期的な安心を最重視するタイプ。リスクを取るより確実に積み上げることを好む。地に足のついた人生設計を大切にする。",
+    fitIndustry: "日系大手金融、インフラ(電力・通信・鉄道)、国家公務員、地方公務員、大手メーカー",
+    fitRole: "総合職、専門職、公務員、安定企業の長期キャリア職"
+  },
+  "get-brand": {
+    no: 15, name: "誇りライオン", en: "The Proud Lion",
+    catch: "名誉を背負う", emoji: "🦁", file: "15_lion",
+    detail: "社会的評価・ステータス・ブランドを重視するタイプ。「誰もが知る企業」に身を置くことに価値を感じる。誇りを糧に努力できる強さがある。",
+    fitIndustry: "総合商社、メガバンク、有名外資、財閥系大手、トップティアコンサル、マスコミ大手",
+    fitRole: "大手総合職、グローバル幹部候補、有名企業の経営企画・事業企画"
+  },
+  "get-mission": {
+    no: 16, name: "使命のクジラ", en: "The Mission Whale",
+    catch: "大きな意義を運ぶ", emoji: "🐋", file: "16_whale",
+    detail: "社会貢献・意義・倫理観との一致を最重視するタイプ。仕事に「意味」を求める純度が高い。短期の損得より、長期の意義で意思決定する。",
+    fitIndustry: "NPO・社会的企業、ヘルスケア、教育、官公庁、社会課題系コンサル、インパクト投資、国際機関",
+    fitRole: "社会起業家、政策担当、研究者、医療・教育、国際機関、NGO、CSR部門"
+  }
+};
+
+/* Weights: 1.1 / 1.01 / 1.001 / 1.0001 / 1.00001
+   Mathematically guarantees no ties across all 1024 combinations
+   (verified by exhaustive enumeration).
+   Practical behavior: majority vote, with Q1>Q2>Q3>Q4>Q5 priority for tiebreaks. */
+const W = [1.1, 1.01, 1.001, 1.0001, 1.00001];
+
+const PHASE1_QUESTIONS = [
+  {
+    prompt: "就活で「これだけは譲れない」と思うものは？",
+    note: "最も重要な質問",
+    options: [
+      { label: "やりがいのある仕事内容そのもの", value: "what" },
+      { label: "自分が成長できる環境",           value: "become" },
+      { label: "心地よく働ける環境・人間関係",   value: "how" },
+      { label: "得られる報酬・安定・評価",       value: "get" }
+    ]
+  },
+  {
+    prompt: "10年後の自分を想像したとき、最も気にしているのは？",
+    options: [
+      { label: "何の仕事をしているか",         value: "what" },
+      { label: "どれだけ実力がついたか",       value: "become" },
+      { label: "どんな人と働いているか",       value: "how" },
+      { label: "どれだけの対価を得ているか",   value: "get" }
+    ]
+  },
+  {
+    prompt: "友人に会社を自慢するとしたら、何を話したい？",
+    options: [
+      { label: "「面白い仕事してるよ」",             value: "what" },
+      { label: "「すごい成長できる環境だよ」",       value: "become" },
+      { label: "「最高の同僚に恵まれてる」",         value: "how" },
+      { label: "「待遇めっちゃいいよ」",             value: "get" }
+    ]
+  },
+  {
+    prompt: "内定承諾を決めるとき、最後の決め手は？",
+    options: [
+      { label: "事業内容・業界への興味",       value: "what" },
+      { label: "成長機会・キャリアの広がり",   value: "become" },
+      { label: "面接で会った人の雰囲気",       value: "how" },
+      { label: "年収・福利厚生・安定性",       value: "get" }
+    ]
+  },
+  {
+    prompt: "もし2社で迷ったら、何を比較する？",
+    options: [
+      { label: "どちらの仕事がより面白いか",       value: "what" },
+      { label: "どちらでより速く成長できるか",     value: "become" },
+      { label: "どちらの社風が自分に合うか",       value: "how" },
+      { label: "どちらが待遇・将来性で優れるか",   value: "get" }
+    ]
+  }
+];
+
+const PHASE2_QUESTIONS = {
+  what: [
+    { prompt: "仕事で一番ワクワクするのは？", note: "最も重要な質問",
+      options: [
+        { label: "特定の業界・領域に詳しくなること", value: "industry" },
+        { label: "自分の役割で価値を出すこと",       value: "role" },
+        { label: "関わる人や顧客と深く向き合うこと", value: "customer" },
+        { label: "自分らしい働き方ができること",     value: "style" }
+      ]
+    },
+    { prompt: "興味があるのは？",
+      options: [
+        { label: "「この産業の未来」を語る本や記事", value: "industry" },
+        { label: "「営業力」「企画力」など職能の本", value: "role" },
+        { label: "顧客インタビューやユーザー理解",   value: "customer" },
+        { label: "仕事の進め方や生産性の話",         value: "style" }
+      ]
+    },
+    { prompt: "「面白い仕事」とは？",
+      options: [
+        { label: "自分の好きな業界に関われる",       value: "industry" },
+        { label: "自分の得意な役割を発揮できる",     value: "role" },
+        { label: "誰かの役に立てる実感がある",       value: "customer" },
+        { label: "自分のペース・スタイルで進められる", value: "style" }
+      ]
+    },
+    { prompt: "嫌な仕事の定義は？",
+      options: [
+        { label: "興味のない業界での仕事",   value: "industry" },
+        { label: "自分に向いていない職種",   value: "role" },
+        { label: "顧客や関係者と合わない",   value: "customer" },
+        { label: "自分の働き方と合わない",   value: "style" }
+      ]
+    },
+    { prompt: "同じ給料なら、どれを選ぶ？",
+      options: [
+        { label: "興味のある業界の地味な仕事",       value: "industry" },
+        { label: "興味ない業界で得意な職種",         value: "role" },
+        { label: "大好きな顧客のための仕事",         value: "customer" },
+        { label: "自分の理想の働き方ができる仕事",   value: "style" }
+      ]
+    }
+  ],
+  become: [
+    { prompt: "「成長した」と感じる瞬間は？", note: "最も重要な質問",
+      options: [
+        { label: "難しい仕事をやり切ったとき",         value: "speed" },
+        { label: "新しいスキルが身についたとき",       value: "skill" },
+        { label: "キャリアの選択肢が広がったとき",     value: "career" },
+        { label: "良い学びの環境にいると感じるとき",   value: "learning" }
+      ]
+    },
+    { prompt: "理想の1年目は？",
+      options: [
+        { label: "大きな裁量を持ってがむしゃらに",       value: "speed" },
+        { label: "専門知識・技術をしっかり吸収する",     value: "skill" },
+        { label: "いろんな経験を積んで視野を広げる",     value: "career" },
+        { label: "良い上司・先輩から丁寧に学ぶ",         value: "learning" }
+      ]
+    },
+    { prompt: "成長を測るモノサシは？",
+      options: [
+        { label: "任される仕事の大きさ",       value: "speed" },
+        { label: "身についたスキルの希少性",   value: "skill" },
+        { label: "取れる選択肢の数",           value: "career" },
+        { label: "学べた量・質",               value: "learning" }
+      ]
+    },
+    { prompt: "怖い環境は？",
+      options: [
+        { label: "ぬるくて挑戦できない",           value: "speed" },
+        { label: "スキルが身につかない雑用ばかり", value: "skill" },
+        { label: "キャリアが行き止まりに見える",   value: "career" },
+        { label: "教えてくれる人がいない",         value: "learning" }
+      ]
+    },
+    { prompt: "同じ給料なら、どれを選ぶ？",
+      options: [
+        { label: "1年目から大きな裁量がある会社",       value: "speed" },
+        { label: "深い専門スキルが身につく会社",         value: "skill" },
+        { label: "転職市場価値が高い会社",               value: "career" },
+        { label: "充実した研修・育成がある会社",         value: "learning" }
+      ]
+    }
+  ],
+  how: [
+    { prompt: "職場で一番大事なのは？", note: "最も重要な質問",
+      options: [
+        { label: "組織全体の空気感・文化",       value: "culture" },
+        { label: "一緒に働く具体的な人たち",     value: "people" },
+        { label: "自分のペースで働けること",     value: "freedom" },
+        { label: "働く場所・拠点",               value: "place" }
+      ]
+    },
+    { prompt: "「合わない」と感じるのは？",
+      options: [
+        { label: "会社全体の価値観がズレている",   value: "culture" },
+        { label: "同僚や上司と相性が悪い",         value: "people" },
+        { label: "働き方が硬直的で息苦しい",       value: "freedom" },
+        { label: "通勤や転勤の負担が大きい",       value: "place" }
+      ]
+    },
+    { prompt: "入社前に確認したいのは？",
+      options: [
+        { label: "評価制度・組織風土",             value: "culture" },
+        { label: "配属先の人・チーム構成",         value: "people" },
+        { label: "リモート・フレックスの実態",     value: "freedom" },
+        { label: "勤務地・転勤頻度",               value: "place" }
+      ]
+    },
+    { prompt: "続けられない職場とは？",
+      options: [
+        { label: "自分の価値観と社風が合わない",       value: "culture" },
+        { label: "信頼できる人がいない",               value: "people" },
+        { label: "自分の生活リズムを崩される",         value: "freedom" },
+        { label: "望まない場所での勤務を強いられる",   value: "place" }
+      ]
+    },
+    { prompt: "同じ給料なら、どれを選ぶ？",
+      options: [
+        { label: "自分の価値観と合う社風の会社",     value: "culture" },
+        { label: "尊敬できる人がいる会社",           value: "people" },
+        { label: "自由な働き方ができる会社",         value: "freedom" },
+        { label: "理想の勤務地・拠点で働ける会社",   value: "place" }
+      ]
+    }
+  ],
+  get: [
+    { prompt: "「対価」として一番欲しいのは？", note: "最も重要な質問",
+      options: [
+        { label: "直接的な金銭",               value: "money" },
+        { label: "長く続けられる安心感",       value: "stable" },
+        { label: "社会的な評価・ステータス",   value: "brand" },
+        { label: "仕事に意味を感じられること", value: "mission" }
+      ]
+    },
+    { prompt: "親や友人に話したいのは？",
+      options: [
+        { label: "「給料いいよ」",                       value: "money" },
+        { label: "「安定してるよ」",                     value: "stable" },
+        { label: "「あの有名企業に入った」",             value: "brand" },
+        { label: "「社会の役に立つ仕事してる」",         value: "mission" }
+      ]
+    },
+    { prompt: "仕事の「価値」とは？",
+      options: [
+        { label: "それで得られる金額",       value: "money" },
+        { label: "将来にわたる安心",         value: "stable" },
+        { label: "周囲からの認められ方",     value: "brand" },
+        { label: "世の中に与える影響",       value: "mission" }
+      ]
+    },
+    { prompt: "嫌なのは？",
+      options: [
+        { label: "労力に見合わない低賃金",       value: "money" },
+        { label: "不安定で先が見えない",         value: "stable" },
+        { label: "誰にも知られない地味な会社",   value: "brand" },
+        { label: "意味を感じられない仕事",       value: "mission" }
+      ]
+    },
+    { prompt: "同じ給料なら、どれを選ぶ？",
+      options: [
+        { label: "賞与・昇給が青天井の会社",     value: "money" },
+        { label: "一生安泰の会社",               value: "stable" },
+        { label: "誰もが知る一流企業",           value: "brand" },
+        { label: "心から意義を感じる会社",       value: "mission" }
+      ]
+    }
+  ]
+};
+
+function calcPhase1(answers) {
+  const s = { what: 0, become: 0, how: 0, get: 0 };
+  answers.forEach((v, i) => { s[v] += W[i]; });
+  let best = null, bestS = -1;
+  Object.keys(s).forEach(k => { if (s[k] > bestS) { bestS = s[k]; best = k; } });
+  return best;
+}
+
+function calcPhase2(answers, p1) {
+  const subKeys = {
+    what:   ["industry", "role", "customer", "style"],
+    become: ["speed", "skill", "career", "learning"],
+    how:    ["culture", "people", "freedom", "place"],
+    get:    ["money", "stable", "brand", "mission"]
+  }[p1];
+  const s = {};
+  subKeys.forEach(k => { s[k] = 0; });
+  answers.forEach((v, i) => { s[v] += W[i]; });
+  let best = null, bestS = -1;
+  Object.keys(s).forEach(k => { if (s[k] > bestS) { bestS = s[k]; best = k; } });
+  return best;
+}
+
+function AnimalCard({ type, size }) {
+  const [imgError, setImgError] = useState(false);
+  return (
+    <div className="cc-animal-card" style={{ width: size, height: size }}>
+      {!imgError ? (
+        <img
+          src={"./images/shukatsu_diagnosis/" + type.file + ".png"}
+          alt={type.name}
+          style={{ width: "82%", height: "82%", objectFit: "contain" }}
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <span style={{ fontSize: size * 0.5, lineHeight: 1 }}>{type.emoji}</span>
+      )}
+    </div>
+  );
+}
+
+function AnimalThumb({ type, size, active }) {
+  const [imgError, setImgError] = useState(false);
+  const bg = active ? "#8B2E2A" : "#FBF8F1";
+  const border = active ? "#8B2E2A" : "rgba(42, 36, 33, 0.18)";
+  return (
+    <div
+      className="cc-animal-thumb"
+      style={{ width: size, height: size, background: bg, border: "1px solid " + border }}
+    >
+      {!imgError ? (
+        <img
+          src={"./images/shukatsu_diagnosis/" + type.file + ".png"}
+          alt={type.name}
+          style={{
+            width: "80%", height: "80%", objectFit: "contain",
+            filter: active ? "brightness(0) invert(1)" : "none"
+          }}
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <span style={{
+          fontSize: size * 0.55, lineHeight: 1,
+          filter: active ? "grayscale(1) brightness(2)" : "none"
+        }}>{type.emoji}</span>
+      )}
+    </div>
+  );
+}
+
+function Diagnosis() {
+  const [stage, setStage] = useState("start");
+  const [p1Answers, setP1Answers] = useState([]);
+  const [p2Answers, setP2Answers] = useState([]);
+  const [p1Winner, setP1Winner] = useState(null);
+
+  function start() {
+    setStage("phase1"); setP1Answers([]); setP2Answers([]); setP1Winner(null);
+  }
+  function pick(value) {
+    if (stage === "phase1") {
+      const next = p1Answers.concat([value]);
+      setP1Answers(next);
+      if (next.length >= 5) {
+        const w = calcPhase1(next);
+        setP1Winner(w);
+        setTimeout(() => setStage("phase2"), 220);
+      }
+    } else if (stage === "phase2") {
+      const next = p2Answers.concat([value]);
+      setP2Answers(next);
+      if (next.length >= 5) {
+        setTimeout(() => setStage("result"), 220);
+      }
+    }
+  }
+  function back() {
+    if (stage === "phase1") {
+      if (p1Answers.length === 0) return;
+      setP1Answers(p1Answers.slice(0, -1));
+    } else if (stage === "phase2") {
+      if (p2Answers.length === 0) {
+        setStage("phase1"); setP1Winner(null);
+        setP1Answers(p1Answers.slice(0, -1));
+      } else {
+        setP2Answers(p2Answers.slice(0, -1));
+      }
+    }
+  }
+  function restart() {
+    setStage("start"); setP1Answers([]); setP2Answers([]); setP1Winner(null);
+  }
+
+  let currentQ = null;
+  if (stage === "phase1") currentQ = PHASE1_QUESTIONS[p1Answers.length];
+  if (stage === "phase2" && p1Winner) currentQ = PHASE2_QUESTIONS[p1Winner][p2Answers.length];
+
+  const totalAnswered = p1Answers.length + p2Answers.length;
+  const totalQuestions = 10;
+
+  let finalType = null;
+  if (stage === "result" && p1Winner) {
+    const p2Winner = calcPhase2(p2Answers, p1Winner);
+    finalType = TYPES[p1Winner + "-" + p2Winner];
+  }
+
+  const animKey = stage + "-" + (stage === "phase1" ? p1Answers.length : stage === "phase2" ? p2Answers.length : "x");
+
+  return (
+    <div className="cc-app">
+      <div className="cc-container">
+
+        <header className="cc-masthead">
+          <div>
+            <div className="cc-mast-eyebrow">Career Compass / 28卒 Edition</div>
+            <div className="cc-mast-title serif-jp">就活の軸、診断</div>
+          </div>
+          <div>
+            <div className="cc-mast-meta num">Vol.02</div>
+            <div className="cc-mast-meta-sub num">10 questions · 16 types</div>
+          </div>
+        </header>
+
+        <div className="cc-rule cc-mb-10" />
+
+        {stage === "start" && (
+          <section key="start" className="anim-fade-up">
+            <div className="cc-intro-tag num">— INTRODUCTION</div>
+            <h1 className="cc-intro-h1 serif-jp">
+              あなたの就活の軸を、<br />
+              <span className="accent">16匹</span>の動物にたとえると。
+            </h1>
+            <p className="cc-intro-p">
+              就活の軸は、一つに決めるものではありません。複数の価値観の「優先順位」を見極めることで、あなたが本当に大事にしているものが見えてきます。<br />
+              この10問は、まず<span className="serif-jp ink">4つの大カテゴリ</span>であなたの傾向を見極め、その中の<span className="serif-jp ink">16タイプ</span>のどこに位置するかを明らかにします。
+            </p>
+
+            <div className="cc-hair cc-mb-10" />
+
+            <div className="cc-cat-grid">
+              {Object.keys(PHASE1_CATS).map((k, i) => (
+                <div key={k} className="cc-cat-item">
+                  <div className="cc-cat-no num">{String(i + 1).padStart(2, "0")}</div>
+                  <div className="cc-cat-jp serif-jp">{PHASE1_CATS[k].label}</div>
+                  <div className="cc-cat-en serif-en">{PHASE1_CATS[k].en}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="cc-hair cc-mb-10" />
+
+            <div className="cc-mb-10">
+              <div className="cc-peek-label">16 Animals · ひとつだけ、あなたの動物</div>
+              <div className="cc-peek-grid">
+                {Object.keys(TYPES).map(k => (
+                  <AnimalThumb key={k} type={TYPES[k]} size={38} active={false} />
+                ))}
+              </div>
+            </div>
+
+            <div className="cc-final-note-row">
+              <div className="cc-begin-note">所要時間：約 3 分</div>
+              <button className="cc-btn-primary" onClick={start}>Begin →</button>
+            </div>
+          </section>
+        )}
+
+        {(stage === "phase1" || stage === "phase2") && currentQ && (
+          <section key={animKey} className="anim-fade-up-q">
+            <div className="cc-q-progress-row">
+              <div className="cc-q-counter num">
+                Q. {String(totalAnswered + 1).padStart(2, "0")} / {totalQuestions}
+              </div>
+              <div className="cc-progress-dots">
+                {Array.from({ length: totalQuestions }).map((_, i) => (
+                  <div key={i} className="cc-progress-dot" style={{
+                    background: i < totalAnswered ? "#8B2E2A" : i === totalAnswered ? "#2A2421" : "rgba(42, 36, 33, 0.12)"
+                  }} />
+                ))}
+              </div>
+            </div>
+
+            <div className="cc-q-phase num">
+              {stage === "phase1"
+                ? "PHASE 1 / 大カテゴリ"
+                : "PHASE 2 / " + PHASE1_CATS[p1Winner].label + "の中で"}
+            </div>
+
+            <h2 className="cc-q-prompt serif-jp">{currentQ.prompt}</h2>
+            {currentQ.note ? (
+              <div className="cc-q-note">★ {currentQ.note}</div>
+            ) : (
+              <div className="cc-q-spacer" />
+            )}
+
+            <div className="cc-options">
+              {currentQ.options.map((opt, i) => (
+                <button key={i} onClick={() => pick(opt.value)} className="cc-option">
+                  <span className="cc-option-letter num">{String.fromCharCode(65 + i)}.</span>
+                  <span className="cc-option-label">{opt.label}</span>
+                  <span className="cc-option-arrow">→</span>
+                </button>
+              ))}
+            </div>
+
+            {totalAnswered > 0 && (
+              <button onClick={back} className="cc-back">← Back</button>
+            )}
+          </section>
+        )}
+
+        {stage === "result" && finalType && (
+          <section key="result" className="anim-fade-up">
+            <div className="cc-result-top anim-fade-in d-1">
+              <div className="cc-result-tag num">— RESULT</div>
+              <div className="cc-result-type-no num">
+                TYPE {String(finalType.no).padStart(2, "0")} / 16
+              </div>
+            </div>
+
+            <div className="cc-hero anim-scale-in d-2">
+              <AnimalCard type={finalType} size={200} />
+              <div className="cc-hero-en serif-en">{finalType.en}</div>
+              <h1 className="cc-hero-name serif-jp">{finalType.name}</h1>
+              <div className="cc-hero-catch serif-jp">―― {finalType.catch} ――</div>
+            </div>
+
+            <div className="cc-hair cc-mb-8" />
+
+            <div className="cc-breadcrumb anim-fade-in d-4">
+              <div className="cc-breadcrumb-item">
+                <div className="cc-breadcrumb-label num">BIG CATEGORY</div>
+                <div className="cc-breadcrumb-jp serif-jp" style={{ color: "#8B2E2A" }}>
+                  {PHASE1_CATS[p1Winner].label}
+                </div>
+                <div className="cc-breadcrumb-en serif-en">{PHASE1_CATS[p1Winner].en}</div>
+              </div>
+              <div className="cc-breadcrumb-sep">›</div>
+              <div className="cc-breadcrumb-item">
+                <div className="cc-breadcrumb-label num">YOUR ANIMAL</div>
+                <div className="cc-breadcrumb-jp serif-jp">{finalType.name}</div>
+                <div className="cc-breadcrumb-en serif-en">{finalType.en}</div>
+              </div>
+            </div>
+
+            <div className="cc-hair cc-mb-10" />
+
+            <div className="cc-detail-grid anim-fade-up-sm d-5">
+              <div className="cc-detail-label">Who you are</div>
+              <div className="cc-detail-body">{finalType.detail}</div>
+            </div>
+
+            <div className="cc-hair cc-mb-10" />
+
+            <div className="cc-detail-grid anim-fade-up-sm d-6">
+              <div className="cc-detail-label">Good Fit · Industry</div>
+              <div className="cc-detail-body-jp serif-jp">{finalType.fitIndustry}</div>
+            </div>
+
+            <div className="cc-hair cc-mb-10" />
+
+            <div className="cc-detail-grid anim-fade-up-sm d-7">
+              <div className="cc-detail-label">Good Fit · Role</div>
+              <div className="cc-detail-body-jp serif-jp">{finalType.fitRole}</div>
+            </div>
+
+            <div className="cc-rule cc-mb-10" />
+
+            <div className="anim-fade-in d-8">
+              <div className="cc-map-label">16 Animals Map</div>
+              <p className="cc-map-desc">
+                4つの大カテゴリ × 各4タイプ = 計16タイプ。あなたの位置にハイライトがついています。
+              </p>
+
+              {Object.keys(PHASE1_CATS).map((catKey, catIdx) => {
+                const types = Object.keys(TYPES)
+                  .filter(k => k.indexOf(catKey + "-") === 0)
+                  .map(k => TYPES[k]);
+                return (
+                  <div key={catKey} className="cc-map-group">
+                    <div className="cc-map-group-head">
+                      <div className="cc-map-group-no num">{String(catIdx + 1).padStart(2, "0")}</div>
+                      <div className="cc-map-group-jp serif-jp">{PHASE1_CATS[catKey].label}</div>
+                      <div className="cc-map-group-en serif-en">{PHASE1_CATS[catKey].en}</div>
+                    </div>
+                    <div className="cc-type-grid">
+                      {types.map(t => {
+                        const isActive = t.no === finalType.no;
+                        return (
+                          <div key={t.no} className={"cc-type-card" + (isActive ? " active" : "")}>
+                            <AnimalThumb type={t} size={36} active={isActive} />
+                            <div className="cc-type-card-body">
+                              <div className="cc-type-card-no num">{String(t.no).padStart(2, "0")}</div>
+                              <div className="cc-type-card-name serif-jp">{t.name}</div>
+                              <div className="cc-type-card-catch">{t.catch}</div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="cc-rule cc-mb-10" />
+
+            <div className="cc-final-note-row anim-fade-in d-9">
+              <div className="cc-final-note">
+                ※ 診断結果は、あなたの軸を言語化する入り口です。<br />
+                業界・職種はあくまで例として参考に。
+              </div>
+              <button className="cc-btn-primary" onClick={restart}>Retake ↺</button>
+            </div>
+          </section>
+        )}
+
+        <footer className="cc-footer">
+          <div className="cc-hair" style={{ marginBottom: 16 }} />
+          <div className="cc-footer-row">
+            <div className="cc-footer-left">— Career Compass / 早稲田総合研究会</div>
+            <div className="cc-footer-right num">002 / ANIMALS</div>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Diagnosis />);
+</script>
+</body>
+</html>
