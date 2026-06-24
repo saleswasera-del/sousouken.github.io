@@ -7,9 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho+B1:wght@400;500;600;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -245,8 +242,7 @@
 <body>
 <div id="root"></div>
 
-<script type="text/babel">
-const { useState } = React;
+<script>
 
 const PHASE1_CATS = {
   what:   { label: "仕事の中身", en: "What you do" },
@@ -619,335 +615,302 @@ function calcPhase2(answers, p1) {
   return best;
 }
 
-function AnimalCard({ type, size }) {
-  const [imgError, setImgError] = useState(false);
-  return (
-    <div className="cc-animal-card" style={{ width: size, height: size }}>
-      {!imgError ? (
-        <img
-          src={"./images/shukatsu_diagnosis/" + type.file + ".png"}
-          alt={type.name}
-          style={{ width: "82%", height: "82%", objectFit: "contain" }}
-          onError={() => setImgError(true)}
-        />
-      ) : (
-        <span style={{ fontSize: size * 0.5, lineHeight: 1 }}>{type.emoji}</span>
-      )}
-    </div>
+/* ============================================================
+   描画レイヤー（React/JSXを使わないバニラJS版）
+   - 状態が変わるたび render() で #root を組み直すだけのシンプル構成
+   - 外部ライブラリ・ビルド工程・CDN一切なしで単一HTMLとして完結
+   ============================================================ */
+
+/* 軽量DOMヘルパー: el(タグ, 属性, ...子) で要素を作る */
+function el(tag, props) {
+  var e = document.createElement(tag);
+  if (props) {
+    for (var k in props) {
+      var v = props[k];
+      if (v == null) continue;
+      if (k === "class") e.className = v;
+      else if (k === "html") e.innerHTML = v;
+      else if (k === "style" && typeof v === "object") { for (var s in v) e.style[s] = v[s]; }
+      else if (k.slice(0, 2) === "on" && typeof v === "function") e.addEventListener(k.slice(2).toLowerCase(), v);
+      else e.setAttribute(k, v);
+    }
+  }
+  for (var i = 2; i < arguments.length; i++) addChild(e, arguments[i]);
+  return e;
+}
+function addChild(parent, c) {
+  if (c == null || c === false) return;
+  if (Array.isArray(c)) { c.forEach(function (x) { addChild(parent, x); }); return; }
+  parent.appendChild(c.nodeType ? c : document.createTextNode(String(c)));
+}
+function pad2(n) { return String(n).padStart(2, "0"); }
+
+/* 動物画像（大）: 画像が無ければ絵文字にフォールバック */
+function AnimalCard(type, size) {
+  var card = el("div", { class: "cc-animal-card", style: { width: size + "px", height: size + "px" } });
+  var img = el("img", {
+    src: "./images/shukatsu_diagnosis/" + type.file + ".png",
+    alt: type.name,
+    style: { width: "82%", height: "82%", objectFit: "contain" }
+  });
+  img.onerror = function () {
+    img.replaceWith(el("span", { style: { fontSize: (size * 0.5) + "px", lineHeight: 1 } }, type.emoji));
+  };
+  card.appendChild(img);
+  return card;
+}
+
+/* 動物画像（サムネ）: activeで反転表示 */
+function AnimalThumb(type, size, active) {
+  var bg = active ? "#8B2E2A" : "#FBF8F1";
+  var border = active ? "#8B2E2A" : "rgba(42, 36, 33, 0.18)";
+  var wrap = el("div", { class: "cc-animal-thumb", style: { width: size + "px", height: size + "px", background: bg, border: "1px solid " + border } });
+  var img = el("img", {
+    src: "./images/shukatsu_diagnosis/" + type.file + ".png",
+    alt: type.name,
+    style: { width: "80%", height: "80%", objectFit: "contain", filter: active ? "brightness(0) invert(1)" : "none" }
+  });
+  img.onerror = function () {
+    img.replaceWith(el("span", { style: { fontSize: (size * 0.55) + "px", lineHeight: 1, filter: active ? "grayscale(1) brightness(2)" : "none" } }, type.emoji));
+  };
+  wrap.appendChild(img);
+  return wrap;
+}
+
+/* ---- 状態 ---- */
+var stage = "start", p1Answers = [], p2Answers = [], p1Winner = null;
+
+function start() { stage = "phase1"; p1Answers = []; p2Answers = []; p1Winner = null; render(); }
+function restart() { stage = "start"; p1Answers = []; p2Answers = []; p1Winner = null; render(); }
+function pick(value) {
+  if (stage === "phase1") {
+    p1Answers = p1Answers.concat([value]);
+    if (p1Answers.length >= 5) { p1Winner = calcPhase1(p1Answers); render(); setTimeout(function () { stage = "phase2"; render(); }, 220); }
+    else render();
+  } else if (stage === "phase2") {
+    p2Answers = p2Answers.concat([value]);
+    if (p2Answers.length >= 5) { render(); setTimeout(function () { stage = "result"; render(); }, 220); }
+    else render();
+  }
+}
+function back() {
+  if (stage === "phase1") {
+    if (p1Answers.length === 0) return;
+    p1Answers = p1Answers.slice(0, -1); render();
+  } else if (stage === "phase2") {
+    if (p2Answers.length === 0) { stage = "phase1"; p1Winner = null; p1Answers = p1Answers.slice(0, -1); render(); }
+    else { p2Answers = p2Answers.slice(0, -1); render(); }
+  }
+}
+
+/* ---- 各セクション ---- */
+function buildHeader() {
+  return el("header", { class: "cc-masthead" },
+    el("div", null,
+      el("div", { class: "cc-mast-eyebrow" }, "Career Compass / 28卒 Edition"),
+      el("div", { class: "cc-mast-title serif-jp" }, "就活の軸、診断")
+    ),
+    el("div", null,
+      el("div", { class: "cc-mast-meta num" }, "Vol.02"),
+      el("div", { class: "cc-mast-meta-sub num" }, "10 questions · 16 types")
+    )
   );
 }
 
-function AnimalThumb({ type, size, active }) {
-  const [imgError, setImgError] = useState(false);
-  const bg = active ? "#8B2E2A" : "#FBF8F1";
-  const border = active ? "#8B2E2A" : "rgba(42, 36, 33, 0.18)";
-  return (
-    <div
-      className="cc-animal-thumb"
-      style={{ width: size, height: size, background: bg, border: "1px solid " + border }}
-    >
-      {!imgError ? (
-        <img
-          src={"./images/shukatsu_diagnosis/" + type.file + ".png"}
-          alt={type.name}
-          style={{
-            width: "80%", height: "80%", objectFit: "contain",
-            filter: active ? "brightness(0) invert(1)" : "none"
-          }}
-          onError={() => setImgError(true)}
-        />
-      ) : (
-        <span style={{
-          fontSize: size * 0.55, lineHeight: 1,
-          filter: active ? "grayscale(1) brightness(2)" : "none"
-        }}>{type.emoji}</span>
-      )}
-    </div>
+function buildFooter() {
+  return el("footer", { class: "cc-footer" },
+    el("div", { class: "cc-hair", style: { marginBottom: "16px" } }),
+    el("div", { class: "cc-footer-row" },
+      el("div", { class: "cc-footer-left" }, "— Career Compass / 早稲田総合研究会"),
+      el("div", { class: "cc-footer-right num" }, "002 / ANIMALS")
+    )
   );
 }
 
-function Diagnosis() {
-  const [stage, setStage] = useState("start");
-  const [p1Answers, setP1Answers] = useState([]);
-  const [p2Answers, setP2Answers] = useState([]);
-  const [p1Winner, setP1Winner] = useState(null);
+function buildStart() {
+  var sec = el("section", { class: "anim-fade-up" });
+  sec.appendChild(el("div", { class: "cc-intro-tag num" }, "— INTRODUCTION"));
+  sec.appendChild(el("h1", { class: "cc-intro-h1 serif-jp", html: 'あなたの就活の軸を、<br /><span class="accent">16匹</span>の動物にたとえると。' }));
+  sec.appendChild(el("p", { class: "cc-intro-p", html: '就活の軸は、一つに決めるものではありません。複数の価値観の「優先順位」を見極めることで、あなたが本当に大事にしているものが見えてきます。<br />この10問は、まず<span class="serif-jp ink">4つの大カテゴリ</span>であなたの傾向を見極め、その中の<span class="serif-jp ink">16タイプ</span>のどこに位置するかを明らかにします。' }));
+  sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
 
-  function start() {
-    setStage("phase1"); setP1Answers([]); setP2Answers([]); setP1Winner(null);
-  }
-  function pick(value) {
-    if (stage === "phase1") {
-      const next = p1Answers.concat([value]);
-      setP1Answers(next);
-      if (next.length >= 5) {
-        const w = calcPhase1(next);
-        setP1Winner(w);
-        setTimeout(() => setStage("phase2"), 220);
-      }
-    } else if (stage === "phase2") {
-      const next = p2Answers.concat([value]);
-      setP2Answers(next);
-      if (next.length >= 5) {
-        setTimeout(() => setStage("result"), 220);
-      }
-    }
-  }
-  function back() {
-    if (stage === "phase1") {
-      if (p1Answers.length === 0) return;
-      setP1Answers(p1Answers.slice(0, -1));
-    } else if (stage === "phase2") {
-      if (p2Answers.length === 0) {
-        setStage("phase1"); setP1Winner(null);
-        setP1Answers(p1Answers.slice(0, -1));
-      } else {
-        setP2Answers(p2Answers.slice(0, -1));
-      }
-    }
-  }
-  function restart() {
-    setStage("start"); setP1Answers([]); setP2Answers([]); setP1Winner(null);
-  }
+  var catGrid = el("div", { class: "cc-cat-grid" });
+  Object.keys(PHASE1_CATS).forEach(function (k, i) {
+    catGrid.appendChild(el("div", { class: "cc-cat-item" },
+      el("div", { class: "cc-cat-no num" }, pad2(i + 1)),
+      el("div", { class: "cc-cat-jp serif-jp" }, PHASE1_CATS[k].label),
+      el("div", { class: "cc-cat-en serif-en" }, PHASE1_CATS[k].en)
+    ));
+  });
+  sec.appendChild(catGrid);
+  sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
 
-  let currentQ = null;
+  var peek = el("div", { class: "cc-mb-10" }, el("div", { class: "cc-peek-label" }, "16 Animals · ひとつだけ、あなたの動物"));
+  var peekGrid = el("div", { class: "cc-peek-grid" });
+  Object.keys(TYPES).forEach(function (k) { peekGrid.appendChild(AnimalThumb(TYPES[k], 38, false)); });
+  peek.appendChild(peekGrid);
+  sec.appendChild(peek);
+
+  sec.appendChild(el("div", { class: "cc-final-note-row" },
+    el("div", { class: "cc-begin-note" }, "所要時間：約 3 分"),
+    el("button", { class: "cc-btn-primary", onClick: start }, "Begin →")
+  ));
+  return sec;
+}
+
+function buildQuiz() {
+  var currentQ = null;
   if (stage === "phase1") currentQ = PHASE1_QUESTIONS[p1Answers.length];
   if (stage === "phase2" && p1Winner) currentQ = PHASE2_QUESTIONS[p1Winner][p2Answers.length];
+  if (!currentQ) return null;
 
-  const totalAnswered = p1Answers.length + p2Answers.length;
-  const totalQuestions = 10;
+  var totalAnswered = p1Answers.length + p2Answers.length;
+  var totalQuestions = 10;
+  var sec = el("section", { class: "anim-fade-up-q" });
 
-  let finalType = null;
-  if (stage === "result" && p1Winner) {
-    const p2Winner = calcPhase2(p2Answers, p1Winner);
-    finalType = TYPES[p1Winner + "-" + p2Winner];
+  var dots = el("div", { class: "cc-progress-dots" });
+  for (var i = 0; i < totalQuestions; i++) {
+    var bg = i < totalAnswered ? "#8B2E2A" : (i === totalAnswered ? "#2A2421" : "rgba(42, 36, 33, 0.12)");
+    dots.appendChild(el("div", { class: "cc-progress-dot", style: { background: bg } }));
   }
+  sec.appendChild(el("div", { class: "cc-q-progress-row" },
+    el("div", { class: "cc-q-counter num" }, "Q. " + pad2(totalAnswered + 1) + " / " + totalQuestions),
+    dots
+  ));
 
-  const animKey = stage + "-" + (stage === "phase1" ? p1Answers.length : stage === "phase2" ? p2Answers.length : "x");
+  sec.appendChild(el("div", { class: "cc-q-phase num" },
+    stage === "phase1" ? "PHASE 1 / 大カテゴリ" : "PHASE 2 / " + PHASE1_CATS[p1Winner].label + "の中で"));
 
-  return (
-    <div className="cc-app">
-      <div className="cc-container">
+  sec.appendChild(el("h2", { class: "cc-q-prompt serif-jp" }, currentQ.prompt));
+  if (currentQ.note) sec.appendChild(el("div", { class: "cc-q-note" }, "★ " + currentQ.note));
+  else sec.appendChild(el("div", { class: "cc-q-spacer" }));
 
-        <header className="cc-masthead">
-          <div>
-            <div className="cc-mast-eyebrow">Career Compass / 28卒 Edition</div>
-            <div className="cc-mast-title serif-jp">就活の軸、診断</div>
-          </div>
-          <div>
-            <div className="cc-mast-meta num">Vol.02</div>
-            <div className="cc-mast-meta-sub num">10 questions · 16 types</div>
-          </div>
-        </header>
+  var opts = el("div", { class: "cc-options" });
+  currentQ.options.forEach(function (opt, i) {
+    opts.appendChild(el("button", { class: "cc-option", onClick: function () { pick(opt.value); } },
+      el("span", { class: "cc-option-letter num" }, String.fromCharCode(65 + i) + "."),
+      el("span", { class: "cc-option-label" }, opt.label),
+      el("span", { class: "cc-option-arrow" }, "→")
+    ));
+  });
+  sec.appendChild(opts);
 
-        <div className="cc-rule cc-mb-10" />
-
-        {stage === "start" && (
-          <section key="start" className="anim-fade-up">
-            <div className="cc-intro-tag num">— INTRODUCTION</div>
-            <h1 className="cc-intro-h1 serif-jp">
-              あなたの就活の軸を、<br />
-              <span className="accent">16匹</span>の動物にたとえると。
-            </h1>
-            <p className="cc-intro-p">
-              就活の軸は、一つに決めるものではありません。複数の価値観の「優先順位」を見極めることで、あなたが本当に大事にしているものが見えてきます。<br />
-              この10問は、まず<span className="serif-jp ink">4つの大カテゴリ</span>であなたの傾向を見極め、その中の<span className="serif-jp ink">16タイプ</span>のどこに位置するかを明らかにします。
-            </p>
-
-            <div className="cc-hair cc-mb-10" />
-
-            <div className="cc-cat-grid">
-              {Object.keys(PHASE1_CATS).map((k, i) => (
-                <div key={k} className="cc-cat-item">
-                  <div className="cc-cat-no num">{String(i + 1).padStart(2, "0")}</div>
-                  <div className="cc-cat-jp serif-jp">{PHASE1_CATS[k].label}</div>
-                  <div className="cc-cat-en serif-en">{PHASE1_CATS[k].en}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="cc-hair cc-mb-10" />
-
-            <div className="cc-mb-10">
-              <div className="cc-peek-label">16 Animals · ひとつだけ、あなたの動物</div>
-              <div className="cc-peek-grid">
-                {Object.keys(TYPES).map(k => (
-                  <AnimalThumb key={k} type={TYPES[k]} size={38} active={false} />
-                ))}
-              </div>
-            </div>
-
-            <div className="cc-final-note-row">
-              <div className="cc-begin-note">所要時間：約 3 分</div>
-              <button className="cc-btn-primary" onClick={start}>Begin →</button>
-            </div>
-          </section>
-        )}
-
-        {(stage === "phase1" || stage === "phase2") && currentQ && (
-          <section key={animKey} className="anim-fade-up-q">
-            <div className="cc-q-progress-row">
-              <div className="cc-q-counter num">
-                Q. {String(totalAnswered + 1).padStart(2, "0")} / {totalQuestions}
-              </div>
-              <div className="cc-progress-dots">
-                {Array.from({ length: totalQuestions }).map((_, i) => (
-                  <div key={i} className="cc-progress-dot" style={{
-                    background: i < totalAnswered ? "#8B2E2A" : i === totalAnswered ? "#2A2421" : "rgba(42, 36, 33, 0.12)"
-                  }} />
-                ))}
-              </div>
-            </div>
-
-            <div className="cc-q-phase num">
-              {stage === "phase1"
-                ? "PHASE 1 / 大カテゴリ"
-                : "PHASE 2 / " + PHASE1_CATS[p1Winner].label + "の中で"}
-            </div>
-
-            <h2 className="cc-q-prompt serif-jp">{currentQ.prompt}</h2>
-            {currentQ.note ? (
-              <div className="cc-q-note">★ {currentQ.note}</div>
-            ) : (
-              <div className="cc-q-spacer" />
-            )}
-
-            <div className="cc-options">
-              {currentQ.options.map((opt, i) => (
-                <button key={i} onClick={() => pick(opt.value)} className="cc-option">
-                  <span className="cc-option-letter num">{String.fromCharCode(65 + i)}.</span>
-                  <span className="cc-option-label">{opt.label}</span>
-                  <span className="cc-option-arrow">→</span>
-                </button>
-              ))}
-            </div>
-
-            {totalAnswered > 0 && (
-              <button onClick={back} className="cc-back">← Back</button>
-            )}
-          </section>
-        )}
-
-        {stage === "result" && finalType && (
-          <section key="result" className="anim-fade-up">
-            <div className="cc-result-top anim-fade-in d-1">
-              <div className="cc-result-tag num">— RESULT</div>
-              <div className="cc-result-type-no num">
-                TYPE {String(finalType.no).padStart(2, "0")} / 16
-              </div>
-            </div>
-
-            <div className="cc-hero anim-scale-in d-2">
-              <AnimalCard type={finalType} size={200} />
-              <div className="cc-hero-en serif-en">{finalType.en}</div>
-              <h1 className="cc-hero-name serif-jp">{finalType.name}</h1>
-              <div className="cc-hero-catch serif-jp">―― {finalType.catch} ――</div>
-            </div>
-
-            <div className="cc-hair cc-mb-8" />
-
-            <div className="cc-breadcrumb anim-fade-in d-4">
-              <div className="cc-breadcrumb-item">
-                <div className="cc-breadcrumb-label num">BIG CATEGORY</div>
-                <div className="cc-breadcrumb-jp serif-jp" style={{ color: "#8B2E2A" }}>
-                  {PHASE1_CATS[p1Winner].label}
-                </div>
-                <div className="cc-breadcrumb-en serif-en">{PHASE1_CATS[p1Winner].en}</div>
-              </div>
-              <div className="cc-breadcrumb-sep">›</div>
-              <div className="cc-breadcrumb-item">
-                <div className="cc-breadcrumb-label num">YOUR ANIMAL</div>
-                <div className="cc-breadcrumb-jp serif-jp">{finalType.name}</div>
-                <div className="cc-breadcrumb-en serif-en">{finalType.en}</div>
-              </div>
-            </div>
-
-            <div className="cc-hair cc-mb-10" />
-
-            <div className="cc-detail-grid anim-fade-up-sm d-5">
-              <div className="cc-detail-label">Who you are</div>
-              <div className="cc-detail-body">{finalType.detail}</div>
-            </div>
-
-            <div className="cc-hair cc-mb-10" />
-
-            <div className="cc-detail-grid anim-fade-up-sm d-6">
-              <div className="cc-detail-label">Good Fit · Industry</div>
-              <div className="cc-detail-body-jp serif-jp">{finalType.fitIndustry}</div>
-            </div>
-
-            <div className="cc-hair cc-mb-10" />
-
-            <div className="cc-detail-grid anim-fade-up-sm d-7">
-              <div className="cc-detail-label">Good Fit · Role</div>
-              <div className="cc-detail-body-jp serif-jp">{finalType.fitRole}</div>
-            </div>
-
-            <div className="cc-rule cc-mb-10" />
-
-            <div className="anim-fade-in d-8">
-              <div className="cc-map-label">16 Animals Map</div>
-              <p className="cc-map-desc">
-                4つの大カテゴリ × 各4タイプ = 計16タイプ。あなたの位置にハイライトがついています。
-              </p>
-
-              {Object.keys(PHASE1_CATS).map((catKey, catIdx) => {
-                const types = Object.keys(TYPES)
-                  .filter(k => k.indexOf(catKey + "-") === 0)
-                  .map(k => TYPES[k]);
-                return (
-                  <div key={catKey} className="cc-map-group">
-                    <div className="cc-map-group-head">
-                      <div className="cc-map-group-no num">{String(catIdx + 1).padStart(2, "0")}</div>
-                      <div className="cc-map-group-jp serif-jp">{PHASE1_CATS[catKey].label}</div>
-                      <div className="cc-map-group-en serif-en">{PHASE1_CATS[catKey].en}</div>
-                    </div>
-                    <div className="cc-type-grid">
-                      {types.map(t => {
-                        const isActive = t.no === finalType.no;
-                        return (
-                          <div key={t.no} className={"cc-type-card" + (isActive ? " active" : "")}>
-                            <AnimalThumb type={t} size={36} active={isActive} />
-                            <div className="cc-type-card-body">
-                              <div className="cc-type-card-no num">{String(t.no).padStart(2, "0")}</div>
-                              <div className="cc-type-card-name serif-jp">{t.name}</div>
-                              <div className="cc-type-card-catch">{t.catch}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="cc-rule cc-mb-10" />
-
-            <div className="cc-final-note-row anim-fade-in d-9">
-              <div className="cc-final-note">
-                ※ 診断結果は、あなたの軸を言語化する入り口です。<br />
-                業界・職種はあくまで例として参考に。
-              </div>
-              <button className="cc-btn-primary" onClick={restart}>Retake ↺</button>
-            </div>
-          </section>
-        )}
-
-        <footer className="cc-footer">
-          <div className="cc-hair" style={{ marginBottom: 16 }} />
-          <div className="cc-footer-row">
-            <div className="cc-footer-left">— Career Compass / 早稲田総合研究会</div>
-            <div className="cc-footer-right num">002 / ANIMALS</div>
-          </div>
-        </footer>
-
-      </div>
-    </div>
-  );
+  if (totalAnswered > 0) sec.appendChild(el("button", { class: "cc-back", onClick: back }, "← Back"));
+  return sec;
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Diagnosis />);
+function buildResult() {
+  var p2Winner = calcPhase2(p2Answers, p1Winner);
+  var finalType = TYPES[p1Winner + "-" + p2Winner];
+  if (!finalType) return null;
+  var sec = el("section", { class: "anim-fade-up" });
+
+  sec.appendChild(el("div", { class: "cc-result-top anim-fade-in d-1" },
+    el("div", { class: "cc-result-tag num" }, "— RESULT"),
+    el("div", { class: "cc-result-type-no num" }, "TYPE " + pad2(finalType.no) + " / 16")
+  ));
+
+  sec.appendChild(el("div", { class: "cc-hero anim-scale-in d-2" },
+    AnimalCard(finalType, 200),
+    el("div", { class: "cc-hero-en serif-en" }, finalType.en),
+    el("h1", { class: "cc-hero-name serif-jp" }, finalType.name),
+    el("div", { class: "cc-hero-catch serif-jp" }, "―― " + finalType.catch + " ――")
+  ));
+
+  sec.appendChild(el("div", { class: "cc-hair cc-mb-8" }));
+
+  sec.appendChild(el("div", { class: "cc-breadcrumb anim-fade-in d-4" },
+    el("div", { class: "cc-breadcrumb-item" },
+      el("div", { class: "cc-breadcrumb-label num" }, "BIG CATEGORY"),
+      el("div", { class: "cc-breadcrumb-jp serif-jp", style: { color: "#8B2E2A" } }, PHASE1_CATS[p1Winner].label),
+      el("div", { class: "cc-breadcrumb-en serif-en" }, PHASE1_CATS[p1Winner].en)
+    ),
+    el("div", { class: "cc-breadcrumb-sep" }, "›"),
+    el("div", { class: "cc-breadcrumb-item" },
+      el("div", { class: "cc-breadcrumb-label num" }, "YOUR ANIMAL"),
+      el("div", { class: "cc-breadcrumb-jp serif-jp" }, finalType.name),
+      el("div", { class: "cc-breadcrumb-en serif-en" }, finalType.en)
+    )
+  ));
+
+  sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
+  sec.appendChild(el("div", { class: "cc-detail-grid anim-fade-up-sm d-5" },
+    el("div", { class: "cc-detail-label" }, "Who you are"),
+    el("div", { class: "cc-detail-body" }, finalType.detail)
+  ));
+  sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
+  sec.appendChild(el("div", { class: "cc-detail-grid anim-fade-up-sm d-6" },
+    el("div", { class: "cc-detail-label" }, "Good Fit · Industry"),
+    el("div", { class: "cc-detail-body-jp serif-jp" }, finalType.fitIndustry)
+  ));
+  sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
+  sec.appendChild(el("div", { class: "cc-detail-grid anim-fade-up-sm d-7" },
+    el("div", { class: "cc-detail-label" }, "Good Fit · Role"),
+    el("div", { class: "cc-detail-body-jp serif-jp" }, finalType.fitRole)
+  ));
+
+  sec.appendChild(el("div", { class: "cc-rule cc-mb-10" }));
+
+  var mapWrap = el("div", { class: "anim-fade-in d-8" },
+    el("div", { class: "cc-map-label" }, "16 Animals Map"),
+    el("p", { class: "cc-map-desc" }, "4つの大カテゴリ × 各4タイプ = 計16タイプ。あなたの位置にハイライトがついています。")
+  );
+  Object.keys(PHASE1_CATS).forEach(function (catKey, catIdx) {
+    var types = Object.keys(TYPES).filter(function (k) { return k.indexOf(catKey + "-") === 0; }).map(function (k) { return TYPES[k]; });
+    var group = el("div", { class: "cc-map-group" },
+      el("div", { class: "cc-map-group-head" },
+        el("div", { class: "cc-map-group-no num" }, pad2(catIdx + 1)),
+        el("div", { class: "cc-map-group-jp serif-jp" }, PHASE1_CATS[catKey].label),
+        el("div", { class: "cc-map-group-en serif-en" }, PHASE1_CATS[catKey].en)
+      )
+    );
+    var grid = el("div", { class: "cc-type-grid" });
+    types.forEach(function (t) {
+      var isActive = t.no === finalType.no;
+      grid.appendChild(el("div", { class: "cc-type-card" + (isActive ? " active" : "") },
+        AnimalThumb(t, 36, isActive),
+        el("div", { class: "cc-type-card-body" },
+          el("div", { class: "cc-type-card-no num" }, pad2(t.no)),
+          el("div", { class: "cc-type-card-name serif-jp" }, t.name),
+          el("div", { class: "cc-type-card-catch" }, t.catch)
+        )
+      ));
+    });
+    group.appendChild(grid);
+    mapWrap.appendChild(group);
+  });
+  sec.appendChild(mapWrap);
+
+  sec.appendChild(el("div", { class: "cc-rule cc-mb-10" }));
+
+  sec.appendChild(el("div", { class: "cc-final-note-row anim-fade-in d-9" },
+    el("div", { class: "cc-final-note", html: "※ 診断結果は、あなたの軸を言語化する入り口です。<br />業界・職種はあくまで例として参考に。" }),
+    el("button", { class: "cc-btn-primary", onClick: restart }, "Retake ↺")
+  ));
+  return sec;
+}
+
+/* ---- 描画 ---- */
+function render() {
+  var body = null;
+  if (stage === "start") body = buildStart();
+  else if (stage === "phase1" || stage === "phase2") body = buildQuiz();
+  else if (stage === "result") body = buildResult();
+
+  var container = el("div", { class: "cc-container" },
+    buildHeader(),
+    el("div", { class: "cc-rule cc-mb-10" }),
+    body,
+    buildFooter()
+  );
+  var app = el("div", { class: "cc-app" }, container);
+  var root = document.getElementById("root");
+  root.innerHTML = "";
+  root.appendChild(app);
+}
+
+render();
+
 </script>
 </body>
 </html>
