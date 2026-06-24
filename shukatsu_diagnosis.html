@@ -660,13 +660,16 @@ function AnimalCard(type, size) {
   return card;
 }
 
-/* 動物画像（サムネ）: activeで反転表示 */
-function AnimalThumb(type, size, active) {
+/* 動物画像（サムネ）: activeで反転表示。cropped=trueでクロップ版を使う */
+function AnimalThumb(type, size, active, cropped) {
   var bg = active ? "#8B2E2A" : "#FBF8F1";
   var border = active ? "#8B2E2A" : "rgba(42, 36, 33, 0.18)";
   var wrap = el("div", { class: "cc-animal-thumb", style: { width: size + "px", height: size + "px", background: bg, border: "1px solid " + border } });
+  var src = cropped
+    ? "./images/shukatsu_diagnosis/cropped/cropped_" + type.file + ".png"
+    : "./images/shukatsu_diagnosis/" + type.file + ".png";
   var img = el("img", {
-    src: "./images/shukatsu_diagnosis/" + type.file + ".png",
+    src: src,
     alt: type.name,
     style: { width: "80%", height: "80%", objectFit: "contain", filter: active ? "brightness(0) invert(1)" : "none" }
   });
@@ -747,7 +750,7 @@ function buildStart() {
 
   var peek = el("div", { class: "cc-mb-10" }, el("div", { class: "cc-peek-label" }, "16 Animals · ひとつだけ、あなたの動物"));
   var peekGrid = el("div", { class: "cc-peek-grid" });
-  Object.keys(TYPES).forEach(function (k) { peekGrid.appendChild(AnimalThumb(TYPES[k], 38, false)); });
+  Object.keys(TYPES).forEach(function (k) { peekGrid.appendChild(AnimalThumb(TYPES[k], 38, false, true)); });
   peek.appendChild(peekGrid);
   sec.appendChild(peek);
 
@@ -810,8 +813,9 @@ function buildResult() {
     el("div", { class: "cc-result-type-no num" }, "TYPE " + pad2(finalType.no) + " / 16")
   ));
 
+  var heroSize = Math.min(360, Math.round((window.innerWidth || 375) * 0.78));
   sec.appendChild(el("div", { class: "cc-hero anim-scale-in d-2" },
-    AnimalCard(finalType, 200),
+    AnimalCard(finalType, heroSize),
     el("div", { class: "cc-hero-en serif-en" }, finalType.en),
     el("h1", { class: "cc-hero-name serif-jp" }, finalType.name),
     el("div", { class: "cc-hero-catch serif-jp" }, "―― " + finalType.catch + " ――")
