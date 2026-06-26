@@ -163,6 +163,12 @@
   .cc-detail-body { font-size: 13.5px; line-height: 2; color: #2A2421; }
   .cc-detail-body-jp { font-size: 14.5px; line-height: 1.95; color: #2A2421; }
 
+  .cc-ask-intro { font-size: 12px; line-height: 1.8; color: #7A6F62; margin-bottom: 14px; }
+  .cc-ask-list { display: flex; flex-direction: column; gap: 10px; }
+  .cc-ask-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid rgba(42, 36, 33, 0.14); border-radius: 12px; background: rgba(255, 255, 255, 0.45); }
+  .cc-ask-q { flex-shrink: 0; font-size: 12px; color: #8B2E2A; padding-top: 1px; letter-spacing: 0.08em; }
+  .cc-ask-text { font-size: 13.5px; line-height: 1.7; color: #2A2421; }
+
   .cc-map-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #7A6F62; font-family: 'Fraunces', serif; margin-bottom: 8px; }
   .cc-map-desc { font-size: 11px; line-height: 1.9; color: #7A6F62; margin-bottom: 24px; }
   .cc-map-group { margin-bottom: 28px; }
@@ -688,6 +694,90 @@ function AnimalThumb(type, size, active, cropped) {
   return wrap;
 }
 
+/* タイプ別・社員に聞いてみたいおすすめ質問（OB訪問/座談会で軸の相性を見極める用） */
+var TYPE_QUESTIONS = {
+  "what-industry": [
+    "この業界、これから5年でどう変わると見ていますか？",
+    "御社が業界の中で一番強いと感じるのはどこですか？",
+    "業界の知識は、どんな場面で仕事に効いてきますか？"
+  ],
+  "what-role": [
+    "この仕事で「一人前」と言われるまで、どれくらいかかりますか？",
+    "専門性を高め続けられる環境やサポートはありますか？",
+    "ベテランと若手で、任される仕事はどう違いますか？"
+  ],
+  "what-customer": [
+    "お客さんから感謝された、印象的な瞬間はありますか？",
+    "顧客とは長く付き合える仕事ですか？",
+    "誰かの役に立てたと感じるのは、どんなときですか？"
+  ],
+  "what-style": [
+    "仕事の進め方は、自分で決められる裁量がありますか？",
+    "一人で集中する時間と、チームで動く時間のバランスは？",
+    "成果さえ出せば、やり方は自由という雰囲気ですか？"
+  ],
+  "become-speed": [
+    "若手でも、大きな仕事を任せてもらえますか？",
+    "入社1〜2年目で、どこまで裁量がありましたか？",
+    "意思決定のスピードは速いほうだと思いますか？"
+  ],
+  "become-skill": [
+    "ここで3年働くと、どんなスキルが身につきますか？",
+    "他社では身につけにくい、御社ならではの強みは？",
+    "成長のために、どんな経験を積ませてもらえますか？"
+  ],
+  "become-career": [
+    "ここでの経験は、次のキャリアにどう活きますか？",
+    "数年後、どんな選択肢が広がっていると思いますか？",
+    "異動やキャリアチェンジの自由度はどれくらいですか？"
+  ],
+  "become-learning": [
+    "新人のうちは、どんなふうに教えてもらえますか？",
+    "失敗を学びに変えられる雰囲気はありますか？",
+    "尊敬できる先輩やメンターはいますか？"
+  ],
+  "how-culture": [
+    "御社らしさ・社風を一言で言うと何ですか？",
+    "どんな人が活躍していて、どんな人が合わないと感じますか？",
+    "入社の前と後で、社風の印象は変わりましたか？"
+  ],
+  "how-people": [
+    "チームの雰囲気や、人との距離感はどんな感じですか？",
+    "仕事は個人戦とチーム戦、どちらが多いですか？",
+    "同期や仲間とのつながりは強いほうですか？"
+  ],
+  "how-freedom": [
+    "リモートやフレックスは、実際どれくらい使えますか？",
+    "働く時間や場所は、自分で調整しやすいですか？",
+    "繁忙期と落ち着いた時期で、忙しさはどれくらい違いますか？"
+  ],
+  "how-place": [
+    "転勤や海外勤務のチャンスはどれくらいありますか？",
+    "いろんな地域・拠点で働く機会はありますか？",
+    "希望すれば、勤務地は選べる余地がありますか？"
+  ],
+  "get-money": [
+    "成果を出した人は、どう評価・還元されますか？",
+    "数年後の年収イメージはどれくらいですか？",
+    "頑張りが給与に反映される仕組みですか？"
+  ],
+  "get-stable": [
+    "長く働き続けている方は多いですか？",
+    "景気が悪いときでも安定している事業ですか？",
+    "ライフイベントがあっても続けやすい環境ですか？"
+  ],
+  "get-brand": [
+    "この会社で働いていて、誇りに感じる瞬間はありますか？",
+    "世の中や顧客から、どう見られている会社だと思いますか？",
+    "ここでの経験は、外に出ても評価されると思いますか？"
+  ],
+  "get-mission": [
+    "この仕事の、社会にとっての意味は何だと思いますか？",
+    "自分の仕事が誰かの役に立っていると感じますか？",
+    "会社の理念と、日々の仕事はつながっていますか？"
+  ]
+};
+
 /* ---- 状態 ---- */
 var stage = "start", p1Answers = [], p2Answers = [], p1Winner = null;
 
@@ -848,18 +938,35 @@ function buildResult() {
 
   sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
   sec.appendChild(el("div", { class: "cc-detail-grid anim-fade-up-sm d-5" },
-    el("div", { class: "cc-detail-label" }, "Who you are"),
+    el("div", { class: "cc-detail-label" }, "あなたはこんな人"),
     el("div", { class: "cc-detail-body" }, finalType.detail)
   ));
   sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
   sec.appendChild(el("div", { class: "cc-detail-grid anim-fade-up-sm d-6" },
-    el("div", { class: "cc-detail-label" }, "Good Fit · Industry"),
+    el("div", { class: "cc-detail-label" }, "相性のいい業界"),
     el("div", { class: "cc-detail-body-jp serif-jp" }, finalType.fitIndustry)
   ));
   sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
   sec.appendChild(el("div", { class: "cc-detail-grid anim-fade-up-sm d-7" },
-    el("div", { class: "cc-detail-label" }, "Good Fit · Role"),
+    el("div", { class: "cc-detail-label" }, "相性のいい職種"),
     el("div", { class: "cc-detail-body-jp serif-jp" }, finalType.fitRole)
+  ));
+
+  sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
+
+  var askList = el("div", { class: "cc-ask-list" });
+  (TYPE_QUESTIONS[p1Winner + "-" + p2Winner] || []).forEach(function (q) {
+    askList.appendChild(el("div", { class: "cc-ask-item" },
+      el("span", { class: "cc-ask-q num" }, "Q"),
+      el("span", { class: "cc-ask-text" }, q)
+    ));
+  });
+  sec.appendChild(el("div", { class: "cc-detail-grid anim-fade-up-sm d-7" },
+    el("div", { class: "cc-detail-label" }, "社員に聞いてみよう"),
+    el("div", null,
+      el("p", { class: "cc-ask-intro" }, "OB・OG訪問や座談会で。あなたの軸に合う会社かを見極める質問です。"),
+      askList
+    )
   ));
 
   sec.appendChild(el("div", { class: "cc-rule cc-mb-10" }));
