@@ -656,15 +656,15 @@ function addChild(parent, c) {
 function pad2(n) { return String(n).padStart(2, "0"); }
 
 /* 動物画像（大）: 画像が無ければ絵文字にフォールバック */
-/* 結果ヒーロー画像: 角丸長方形枠に画像をジャストサイズで大きく表示（web軽量版800px） */
-function HeroImage(type, size) {
-  var box = el("div", { class: "cc-hero-img", style: { width: size + "px", height: size + "px" } });
+/* 結果ヒーロー画像: 城背景つき通常版(横長)を角丸長方形枠にジャストサイズで大きく表示 */
+function HeroImage(type, w, h) {
+  var box = el("div", { class: "cc-hero-img", style: { width: w + "px", height: h + "px" } });
   var img = el("img", {
-    src: "./images/shukatsu_diagnosis/web/hero_" + type.file + ".png",
+    src: "./images/shukatsu_diagnosis/web/hero_" + type.file + ".jpg",
     alt: type.name
   });
   img.onerror = function () {
-    img.replaceWith(el("span", { style: { fontSize: (size * 0.55) + "px", lineHeight: 1 } }, type.emoji));
+    img.replaceWith(el("span", { style: { fontSize: Math.round(h * 0.5) + "px", lineHeight: 1 } }, type.emoji));
   };
   box.appendChild(img);
   return box;
@@ -821,9 +821,10 @@ function buildResult() {
     el("div", { class: "cc-result-type-no num" }, "TYPE " + pad2(finalType.no) + " / 16")
   ));
 
-  var heroSize = Math.min(440, Math.round((window.innerWidth || 375) * 0.86));
+  var heroW = Math.min(600, Math.round((window.innerWidth || 375) * 0.92));
+  var heroH = Math.round(heroW * 1536 / 2816);
   sec.appendChild(el("div", { class: "cc-hero anim-scale-in d-2" },
-    HeroImage(finalType, heroSize),
+    HeroImage(finalType, heroW, heroH),
     el("div", { class: "cc-hero-en serif-en" }, finalType.en),
     el("h1", { class: "cc-hero-name serif-jp" }, finalType.name),
     el("div", { class: "cc-hero-catch serif-jp" }, "―― " + finalType.catch + " ――")
