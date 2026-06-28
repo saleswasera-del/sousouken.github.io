@@ -98,6 +98,28 @@
     align-self: flex-start;
   }
   .cc-btn-primary:hover { background: #8B2E2A; transform: translateY(-1px); }
+  .cc-btn-ghost {
+    background: transparent;
+    color: #2A2421;
+    padding: 15px 26px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    border: 1px solid rgba(42, 36, 33, 0.38);
+    border-radius: 999px;
+    transition: all 0.2s;
+  }
+  .cc-btn-ghost:hover { border-color: #8B2E2A; color: #8B2E2A; transform: translateY(-1px); }
+  .cc-btn-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+  .cc-list-item { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid rgba(42, 36, 33, 0.13); }
+  .cc-list-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .cc-list-img { width: 100%; border-radius: 18px; overflow: hidden; border: 1.5px solid rgba(42, 36, 33, 0.16); background: #FBF8F1; box-shadow: 0 6px 24px rgba(139, 46, 42, 0.08); margin-bottom: 14px; }
+  .cc-list-img img { width: 100%; display: block; }
+  .cc-list-no { font-size: 11px; letter-spacing: 0.2em; color: #8B2E2A; }
+  .cc-list-name { font-size: 22px; line-height: 1.2; margin-top: 4px; }
+  .cc-list-en { font-size: 11px; letter-spacing: 0.25em; color: #7A6F62; margin-top: 4px; }
+  .cc-list-catch { font-size: 13px; color: #8B2E2A; margin-top: 10px; }
+  .cc-list-detail { font-size: 13px; line-height: 1.95; color: #2A2421; margin-top: 10px; }
 
   .cc-q-progress-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
   .cc-q-counter { font-size: 11px; letter-spacing: 0.3em; color: #7A6F62; }
@@ -252,6 +274,10 @@
     .cc-footer { margin-top: 80px; }
     .cc-final-note-row { flex-direction: row; align-items: center; justify-content: space-between; }
     .cc-btn-primary { align-self: auto; white-space: nowrap; }
+    .cc-list-item { display: grid; grid-template-columns: 5fr 7fr; gap: 28px; align-items: center; }
+    .cc-list-img { margin-bottom: 0; }
+    .cc-list-name { font-size: 26px; }
+    .cc-list-detail { font-size: 14px; }
   }
 </style>
 </head>
@@ -783,6 +809,7 @@ var stage = "start", p1Answers = [], p2Answers = [], p1Winner = null;
 
 function start() { stage = "phase1"; p1Answers = []; p2Answers = []; p1Winner = null; render(); }
 function restart() { stage = "start"; p1Answers = []; p2Answers = []; p1Winner = null; render(); }
+function showList() { stage = "list"; render(); window.scrollTo(0, 0); }
 function pick(value) {
   if (stage === "phase1") {
     p1Answers = p1Answers.concat([value]);
@@ -854,7 +881,10 @@ function buildStart() {
 
   sec.appendChild(el("div", { class: "cc-final-note-row" },
     el("div", { class: "cc-begin-note" }, "所要時間：約 3 分"),
-    el("button", { class: "cc-btn-primary", onClick: start }, "Begin →")
+    el("div", { class: "cc-btn-row" },
+      el("button", { class: "cc-btn-ghost", onClick: showList }, "タイプ一覧を見る"),
+      el("button", { class: "cc-btn-primary", onClick: start }, "Begin →")
+    )
   ));
   return sec;
 }
@@ -1010,10 +1040,57 @@ function buildResult() {
   return sec;
 }
 
+/* タイプ一覧（16タイプ図鑑）: 通常版(城背景)画像＋説明を一覧表示 */
+function buildList() {
+  var sec = el("section", { class: "anim-fade-up" });
+  sec.appendChild(el("div", { class: "cc-intro-tag num" }, "— 16 TYPES"));
+  sec.appendChild(el("h1", { class: "cc-intro-h1 serif-jp" }, "16タイプ図鑑"));
+  sec.appendChild(el("p", { class: "cc-intro-p" }, "4つの大カテゴリ × 各4タイプ、計16匹。あなたはどの動物でしょう。"));
+
+  sec.appendChild(el("button", { class: "cc-back", onClick: restart }, "← もどる"));
+  sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
+
+  Object.keys(PHASE1_CATS).forEach(function (catKey, catIdx) {
+    sec.appendChild(el("div", { class: "cc-map-group-head", style: { marginBottom: "20px" } },
+      el("div", { class: "cc-map-group-no num" }, pad2(catIdx + 1)),
+      el("div", { class: "cc-map-group-jp serif-jp" }, PHASE1_CATS[catKey].label),
+      el("div", { class: "cc-map-group-en serif-en" }, PHASE1_CATS[catKey].en)
+    ));
+    Object.keys(TYPES).filter(function (k) { return k.indexOf(catKey + "-") === 0; }).forEach(function (k) {
+      var t = TYPES[k];
+      var imgBox = el("div", { class: "cc-list-img" });
+      var img = el("img", { src: "./images/shukatsu_diagnosis/web/hero_" + t.file + ".jpg", alt: t.name, loading: "lazy" });
+      img.onerror = function () { img.replaceWith(el("span", { style: { fontSize: "64px", lineHeight: 2 } }, t.emoji)); };
+      imgBox.appendChild(img);
+      sec.appendChild(el("div", { class: "cc-list-item" },
+        imgBox,
+        el("div", null,
+          el("div", { class: "cc-list-no num" }, "TYPE " + pad2(t.no)),
+          el("div", { class: "cc-list-name serif-jp" }, t.name),
+          el("div", { class: "cc-list-en serif-en" }, t.en),
+          el("div", { class: "cc-list-catch serif-jp" }, "―― " + t.catch + " ――"),
+          el("div", { class: "cc-list-detail" }, t.detail)
+        )
+      ));
+    });
+    sec.appendChild(el("div", { class: "cc-hair cc-mb-10" }));
+  });
+
+  sec.appendChild(el("div", { class: "cc-final-note-row" },
+    el("div", { class: "cc-begin-note" }, "気になったら、さっそく診断してみよう。"),
+    el("div", { class: "cc-btn-row" },
+      el("button", { class: "cc-btn-ghost", onClick: restart }, "← もどる"),
+      el("button", { class: "cc-btn-primary", onClick: start }, "Begin →")
+    )
+  ));
+  return sec;
+}
+
 /* ---- 描画 ---- */
 function render() {
   var body = null;
   if (stage === "start") body = buildStart();
+  else if (stage === "list") body = buildList();
   else if (stage === "phase1" || stage === "phase2") body = buildQuiz();
   else if (stage === "result") body = buildResult();
 
